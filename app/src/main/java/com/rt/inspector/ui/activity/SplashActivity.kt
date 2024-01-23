@@ -20,6 +20,7 @@ import com.xj.anchortask.library.OnProjectExecuteListener
 import com.xj.anchortask.library.log.LogUtils
 import com.rt.base.ext.startAct
 import com.rt.common.realm.RealmUtil
+import com.rt.inspector.ui.activity.login.LoginActivity
 import kotlinx.coroutines.runBlocking
 
 class SplashActivity : VbBaseActivity<SplashViewModel, ActivitySplashBinding>(),
@@ -90,14 +91,14 @@ class SplashActivity : VbBaseActivity<SplashViewModel, ActivitySplashBinding>(),
         }
 //        RealmUtil.instance?.deleteAllStreet()
         Handler(Looper.getMainLooper()).postDelayed({
-//            runBlocking {
-//                if (PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.simId).isEmpty()) {
-//                    startAct<LoginActivity>()
-//                } else {
+            runBlocking {
+                if (PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.simId).isEmpty()) {
+                    startAct<LoginActivity>()
+                } else {
 //                    startAct<MainActivity>()
-//                }
+                }
                 finish()
-//            }
+            }
         }, 100)
     }
 
