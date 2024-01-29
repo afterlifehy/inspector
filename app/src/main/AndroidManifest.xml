@@ -122,5 +122,10 @@
             android:name=".ui.activity.MainActivity"
             android:exported="false"
             android:launchMode="singleTask" />
+
+        <activity
+            android:name=".ui.activity.parking.ParkingManagementActivity"
+            android:exported="false"
+            android:launchMode="singleTask" />
     </application>
 </manifest>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_bg"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textColor="@color/color_ff1a1a1a"
+            android:textSize="@dimen/sp_19"
+            android:textStyle="bold"
+            tools:text="取消" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textColor="@color/color_ff666666"
+            android:textSize="@dimen/sp_14"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textColor="@color/color_fff15a24"
+            android:textSize="@dimen/sp_19"
+            android:textStyle="bold"
+            tools:text="确定" />
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white_bg"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="20dp"
+            android:paddingTop="15dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="20dp">
+
+            <com.rt.common.view.datapicker.PickerView
+                android:id="@+id/dpv_year"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_200"
+                android:layout_weight="2" />
+
+            <com.rt.common.view.datapicker.PickerView
+                android:id="@+id/dpv_month"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_200"
+                android:layout_weight="2" />
+
+            <com.rt.common.view.datapicker.PickerView
+                android:id="@+id/dpv_day"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_200"
+                android:layout_weight="2" />
+
+            <com.rt.common.view.datapicker.PickerView
+                android:id="@+id/dpv_hour"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_200"
+                android:layout_weight="2" />
+
+            <com.rt.common.view.datapicker.PickerView
+                android:id="@+id/dpv_minute"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_200"
+                android:layout_weight="2" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_47"
+            android:layout_gravity="center_vertical"
+            android:alpha="0.1"
+            android:background="@color/color_fff15a24" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tv_reset"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_47"
+        android:background="@color/white_bg"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp_16"
+        android:textStyle="bold"
+        android:visibility="gone"
+        tools:text="取消" />
+
+</LinearLayout>

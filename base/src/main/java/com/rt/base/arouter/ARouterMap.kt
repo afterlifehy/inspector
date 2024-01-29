@@ -9,6 +9,7 @@ object ARouterMap {
 
     const val LOGIN = "/inspector_app/login"
 
+    const val PARKING_MANAGEMENT = "/inspector_app/parkingManagement"
     class common {
         companion object {
 

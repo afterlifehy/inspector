@@ -1,27 +1,70 @@
 package com.rt.inspector.ui.activity
 
+import android.view.View
+import android.view.View.OnClickListener
 import androidx.viewbinding.ViewBinding
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.rt.base.arouter.ARouterMap
 import com.rt.base.ext.i18N
+import com.rt.base.ext.startArouter
 import com.rt.base.help.ActivityCacheManager
 import com.rt.base.util.ToastUtil
 import com.rt.base.viewbase.VbBaseActivity
 import com.rt.common.util.AppUtil
+import com.rt.inspector.R
 import com.rt.inspector.databinding.ActivityMainBinding
 import com.rt.inspector.mvvm.viewmodel.MainViewModel
 
 @Route(path = ARouterMap.MAIN)
-class MainActivity: VbBaseActivity<MainViewModel, ActivityMainBinding>() {
+class MainActivity : VbBaseActivity<MainViewModel, ActivityMainBinding>(), OnClickListener {
 
     override fun initView() {
 
     }
 
     override fun initListener() {
+        binding.ivHead.setOnClickListener(this)
+        binding.flParkingManagement.setOnClickListener(this)
+        binding.flViolationReport.setOnClickListener(this)
+        binding.flAttendanceManagement.setOnClickListener(this)
+        binding.flRoadBind.setOnClickListener(this)
+        binding.flTaskReception.setOnClickListener(this)
+        binding.flInfoVerification.setOnClickListener(this)
     }
 
     override fun initData() {
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.iv_head -> {
+
+            }
+
+            R.id.fl_parkingManagement -> {
+                startArouter(ARouterMap.PARKING_MANAGEMENT)
+            }
+
+            R.id.fl_violationReport -> {
+
+            }
+
+            R.id.fl_attendanceManagement -> {
+
+            }
+
+            R.id.fl_roadBind -> {
+
+            }
+
+            R.id.fl_taskReception -> {
+
+            }
+
+            R.id.fl_info_verification -> {
+
+            }
+        }
     }
 
     override fun getVbBindingView(): ViewBinding {
