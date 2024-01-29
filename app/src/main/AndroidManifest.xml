@@ -127,5 +127,15 @@
             android:name=".ui.activity.parking.ParkingManagementActivity"
             android:exported="false"
             android:launchMode="singleTask" />
+
+        <activity
+            android:name=".ui.activity.parking.ParkingLotActivity"
+            android:exported="false"
+            android:launchMode="singleTask" />
+
+        <activity
+            android:name=".ui.activity.parking.TrafficAssistantListActivity"
+            android:exported="false"
+            android:launchMode="singleTask" />
     </application>
 </manifest>

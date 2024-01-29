@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_trafficAssistant"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_parking_item_bg"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/dp_20">
+
+    <RelativeLayout
+        android:id="@+id/rl_trafficAssistant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/dp_20"
+        android:paddingEnd="@dimen/dp_13"
+        android:paddingBottom="@dimen/dp_12">
+
+        <com.aries.ui.view.radius.RadiusFrameLayout
+            android:id="@+id/rfl_redLine"
+            android:layout_width="@dimen/dp_3"
+            android:layout_height="@dimen/dp_17"
+            android:layout_centerVertical="true"
+            app:rv_backgroundColor="@color/color_fff15a24"
+            app:rv_radius="@dimen/dp_1" />
+
+        <TextView
+            android:id="@+id/tv_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_17"
+            android:layout_toEndOf="@+id/rfl_redLine"
+            android:textColor="@color/color_fff15a24"
+            android:textSize="@dimen/sp_20"
+            android:textStyle="bold"
+            tools:text="01" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_streetNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dp_22"
+            android:layout_toEndOf="@+id/tv_num"
+            android:drawableEnd="@mipmap/go"
+            android:drawablePadding="@dimen/dp_9"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textColor="@color/color_ff1a1a1a"
+            android:textSize="@dimen/sp_19"
+            tools:text="长安路（恒丰北路-恒通路）长安路（恒丰北路-恒通路）" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:background="@color/color_ffd9d9d9" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/dp_10"
+        android:paddingEnd="@dimen/dp_13">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@mipmap/ic_assistant_logo"
+            android:drawablePadding="@dimen/dp_9"
+            android:gravity="center"
+            android:text="@string/协管人员"
+            android:textColor="@color/color_ff666666"
+            android:textSize="@dimen/sp_19" />
+
+        <TextView
+            android:id="@+id/tv_trafficAssistantName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_ff1a1a1a"
+            android:textSize="@dimen/sp_19"
+            tools:text="韩淑娥" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_8"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/dp_10"
+        android:paddingEnd="@dimen/dp_13">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@mipmap/ic_work_hours_logo"
+            android:drawablePadding="@dimen/dp_9"
+            android:gravity="center"
+            android:text="@string/上班时间"
+            android:textColor="@color/color_ff666666"
+            android:textSize="@dimen/sp_19" />
+
+        <TextView
+            android:id="@+id/tv_workHours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_ff1a1a1a"
+            android:textSize="@dimen/sp_19"
+            tools:text="2023-06-27  07:22 " />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_8"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/dp_10"
+        android:paddingEnd="@dimen/dp_13">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@mipmap/ic_off_work_hours_logo"
+            android:drawablePadding="@dimen/dp_9"
+            android:gravity="center"
+            android:text="@string/下班时间"
+            android:textColor="@color/color_ff666666"
+            android:textSize="@dimen/sp_19" />
+
+        <TextView
+            android:id="@+id/tv_offWorkHours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_ff1a1a1a"
+            android:textSize="@dimen/sp_19"
+            tools:text="2023-06-27  18:32" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_8"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/dp_10"
+        android:paddingEnd="@dimen/dp_13">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@mipmap/ic_work_attendance_logo"
+            android:drawablePadding="@dimen/dp_9"
+            android:gravity="center"
+            android:text="@string/上班考勤"
+            android:textColor="@color/color_ff666666"
+            android:textSize="@dimen/sp_19" />
+
+        <TextView
+            android:id="@+id/tv_workAttendance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_ff1a1a1a"
+            android:textSize="@dimen/sp_19"
+            tools:text="正常" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_8"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/dp_10"
+        android:paddingEnd="@dimen/dp_13">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@mipmap/ic_off_work_attendance"
+            android:drawablePadding="@dimen/dp_9"
+            android:gravity="center"
+            android:text="@string/下班考勤"
+            android:textColor="@color/color_ff666666"
+            android:textSize="@dimen/sp_19" />
+
+        <TextView
+            android:id="@+id/tv_offWorkAttendance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_ff1a1a1a"
+            android:textSize="@dimen/sp_19"
+            tools:text="正常" />
+    </LinearLayout>
+</LinearLayout>

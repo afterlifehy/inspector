@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scaleType="fitXY"
-        android:src="@mipmap/bg_c" />
+        android:src="@mipmap/ic_top_bg" />
 
     <include
         android:id="@+id/layout_toolbar"

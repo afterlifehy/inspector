@@ -13,13 +13,15 @@
         android:layout_height="wrap_content"
         android:background="@drawable/shape_parking_item_bg"
         android:orientation="vertical"
-        android:paddingTop="@dimen/dp_18"
         android:paddingBottom="@dimen/dp_20">
 
         <RelativeLayout
+            android:id="@+id/rl_trafficAssistant"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingEnd="@dimen/dp_13">
+            android:paddingTop="@dimen/dp_18"
+            android:paddingEnd="@dimen/dp_13"
+            android:paddingBottom="@dimen/dp_14">
 
             <com.aries.ui.view.radius.RadiusFrameLayout
                 android:id="@+id/rfl_redLine"
@@ -56,7 +58,6 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_1"
-            android:layout_marginTop="@dimen/dp_14"
             android:background="@color/color_ffd9d9d9" />
 
         <LinearLayout

@@ -19,4 +19,20 @@
     <string name="路段">路段:</string>
     <string name="应收">应收:</string>
     <string name="实收">实收:</string>
+    <string name="空闲">空闲</string>
+    <string name="无内容">无内容</string>
+    <string name="协管人员">协管人员：</string>
+    <string name="上班时间">上班时间：</string>
+    <string name="下班时间">下班时间：</string>
+    <string name="上班考勤">上班考勤：</string>
+    <string name="下班考勤">下班考勤：</string>
+    <string name="当班协管员">当班协管员</string>
+    <string name="订单总数">订单总数</string>
+    <string name="总营收">总营收</string>
+    <string name="拒付费">拒付费</string>
+    <string name="部分付费">部分付费</string>
+    <string name="被追缴">被追缴</string>
+    <string name="追缴他人">追缴他人</string>
+    <string name="自主缴费">自主缴费</string>
+    <string name="应收金额">应收金额</string>
 </resources>

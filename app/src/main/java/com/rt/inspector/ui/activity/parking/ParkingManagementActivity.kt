@@ -8,6 +8,8 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.blankj.utilcode.util.TimeUtils
 import com.rt.base.arouter.ARouterMap
 import com.rt.base.ext.i18n
+import com.rt.base.ext.startArouter
+import com.rt.base.util.ToastUtil
 import com.rt.base.viewbase.VbBaseActivity
 import com.rt.common.view.datapicker.CustomDatePicker
 import com.rt.inspector.R
@@ -112,7 +114,21 @@ class ParkingManagementActivity : VbBaseActivity<ParkingManagementViewModel, Act
             }
 
             R.id.rll_parking -> {
+                startArouter(ARouterMap.PARKING_LOT)
+            }
+        }
+    }
 
+    override fun startObserve() {
+        super.startObserve()
+        mViewModel.apply {
+            errMsg.observe(this@ParkingManagementActivity) {
+                dismissProgressDialog()
+                ToastUtil.showMiddleToast(it.msg)
+            }
+            mException.observe(this@ParkingManagementActivity){
+                dismissProgressDialog()
+                ToastUtil.showMiddleToast(it.message)
             }
         }
     }
