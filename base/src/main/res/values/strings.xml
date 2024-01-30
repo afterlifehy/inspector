@@ -35,4 +35,26 @@
     <string name="追缴他人">追缴他人</string>
     <string name="自主缴费">自主缴费</string>
     <string name="应收金额">应收金额</string>
+    <string name="说明">说明</string>
+    <string name="总营收包含被追缴金额和自主缴费不含追缴他人金额">总营收包含被追缴金额和自主缴费，不含追缴他人金额！</string>
+    <string name="营收盘点">营收盘点</string>
+    <string name="泊位编号">泊位编号</string>
+    <string name="车牌号码">车牌号码</string>
+    <string name="进场时间">进场时间</string>
+    <string name="录入时间">录入时间</string>
+    <string name="停车时长">停车时长</string>
+    <string name="已付金额">已付金额</string>
+    <string name="实时金额">实时金额</string>
+    <string name="泊位订单详细信息">泊位订单详细信息</string>
+    <string name="协管员违规上报">协管员违规上报</string>
+    <string name="协管员违规史">协管员违规史</string>
+    <string name="企业违规上报">企业违规上报</string>
+    <string name="企业违规历史">企业违规历史</string>
+    <string name="场库">场库</string>
+    <string name="请选择">请选择</string>
+    <string name="姓名">姓名</string>
+    <string name="类型">类型</string>
+    <string name="备注">备注</string>
+    <string name="拍照">拍照</string>
+    <string name="确认上报">确认上报</string>
 </resources>

@@ -46,7 +46,7 @@ class MainActivity : VbBaseActivity<MainViewModel, ActivityMainBinding>(), OnCli
             }
 
             R.id.fl_violationReport -> {
-
+                startArouter(ARouterMap.VIOLATION_REPORT_MAIN)
             }
 
             R.id.fl_attendanceManagement -> {

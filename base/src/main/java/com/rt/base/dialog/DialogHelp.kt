@@ -14,6 +14,7 @@ class DialogHelp {
     var mGlobalDialog: GlobalDialog? = null
     private var context: Context? = null
     var isAloneButton = false
+    var isCloseShow = false
     var mBuilder = Builder()
     fun initDailog() {
         mGlobalDialog = GlobalDialog(context!!, this)
@@ -36,6 +37,7 @@ class DialogHelp {
         this.cancelable = mBuilder.getCancelable()
         this.context = context
         this.isAloneButton = mBuilder.getisAloneButton()
+        this.isCloseShow = mBuilder.getIsCloseShow()
         this.mBuilder = mBuilder
         initDailog()
     }
@@ -46,6 +48,7 @@ class DialogHelp {
         private var leftMsg: String = i18n(R.string.Cancel)
         private var rightMsg: String = i18n(R.string.Ok)
         private var isAloneButton = false
+        private var isCloseShow = false
         private var mOnButtonClickLinsener: OnButtonClickLinsener = object : OnButtonClickLinsener {
             override fun onLeftClickLinsener(msg: String) {
             }
@@ -116,6 +119,15 @@ class DialogHelp {
         fun setCancelable(cancelable: Boolean): Builder {
             this.cancelable = cancelable
             return this
+        }
+
+        fun setIsCloseShow(isCloseShow: Boolean): Builder {
+            this.isCloseShow = isCloseShow
+            return this
+        }
+
+        fun getIsCloseShow(): Boolean {
+            return isCloseShow
         }
 
         fun build(context: Context?): DialogHelp {

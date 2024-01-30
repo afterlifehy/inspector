@@ -7,6 +7,7 @@ import androidx.viewbinding.ViewBinding
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.rt.base.arouter.ARouterMap
 import com.rt.base.ext.i18n
+import com.rt.base.ext.startArouter
 import com.rt.base.util.ToastUtil
 import com.rt.base.viewbase.VbBaseActivity
 import com.rt.inspector.R
@@ -44,7 +45,7 @@ class TrafficAssistantListActivity : VbBaseActivity<TrafficAssistantListViewMode
             }
 
             R.id.ll_trafficAssistant -> {
-
+                startArouter(ARouterMap.INCOME_COUNTING)
             }
         }
     }

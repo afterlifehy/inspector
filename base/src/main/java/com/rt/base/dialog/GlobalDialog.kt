@@ -8,6 +8,7 @@ import com.blankj.utilcode.util.ScreenUtils
 import com.rt.base.R
 import com.rt.base.databinding.DialogContextLayoutBinding
 import com.rt.base.ext.gone
+import com.rt.base.ext.show
 
 class GlobalDialog(context: Context, mDialogHelp: DialogHelp) :
     VBBaseLibDialog<DialogContextLayoutBinding>(context), View.OnClickListener {
@@ -24,6 +25,7 @@ class GlobalDialog(context: Context, mDialogHelp: DialogHelp) :
 
         binding.rtvLeft.setOnClickListener(this)
         binding.rtvRight.setOnClickListener(this)
+        binding.ivClose.setOnClickListener(this)
     }
 
     fun bindShowViewData() {
@@ -41,11 +43,25 @@ class GlobalDialog(context: Context, mDialogHelp: DialogHelp) :
 
             if (it.isAloneButton) {
                 binding.rtvLeft.gone()
+                binding.rtvRight.text = it.rightMsg
             } else {
-                binding.rtvLeft.text = it.leftMsg
+                if (it.leftMsg.isEmpty()) {
+                    binding.rtvLeft.gone()
+                } else {
+                    binding.rtvLeft.text = it.leftMsg
+                }
             }
-            binding.rtvRight.text = it.rightMsg
+            if (it.rightMsg.isEmpty()) {
+                binding.rtvRight.gone()
+            } else {
+                binding.rtvRight.text = it.rightMsg
+            }
             setCancelable(it.cancelable)
+            if (it.isCloseShow) {
+                binding.ivClose.show()
+            } else {
+                binding.ivClose.gone()
+            }
         }
     }
 
@@ -64,6 +80,10 @@ class GlobalDialog(context: Context, mDialogHelp: DialogHelp) :
                 if (mDialogHelp!!.cancelable) {
                     dismiss()
                 }
+            }
+
+            R.id.iv_close -> {
+                dismiss()
             }
         }
     }

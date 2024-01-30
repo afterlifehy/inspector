@@ -16,6 +16,13 @@ object ARouterMap {
     const val TRAFFIC_ASSISTANT_LIST = "/inspector_app/trafficAssistantList"
 
     const val INCOME_COUNTING = "/inspector_app/incomeCounting"
+
+    const val PARKING_ORDER_DETAIL = "/inspector_app/parkingOrderDetail"
+
+    const val VIOLATION_REPORT_MAIN = "/inspector_app/violationReportMain"
+
+    const val ASSISTANT_VIOLATION_REPORT = "/inspector_app/assistantViolationReport"
+
     class common {
         companion object {
 

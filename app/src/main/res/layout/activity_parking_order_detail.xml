@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_ffefefef">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:src="@mipmap/ic_top_bg" />
+
+    <include
+        android:id="@+id/layout_toolbar"
+        layout="@layout/layout_comment_toolbar" />
+
+    <com.aries.ui.view.radius.RadiusLinearLayout
+        android:id="@+id/rll_no"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_toolbar"
+        android:layout_marginStart="@dimen/dp_13"
+        android:layout_marginTop="@dimen/dp_13"
+        android:layout_marginEnd="@dimen/dp_13"
+        android:orientation="vertical"
+        android:padding="@dimen/dp_13"
+        app:rv_backgroundColor="@color/white"
+        app:rv_radius="@dimen/dp_7">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/ic_parking_no_bg"
+            android:padding="@dimen/dp_13">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/泊位编号"
+                android:textColor="@color/color_ff666666"
+                android:textSize="@dimen/sp_17" />
+
+            <TextView
+                android:id="@+id/tv_parkingNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:textColor="@color/color_ff1e9191"
+                android:textSize="@dimen/sp_21"
+                android:textStyle="bold"
+                tools:text="JA02402" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_13"
+            android:background="@mipmap/ic_plate_no_bg"
+            android:padding="@dimen/dp_13">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/车牌号码"
+                android:textColor="@color/color_ff666666"
+                android:textSize="@dimen/sp_17" />
+
+            <TextView
+                android:id="@+id/tv_plateNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:textColor="@color/color_ffd42b2b"
+                android:textSize="@dimen/sp_21"
+                android:textStyle="bold"
+                tools:text="JA02402" />
+        </FrameLayout>
+    </com.aries.ui.view.radius.RadiusLinearLayout>
+
+    <com.aries.ui.view.radius.RadiusLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rll_no"
+        android:layout_marginStart="@dimen/dp_13"
+        android:layout_marginTop="@dimen/dp_13"
+        android:layout_marginEnd="@dimen/dp_13"
+        android:orientation="vertical"
+        app:rv_backgroundColor="@color/color_ffefefef"
+        app:rv_radius="@dimen/dp_7">
+
+        <com.aries.ui.view.radius.RadiusFrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_60"
+            android:paddingStart="@dimen/dp_17"
+            android:paddingEnd="@dimen/dp_17"
+            app:rv_backgroundColor="@color/white"
+            app:rv_topLeftRadius="@dimen/dp_7"
+            app:rv_topRightRadius="@dimen/dp_7">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/进场时间"
+                android:textColor="@color/color_ff666666"
+                android:textSize="@dimen/sp_19" />
+
+            <TextView
+                android:id="@+id/tv_enterTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:textColor="@color/color_ff1a1a1a"
+                android:textSize="@dimen/sp_19"
+                tools:text="2023-06-27 08:53:19" />
+        </com.aries.ui.view.radius.RadiusFrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_60"
+            android:layout_marginTop="@dimen/dp_1"
+            android:background="@color/white"
+            android:paddingStart="@dimen/dp_17"
+            android:paddingEnd="@dimen/dp_17">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/录入时间"
+                android:textColor="@color/color_ff666666"
+                android:textSize="@dimen/sp_19" />
+
+            <TextView
+                android:id="@+id/tv_inputTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:textColor="@color/color_ff1a1a1a"
+                android:textSize="@dimen/sp_19"
+                tools:text="2023-06-27 08:53:19" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_60"
+            android:layout_marginTop="@dimen/dp_1"
+            android:background="@color/white"
+            android:paddingStart="@dimen/dp_17"
+            android:paddingEnd="@dimen/dp_17">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/停车时长"
+                android:textColor="@color/color_ff666666"
+                android:textSize="@dimen/sp_19" />
+
+            <TextView
+                android:id="@+id/tv_parkingTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:textColor="@color/color_ff1a1a1a"
+                android:textSize="@dimen/sp_19"
+                tools:text="2023-06-27 08:53:19" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_60"
+            android:layout_marginTop="@dimen/dp_1"
+            android:background="@color/white"
+            android:paddingStart="@dimen/dp_17"
+            android:paddingEnd="@dimen/dp_17">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/已付金额"
+                android:textColor="@color/color_ff666666"
+                android:textSize="@dimen/sp_19" />
+
+            <TextView
+                android:id="@+id/tv_paidAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:textColor="@color/color_ff1a1a1a"
+                android:textSize="@dimen/sp_19"
+                tools:text="2023-06-27 08:53:19" />
+        </FrameLayout>
+
+        <com.aries.ui.view.radius.RadiusFrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_60"
+            android:layout_marginTop="@dimen/dp_1"
+            android:paddingStart="@dimen/dp_17"
+            android:paddingEnd="@dimen/dp_17"
+            app:rv_backgroundColor="@color/white"
+            app:rv_bottomLeftRadius="@dimen/dp_7"
+            app:rv_bottomRightRadius="@dimen/dp_7">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/实时金额"
+                android:textColor="@color/color_ff666666"
+                android:textSize="@dimen/sp_19" />
+
+            <TextView
+                android:id="@+id/tv_realAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:textColor="@color/color_ff1a1a1a"
+                android:textSize="@dimen/sp_19"
+                tools:text="2023-06-27 08:53:19" />
+        </com.aries.ui.view.radius.RadiusFrameLayout>
+    </com.aries.ui.view.radius.RadiusLinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:scaleType="fitXY"
+        android:src="@mipmap/ic_login_bottom_bg" />
+</RelativeLayout>

@@ -13,22 +13,37 @@
     app:rv_backgroundColor="@color/white_bg"
     app:rv_radius="@dimen/dp_27">
 
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textColor="@color/color_ff666666"
-        android:textSize="@dimen/sp_19"
-        android:textStyle="bold"
-        tools:text="title" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:textColor="@color/color_ff1a1a1a"
+            android:textSize="@dimen/sp_20"
+            android:textStyle="bold"
+            tools:text="title" />
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_alignParentEnd="true"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:src="@mipmap/gb" />
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/tv_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_16"
-        android:textColor="@color/color_ff1a1a1a"
+        android:textColor="@color/color_ff666666"
         android:textSize="@dimen/sp_19"
         tools:text="这里是辅助说明文字单行这里是辅助说明文字单行这里是辅助说明文字单行这里是辅助说明文字单行" />
 

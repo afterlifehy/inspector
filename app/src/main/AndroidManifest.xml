@@ -137,5 +137,25 @@
             android:name=".ui.activity.parking.TrafficAssistantListActivity"
             android:exported="false"
             android:launchMode="singleTask" />
+
+        <activity
+            android:name=".ui.activity.parking.IncomeCountingActivity"
+            android:exported="false"
+            android:launchMode="singleTask" />
+
+        <activity
+            android:name=".ui.activity.parking.ParkingOrderDetailActivity"
+            android:exported="false"
+            android:launchMode="singleTask" />
+
+        <activity
+            android:name=".ui.activity.violation.ViolationReportMainActivity"
+            android:exported="false"
+            android:launchMode="singleTask" />
+
+        <activity
+            android:name=".ui.activity.violation.AssistantViolationReportActivity"
+            android:exported="false"
+            android:launchMode="singleTask" />
     </application>
 </manifest>

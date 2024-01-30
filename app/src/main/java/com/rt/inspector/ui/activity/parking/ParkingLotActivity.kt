@@ -92,18 +92,11 @@ class ParkingLotActivity : VbBaseActivity<ParkingLotViewModel, ActivityParkingLo
             }
 
             R.id.rfl_parking -> {
-//                val parkingLotBean = v.tag as ParkingLotBean
-//                if (parkingLotBean.state == "01") {
-//                    startArouter(ARouterMap.ADMISSION_TAKE_PHOTO, data = Bundle().apply {
-//                        putString(ARouterMap.ADMISSION_TAKE_PHOTO_PARKING_NO, parkingLotBean.parkingNo)
-//                        putInt(ARouterMap.ADMISSION_TAKE_PHOTO_PARKING_AMOUNT, parkingLotList.size)
-//                    })
-//                } else {
-//                    startArouter(ARouterMap.PARKING_SPACE, data = Bundle().apply {
-//                        putString(ARouterMap.ORDER_NO, parkingLotBean.orderNo)
-//                        putString(ARouterMap.CAR_LICENSE, parkingLotBean.carLicense)
-//                    })
-//                }
+                val parkingLotBean = v.tag as ParkingLotBean
+                if (parkingLotBean.state == "01") {
+                } else {
+                    startArouter(ARouterMap.PARKING_ORDER_DETAIL)
+                }
             }
 
             R.id.iv_right -> {
