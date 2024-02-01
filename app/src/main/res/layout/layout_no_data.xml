@@ -12,7 +12,7 @@
         android:layout_height="@dimen/dp_110"
         android:layout_marginTop="@dimen/dp_200"
         android:scaleType="fitXY"
-        android:src="@mipmap/wuc" />
+        android:src="@mipmap/ic_no_content" />
 
     <TextView
         android:id="@+id/tv_noDataTitle"
@@ -31,6 +31,5 @@
         android:layout_marginTop="@dimen/dp_5"
         android:textColor="@color/color_ff999999"
         android:textSize="@dimen/sp_16"
-        android:visibility="gone"
         tools:text="通过车牌号查询欠费订单" />
 </LinearLayout>

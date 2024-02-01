@@ -157,5 +157,15 @@
             android:name=".ui.activity.violation.AssistantViolationReportActivity"
             android:exported="false"
             android:launchMode="singleTask" />
+
+        <activity
+            android:name=".ui.activity.violation.AssistantViolationHistoryActivity"
+            android:exported="false"
+            android:launchMode="singleTask" />
+
+        <activity
+            android:name=".ui.activity.violation.AssistantViolationDetailActivity"
+            android:exported="false"
+            android:launchMode="singleTask" />
     </application>
 </manifest>

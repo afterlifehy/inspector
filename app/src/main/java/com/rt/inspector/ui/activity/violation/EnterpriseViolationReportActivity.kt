@@ -27,22 +27,22 @@ import com.rt.common.util.ImageCompressor
 import com.rt.common.util.ImageUtil
 import com.rt.inspector.R
 import com.rt.inspector.databinding.ActivityAssistantViolationReportBinding
+import com.rt.inspector.databinding.ActivityEnterpriseViolationReportBinding
 import com.rt.inspector.dialog.ViolationSelectDialog
 import com.rt.inspector.mvvm.viewmodel.AssistantViolationReportViewModel
+import com.rt.inspector.mvvm.viewmodel.EnterpriseViolationReportViewModel
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 @Route(path = ARouterMap.ASSISTANT_VIOLATION_REPORT)
-class AssistantViolationReportActivity : VbBaseActivity<AssistantViolationReportViewModel, ActivityAssistantViolationReportBinding>(),
+class EnterpriseViolationReportActivity : VbBaseActivity<EnterpriseViolationReportViewModel, ActivityEnterpriseViolationReportBinding>(),
     OnClickListener {
     var violationSelectDialog: ViolationSelectDialog? = null
-    var parkingLotList: MutableList<String> = ArrayList()
-    var nameList: MutableList<String> = ArrayList()
+    var enterpriseList: MutableList<String> = ArrayList()
     var typeList: MutableList<String> = ArrayList()
-    var currentParkingLot = ""
-    var currentName = ""
+    var currentEnterprise = ""
     var currentType = ""
     var imageFile: File? = null
     var photoType = 0
@@ -57,8 +57,7 @@ class AssistantViolationReportActivity : VbBaseActivity<AssistantViolationReport
 
     override fun initListener() {
         binding.layoutToolbar.flBack.setOnClickListener(this)
-        binding.tvParkingLot.setOnClickListener(this)
-        binding.tvName.setOnClickListener(this)
+        binding.tvEnterprise.setOnClickListener(this)
         binding.tvType.setOnClickListener(this)
         binding.rivImg1.setOnClickListener(this)
         binding.rivImg2.setOnClickListener(this)
@@ -67,22 +66,16 @@ class AssistantViolationReportActivity : VbBaseActivity<AssistantViolationReport
     }
 
     override fun initData() {
-        parkingLotList.add("1")
-        parkingLotList.add("2")
-        parkingLotList.add("3")
-        parkingLotList.add("4")
-        parkingLotList.add("5")
-        parkingLotList.add("6")
-        parkingLotList.add("7")
-        parkingLotList.add("8")
-        parkingLotList.add("9")
-        parkingLotList.add("10")
-
-        nameList.add("1")
-        nameList.add("2")
-        nameList.add("3")
-        nameList.add("4")
-        nameList.add("5")
+        enterpriseList.add("1")
+        enterpriseList.add("2")
+        enterpriseList.add("3")
+        enterpriseList.add("4")
+        enterpriseList.add("5")
+        enterpriseList.add("6")
+        enterpriseList.add("7")
+        enterpriseList.add("8")
+        enterpriseList.add("9")
+        enterpriseList.add("10")
 
         typeList.add(i18n(com.rt.base.R.string.工作范围))
         typeList.add(i18n(com.rt.base.R.string.超时未报))
@@ -98,10 +91,8 @@ class AssistantViolationReportActivity : VbBaseActivity<AssistantViolationReport
             R.id.tv_parkingLot -> {
                 violationSelectDialog = ViolationSelectDialog(object : ViolationSelectDialog.ViolationSelectCallBack {
                     override fun parkingLotChoose(parkingLot: String) {
-                        binding.tvParkingLot.text = parkingLot
-                        currentParkingLot = parkingLot
-                        binding.tvName.text = ""
-                        currentName = ""
+                        binding.tvEnterprise.text = parkingLot
+                        currentEnterprise = parkingLot
                     }
 
                     override fun nameChoose(name: String) {
@@ -110,31 +101,9 @@ class AssistantViolationReportActivity : VbBaseActivity<AssistantViolationReport
                     override fun typeChoose(type: String) {
                     }
                 })
-                violationSelectDialog?.setParkingLot(0, parkingLotList, currentParkingLot)
+                violationSelectDialog?.setParkingLot(0, enterpriseList, currentEnterprise)
                 violationSelectDialog?.show()
-                arrowChange(binding.tvParkingLot)
-            }
-
-            R.id.tv_name -> {
-                if (currentParkingLot.isNotEmpty()) {
-                    violationSelectDialog = ViolationSelectDialog(object : ViolationSelectDialog.ViolationSelectCallBack {
-
-                        override fun parkingLotChoose(parkingLot: String) {
-
-                        }
-
-                        override fun nameChoose(name: String) {
-                            binding.tvName.text = name
-                            currentName = name
-                        }
-
-                        override fun typeChoose(type: String) {
-                        }
-                    })
-                    violationSelectDialog?.setName(1, nameList, currentName)
-                    violationSelectDialog?.show()
-                    arrowChange(binding.tvName)
-                }
+                arrowChange(binding.tvEnterprise)
             }
 
             R.id.tv_type -> {
@@ -171,12 +140,8 @@ class AssistantViolationReportActivity : VbBaseActivity<AssistantViolationReport
             }
 
             R.id.rfl_report -> {
-                if (currentParkingLot.isEmpty()) {
-                    ToastUtil.showMiddleToast(i18n(com.rt.base.R.string.请选择场库))
-                    return
-                }
-                if (currentName.isEmpty()) {
-                    ToastUtil.showMiddleToast(i18n(com.rt.base.R.string.请选择姓名))
+                if (currentEnterprise.isEmpty()) {
+                    ToastUtil.showMiddleToast(i18n(com.rt.base.R.string.请选择企业))
                     return
                 }
                 if (currentType.isEmpty()) {
@@ -210,7 +175,7 @@ class AssistantViolationReportActivity : VbBaseActivity<AssistantViolationReport
 
     val takePictureLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
-            ImageCompressor.compress(this@AssistantViolationReportActivity, imageFile!!, object : ImageCompressor.CompressResult {
+            ImageCompressor.compress(this@EnterpriseViolationReportActivity, imageFile!!, object : ImageCompressor.CompressResult {
                 override fun onSuccess(file: File) {
                     val bitmapCompressed = ImageUtil.getCompressedImage(file.absolutePath, 945f, 1240f)
                     FileUtils.delete(imageFile)
@@ -279,7 +244,7 @@ class AssistantViolationReportActivity : VbBaseActivity<AssistantViolationReport
         return binding.layoutToolbar.toolbar
     }
 
-    override fun providerVMClass(): Class<AssistantViolationReportViewModel> {
-        return AssistantViolationReportViewModel::class.java
+    override fun providerVMClass(): Class<EnterpriseViolationReportViewModel> {
+        return EnterpriseViolationReportViewModel::class.java
     }
 }

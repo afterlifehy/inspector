@@ -32,12 +32,16 @@ class ViolationReportMainActivity : VbBaseActivity<ViolationReportMainViewModel,
 
     override fun onClick(v: View?) {
         when (v?.id) {
+            R.id.fl_back -> {
+                onBackPressedSupport()
+            }
+
             R.id.tv_assistantViolationReport -> {
                 startArouter(ARouterMap.ASSISTANT_VIOLATION_REPORT)
             }
 
             R.id.tv_assistantViolationHistory -> {
-
+                startArouter(ARouterMap.ASSISTANT_VIOLATION_HISTORY)
             }
 
             R.id.tv_enterpriseViolationReport -> {

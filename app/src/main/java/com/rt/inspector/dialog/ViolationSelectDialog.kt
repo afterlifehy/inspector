@@ -30,6 +30,7 @@ class ViolationSelectDialog(var callBack: ViolationSelectCallBack) : VBBaseLibDi
     }
 
     private fun initView() {
+        window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
         binding.rtvOk.setOnClickListener(this)
     }
 

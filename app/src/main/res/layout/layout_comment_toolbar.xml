@@ -54,8 +54,7 @@
             android:layout_height="@dimen/dp_25"
             android:layout_gravity="end"
             android:layout_marginEnd="@dimen/dp_12"
-            android:scaleType="centerCrop"
-            android:visibility="gone" />
+            android:scaleType="centerInside" />
 
     </androidx.appcompat.widget.Toolbar>
 </com.google.android.material.appbar.AppBarLayout>

@@ -23,6 +23,10 @@ object ARouterMap {
 
     const val ASSISTANT_VIOLATION_REPORT = "/inspector_app/assistantViolationReport"
 
+    const val ASSISTANT_VIOLATION_HISTORY = "/inspector_app/assistantViolationHistory"
+
+    const val ASSISTANT_VIOLATION_DETAIL = "/inspector_app/assistantViolationDetail"
+
     class common {
         companion object {
 

@@ -15,10 +15,10 @@
     <string name="再按一次退出程序">再按一次退出程序</string>
     <string name="任务接收">任务接收</string>
     <string name="信息核查">信息核查</string>
-    <string name="选择日期">选择日期:</string>
-    <string name="路段">路段:</string>
-    <string name="应收">应收:</string>
-    <string name="实收">实收:</string>
+    <string name="选择日期">选择日期：</string>
+    <string name="路段">路段：</string>
+    <string name="应收">应收：</string>
+    <string name="实收">实收：</string>
     <string name="空闲">空闲</string>
     <string name="无内容">无内容</string>
     <string name="协管人员">协管人员：</string>
@@ -57,4 +57,20 @@
     <string name="备注">备注</string>
     <string name="拍照">拍照</string>
     <string name="确认上报">确认上报</string>
+    <string name="请选择场库">请选择场库</string>
+    <string name="请选择姓名">请选择姓名</string>
+    <string name="请选择类型">请选择类型</string>
+    <string name="工作范围">工作范围</string>
+    <string name="超时未报">超时未报</string>
+    <string name="连续违规">连续违规</string>
+    <string name="协管员违规历史">协管员违规历史</string>
+    <string name="原因">原因：</string>
+    <string name="时间">时间：</string>
+    <string name="状态">状态：</string>
+    <string name="无搜索结果">无搜索结果</string>
+    <string name="切换关键词重新搜索试试看">切换关键词重新搜索试试看</string>
+    <string name="备注2">备注：</string>
+    <string name="协管员违规详情">协管员违规详情</string>
+    <string name="企业">企业</string>
+    <string name="请选择企业">请选择企业</string>
 </resources>

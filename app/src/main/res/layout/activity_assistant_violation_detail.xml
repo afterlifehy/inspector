@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_ffefefef"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:src="@mipmap/ic_top_bg" />
+
+    <include
+        android:id="@+id/layout_toolbar"
+        layout="@layout/layout_comment_toolbar" />
+
+    <com.aries.ui.view.radius.RadiusLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_toolbar"
+        android:layout_marginStart="@dimen/dp_13"
+        android:layout_marginTop="@dimen/dp_4"
+        android:layout_marginEnd="@dimen/dp_13"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/dp_4"
+        android:paddingBottom="@dimen/dp_14"
+        app:rv_backgroundColor="@color/white"
+        app:rv_radius="@dimen/dp_7">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@mipmap/ic_assistant_logo"
+            android:drawablePadding="@dimen/dp_12"
+            android:paddingStart="@dimen/sp_17"
+            android:paddingTop="@dimen/dp_13"
+            android:paddingBottom="@dimen/dp_13"
+            android:textColor="@color/color_ff1a1a1a"
+            android:textSize="@dimen/sp_19"
+            tools:text="韩树娥-18258647721" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:background="@color/color_ffd9d9d9" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_12"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/dp_16"
+            android:paddingEnd="@dimen/dp_13">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/路段"
+                android:textColor="@color/color_ff666666"
+                android:textSize="@dimen/sp_17" />
+
+            <TextView
+                android:id="@+id/tv_streetName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/color_ff1a1a1a"
+                android:textSize="@dimen/sp_17"
+                tools:text="长安路（恒丰北路-恒通路）长安路（恒丰北路-恒通路）" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_12"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/dp_16"
+            android:paddingEnd="@dimen/dp_13">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/原因"
+                android:textColor="@color/color_ff666666"
+                android:textSize="@dimen/sp_17" />
+
+            <TextView
+                android:id="@+id/tv_reason"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/color_ff1a1a1a"
+                android:textSize="@dimen/sp_17"
+                tools:text="长安路（恒丰北路-恒通路）长安路（恒丰北路-恒通路）" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_12"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/dp_16"
+            android:paddingEnd="@dimen/dp_13">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/时间"
+                android:textColor="@color/color_ff666666"
+                android:textSize="@dimen/sp_17" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/color_ff1a1a1a"
+                android:textSize="@dimen/sp_17"
+                tools:text="长安路（恒丰北路-恒通路）长安路（恒丰北路-恒通路）" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_12"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/dp_16"
+            android:paddingEnd="@dimen/dp_13">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/状态"
+                android:textColor="@color/color_ff666666"
+                android:textSize="@dimen/sp_17" />
+
+            <TextView
+                android:id="@+id/tv_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/color_ff1a1a1a"
+                android:textSize="@dimen/sp_17"
+                tools:text="长安路（恒丰北路-恒通路）长安路（恒丰北路-恒通路）" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_12"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/dp_16"
+            android:paddingEnd="@dimen/dp_13">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/备注2"
+                android:textColor="@color/color_ff666666"
+                android:textSize="@dimen/sp_17" />
+
+            <TextView
+                android:id="@+id/tv_remark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/color_ff1a1a1a"
+                android:textSize="@dimen/sp_17"
+                tools:text="长安路（恒丰北路-恒通路）长安路（恒丰北路-恒通路）" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_17"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginEnd="@dimen/dp_17"
+            android:orientation="horizontal">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/riv_img1"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp_6"
+                android:layout_weight="1"
+                android:src="@mipmap/ic_placeholder"
+                app:riv_corner_radius="@dimen/dp_7" />
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/riv_img2"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_3"
+                android:layout_marginEnd="@dimen/dp_3"
+                android:layout_weight="1"
+                android:src="@mipmap/ic_placeholder"
+                app:riv_corner_radius="@dimen/dp_7" />
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/riv_img3"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_6"
+                android:layout_weight="1"
+                android:src="@mipmap/ic_placeholder"
+                app:riv_corner_radius="@dimen/dp_7" />
+        </LinearLayout>
+    </com.aries.ui.view.radius.RadiusLinearLayout>
+</RelativeLayout>
