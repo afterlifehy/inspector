@@ -6,6 +6,7 @@ import androidx.viewbinding.ViewBinding
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.rt.base.arouter.ARouterMap
 import com.rt.base.ext.i18n
+import com.rt.base.util.ToastUtil
 import com.rt.base.viewbase.VbBaseActivity
 import com.rt.inspector.R
 import com.rt.inspector.databinding.ActivityParkingOrderDetailBinding
@@ -28,6 +29,19 @@ class ParkingOrderDetailActivity : VbBaseActivity<ParkingOrderDetailViewModel, A
         when (v?.id) {
             R.id.fl_back -> {
                 onBackPressedSupport()
+            }
+        }
+    }
+
+    override fun startObserve() {
+        super.startObserve()
+        mViewModel.apply {
+            errMsg.observe(this@ParkingOrderDetailActivity) {
+                dismissProgressDialog()
+                ToastUtil.showMiddleToast(it.msg)
+            }
+            mException.observe(this@ParkingOrderDetailActivity){
+                dismissProgressDialog()
             }
         }
     }

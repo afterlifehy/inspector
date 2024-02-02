@@ -167,5 +167,40 @@
             android:name=".ui.activity.violation.AssistantViolationDetailActivity"
             android:exported="false"
             android:launchMode="singleTask" />
+
+        <activity
+            android:name=".ui.activity.violation.EnterpriseViolationReportActivity"
+            android:exported="false"
+            android:launchMode="singleTask" />
+
+        <activity
+            android:name=".ui.activity.violation.EnterpriseViolationHistoryActivity"
+            android:exported="false"
+            android:launchMode="singleTask" />
+
+        <activity
+            android:name=".ui.activity.violation.EnterpriseViolationDetailActivity"
+            android:exported="false"
+            android:launchMode="singleTask" />
+
+        <activity
+            android:name=".ui.activity.attendance.WorkAttendanceActivity"
+            android:exported="false"
+            android:launchMode="singleTask" />
+
+        <activity
+            android:name=".ui.activity.infoverify.InfoVerifyMainActivity"
+            android:exported="false"
+            android:launchMode="singleTask" />
+
+        <activity
+            android:name=".ui.activity.infoverify.BusinessLicenseActivity"
+            android:exported="false"
+            android:launchMode="singleTask" />
+
+        <activity
+            android:name=".ui.activity.infoverify.FeeStandardActivity"
+            android:exported="false"
+            android:launchMode="singleTask" />
     </application>
 </manifest>

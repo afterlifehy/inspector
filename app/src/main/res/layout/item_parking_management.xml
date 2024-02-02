@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:drawableEnd="@mipmap/go"
+                android:drawableEnd="@mipmap/ic_arrow_right"
                 android:drawablePadding="@dimen/dp_9"
                 android:textColor="@color/color_ff1a1a1a"
                 android:textSize="@dimen/sp_19"

@@ -11,6 +11,7 @@
     <string name="签到">签到</string>
     <string name="场库管理">场库管理</string>
     <string name="违规上报">违规上报</string>
+    <string name="考勤管理">考勤管理</string>
     <string name="路段绑定">路段绑定</string>
     <string name="再按一次退出程序">再按一次退出程序</string>
     <string name="任务接收">任务接收</string>
@@ -73,4 +74,29 @@
     <string name="协管员违规详情">协管员违规详情</string>
     <string name="企业">企业</string>
     <string name="请选择企业">请选择企业</string>
+    <string name="企业违规详情">企业违规详情</string>
+    <string name="上班打卡">上班打卡</string>
+    <string name="未签到">未签到</string>
+    <string name="壬通科技祝您健康幸福">勤勤恳恳工作，平平安安回家\n壬通科技祝您健康幸福</string>
+    <string name="未签退">未签退</string>
+    <string name="考勤">考勤</string>
+    <string name="下班打卡">下班打卡</string>
+    <string name="经营许可">经营许可</string>
+    <string name="收费标准">收费标准</string>
+    <string name="停车人信息">停车人信息</string>
+    <string name="企业2">企业：</string>
+    <string name="认证">认证：</string>
+    <string name="到期">到期：</string>
+    <string name="计费类型日间">计费类型(日间)</string>
+    <string name="收费类型">收费类型</string>
+    <string name="按时计费首小时">按时计费\n(首小时)</string>
+    <string name="按时计费半小时">按时计费\n(半小时)</string>
+    <string name="计费类型计次夜间">计费类型：计次(夜间)</string>
+    <string name="按次计费次">按次计费\n(/次)</string>
+    <string name="工作日">工作日</string>
+    <string name="首15分钟">首15分钟</string>
+    <string name="后15分钟">后15分钟</string>
+    <string name="后30分钟">后30分钟</string>
+    <string name="周末">周末</string>
+    <string name="节假日">节假日</string>
 </resources>

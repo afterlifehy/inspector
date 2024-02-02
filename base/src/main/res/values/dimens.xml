@@ -11,6 +11,7 @@
     <dimen name="dp_n20">-20dp</dimen>
     <dimen name="dp_n18">-18dp</dimen>
     <dimen name="dp_n10">-10dp</dimen>
+    <dimen name="dp_n7">-7dp</dimen>
     <dimen name="dp_n4">-4dp</dimen>
     <dimen name="dp_n2">-2dp</dimen>
     <dimen name="dp_n1">-1dp</dimen>

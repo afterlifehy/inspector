@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/ll_history"
+    android:id="@+id/ll_businessLicense"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/shape_parking_item_bg"
@@ -37,16 +37,15 @@
             tools:text="01" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_name"
+            android:id="@+id/tv_streetName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:drawableEnd="@mipmap/ic_arrow_right"
             android:drawablePadding="@dimen/dp_9"
             android:textColor="@color/color_ff1a1a1a"
             android:textSize="@dimen/sp_19"
-            tools:text="韩树娥-188888888" />
+            tools:text="广延路(广中路北侧)" />
     </RelativeLayout>
 
     <View
@@ -65,15 +64,15 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableStart="@mipmap/ic_street_logo"
+            android:drawableStart="@mipmap/ic_enterprise_logo"
             android:drawablePadding="@dimen/dp_6"
             android:gravity="center"
-            android:text="@string/路段"
+            android:text="@string/企业2"
             android:textColor="@color/color_ff666666"
             android:textSize="@dimen/sp_17" />
 
         <TextView
-            android:id="@+id/tv_streetName"
+            android:id="@+id/tv_enterprise"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
@@ -94,15 +93,15 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableStart="@mipmap/ic_reason_logo"
+            android:drawableStart="@mipmap/ic_auth_logo"
             android:drawablePadding="@dimen/dp_6"
             android:gravity="center"
-            android:text="@string/原因"
+            android:text="@string/认证"
             android:textColor="@color/color_ff666666"
             android:textSize="@dimen/sp_17" />
 
         <TextView
-            android:id="@+id/tv_reason"
+            android:id="@+id/tv_auth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
@@ -126,12 +125,12 @@
             android:drawableStart="@mipmap/ic_work_hours_logo"
             android:drawablePadding="@dimen/dp_6"
             android:gravity="center"
-            android:text="@string/时间"
+            android:text="@string/到期"
             android:textColor="@color/color_ff666666"
             android:textSize="@dimen/sp_17" />
 
         <TextView
-            android:id="@+id/tv_time"
+            android:id="@+id/tv_dueDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
@@ -140,44 +139,4 @@
             android:textSize="@dimen/sp_17"
             tools:text="长安路（恒丰北路-恒通路）长安路（恒丰北路-恒通路）" />
     </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_10"
-        android:orientation="horizontal"
-        android:paddingStart="@dimen/dp_10"
-        android:paddingEnd="@dimen/dp_10">
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_statusTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableStart="@mipmap/ic_status_logo"
-            android:drawablePadding="@dimen/dp_6"
-            android:gravity="center"
-            android:text="@string/状态"
-            android:textColor="@color/color_ff666666"
-            android:textSize="@dimen/sp_17" />
-
-        <TextView
-            android:id="@+id/tv_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/tv_statusTitle"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textColor="@color/color_ff1a1a1a"
-            android:textSize="@dimen/sp_17"
-            tools:text="已解决" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:text="详情>"
-            android:textColor="@color/color_ff999999"
-            android:textSize="@dimen/sp_19" />
-    </RelativeLayout>
 </LinearLayout>

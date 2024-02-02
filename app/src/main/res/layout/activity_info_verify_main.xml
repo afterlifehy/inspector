@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_133"
+        android:background="@drawable/shape_parking_lot_top_bg" />
+
+    <include
+        android:id="@+id/layout_toolbar"
+        layout="@layout/layout_comment_toolbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_toolbar"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/dp_13"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingEnd="@dimen/dp_13">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_businessLicense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@mipmap/ic_assistant_violation_report_bg"
+            android:drawableStart="@mipmap/ic_business_license"
+            android:drawableEnd="@mipmap/ic_assistant_violation_report_arrow"
+            android:drawablePadding="@dimen/dp_10"
+            android:gravity="center_vertical"
+            android:padding="@dimen/dp_13"
+            android:text="@string/经营许可"
+            android:textColor="@color/color_ff1a1a1a"
+            android:textSize="@dimen/sp_19" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_feeStandards"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="@dimen/dp_17"
+            android:background="@mipmap/ic_assistant_violation_history_bg"
+            android:drawableStart="@mipmap/ic_fee_standards"
+            android:drawableEnd="@mipmap/ic_assistant_violation_history_arrow"
+            android:drawablePadding="@dimen/dp_10"
+            android:gravity="center_vertical"
+            android:padding="@dimen/dp_13"
+            android:text="@string/收费标准"
+            android:textColor="@color/color_ff1a1a1a"
+            android:textSize="@dimen/sp_19" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_parkingInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="@dimen/dp_17"
+            android:background="@mipmap/ic_enterprise_violation_report_bg"
+            android:drawableStart="@mipmap/ic_parking_info"
+            android:drawableEnd="@mipmap/ic_enterprise_violation_report_arrow"
+            android:drawablePadding="@dimen/dp_10"
+            android:gravity="center_vertical"
+            android:padding="@dimen/dp_13"
+            android:text="@string/停车人信息"
+            android:textColor="@color/color_ff1a1a1a"
+            android:textSize="@dimen/sp_19" />
+
+    </LinearLayout>
+</RelativeLayout>

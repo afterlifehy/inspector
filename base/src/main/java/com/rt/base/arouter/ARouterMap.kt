@@ -27,6 +27,19 @@ object ARouterMap {
 
     const val ASSISTANT_VIOLATION_DETAIL = "/inspector_app/assistantViolationDetail"
 
+    const val ENTERPRISE_VIOLATION_REPORT = "/inspector_app/enterpriseViolationDetail"
+
+    const val ENTERPRISE_VIOLATION_HISTORY = "/inspector_app/enterpriseViolationHistory"
+
+    const val ENTERPRISE_VIOLATION_DETAIL = "/inspector_app/enterpriseViolationDetail"
+
+    const val WORK_ATTENDANCE = "/inspector_app/workAttendance"
+
+    const val INFO_VERIFY_MAIN = "/inspector_app/infoVerify"
+
+    const val BUSINESS_LICENSE = "/inspector_app/businessLicense"
+
+    const val FEE_STANDARD = "/inspector_app/feeStandard"
     class common {
         companion object {
 

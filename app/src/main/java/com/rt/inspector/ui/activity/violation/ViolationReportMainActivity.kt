@@ -45,11 +45,11 @@ class ViolationReportMainActivity : VbBaseActivity<ViolationReportMainViewModel,
             }
 
             R.id.tv_enterpriseViolationReport -> {
-
+                startArouter(ARouterMap.ENTERPRISE_VIOLATION_REPORT)
             }
 
             R.id.tv_enterpriseViolationHistory -> {
-
+                startArouter(ARouterMap.ENTERPRISE_VIOLATION_HISTORY)
             }
         }
     }

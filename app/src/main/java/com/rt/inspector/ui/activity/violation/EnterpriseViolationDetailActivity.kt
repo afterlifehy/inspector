@@ -8,17 +8,16 @@ import com.rt.base.arouter.ARouterMap
 import com.rt.base.ext.i18n
 import com.rt.base.util.ToastUtil
 import com.rt.base.viewbase.VbBaseActivity
-import com.rt.common.util.AppUtil
 import com.rt.inspector.R
-import com.rt.inspector.databinding.ActivityAssistantViolationDetailBinding
-import com.rt.inspector.mvvm.viewmodel.AssistantViolationDetailViewModel
+import com.rt.inspector.databinding.ActivityEnterpriseViolationDetailBinding
+import com.rt.inspector.mvvm.viewmodel.EnterpriseViolationDetailViewModel
 
-@Route(path = ARouterMap.ASSISTANT_VIOLATION_DETAIL)
-class AssistantViolationDetailActivity : VbBaseActivity<AssistantViolationDetailViewModel, ActivityAssistantViolationDetailBinding>(),
+@Route(path = ARouterMap.ENTERPRISE_VIOLATION_DETAIL)
+class EnterpriseViolationDetailActivity : VbBaseActivity<EnterpriseViolationDetailViewModel, ActivityEnterpriseViolationDetailBinding>(),
     OnClickListener {
 
     override fun initView() {
-        binding.layoutToolbar.tvTitle.text = i18n(com.rt.base.R.string.协管员违规详情)
+        binding.layoutToolbar.tvTitle.text = i18n(com.rt.base.R.string.企业违规详情)
     }
 
     override fun initListener() {
@@ -39,18 +38,18 @@ class AssistantViolationDetailActivity : VbBaseActivity<AssistantViolationDetail
     override fun startObserve() {
         super.startObserve()
         mViewModel.apply {
-            errMsg.observe(this@AssistantViolationDetailActivity) {
+            errMsg.observe(this@EnterpriseViolationDetailActivity) {
                 dismissProgressDialog()
                 ToastUtil.showMiddleToast(it.msg)
             }
-            mException.observe(this@AssistantViolationDetailActivity){
+            mException.observe(this@EnterpriseViolationDetailActivity){
                 dismissProgressDialog()
             }
         }
     }
 
     override fun getVbBindingView(): ViewBinding {
-        return ActivityAssistantViolationDetailBinding.inflate(layoutInflater)
+        return ActivityEnterpriseViolationDetailBinding.inflate(layoutInflater)
     }
 
     override fun onReloadData() {
@@ -63,7 +62,7 @@ class AssistantViolationDetailActivity : VbBaseActivity<AssistantViolationDetail
         return binding.layoutToolbar.toolbar
     }
 
-    override fun providerVMClass(): Class<AssistantViolationDetailViewModel>? {
-        return AssistantViolationDetailViewModel::class.java
+    override fun providerVMClass(): Class<EnterpriseViolationDetailViewModel>? {
+        return EnterpriseViolationDetailViewModel::class.java
     }
 }

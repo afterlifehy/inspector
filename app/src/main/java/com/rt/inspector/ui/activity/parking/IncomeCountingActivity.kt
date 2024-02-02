@@ -9,6 +9,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.rt.base.arouter.ARouterMap
 import com.rt.base.dialog.DialogHelp
 import com.rt.base.ext.i18N
+import com.rt.base.util.ToastUtil
 import com.rt.base.viewbase.VbBaseActivity
 import com.rt.common.util.AppUtil
 import com.rt.inspector.R
@@ -62,6 +63,19 @@ class IncomeCountingActivity : VbBaseActivity<IncomeCountingViewModel, ActivityI
                     .setRightMsg("")
                     .build(this@IncomeCountingActivity)
                     .showDailog()
+            }
+        }
+    }
+
+    override fun startObserve() {
+        super.startObserve()
+        mViewModel.apply {
+            errMsg.observe(this@IncomeCountingActivity) {
+                dismissProgressDialog()
+                ToastUtil.showMiddleToast(it.msg)
+            }
+            mException.observe(this@IncomeCountingActivity){
+                dismissProgressDialog()
             }
         }
     }

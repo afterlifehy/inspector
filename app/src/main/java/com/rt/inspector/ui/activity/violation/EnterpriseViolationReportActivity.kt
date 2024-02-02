@@ -26,17 +26,15 @@ import com.rt.common.util.GlideUtils
 import com.rt.common.util.ImageCompressor
 import com.rt.common.util.ImageUtil
 import com.rt.inspector.R
-import com.rt.inspector.databinding.ActivityAssistantViolationReportBinding
 import com.rt.inspector.databinding.ActivityEnterpriseViolationReportBinding
 import com.rt.inspector.dialog.ViolationSelectDialog
-import com.rt.inspector.mvvm.viewmodel.AssistantViolationReportViewModel
 import com.rt.inspector.mvvm.viewmodel.EnterpriseViolationReportViewModel
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-@Route(path = ARouterMap.ASSISTANT_VIOLATION_REPORT)
+@Route(path = ARouterMap.ENTERPRISE_VIOLATION_REPORT)
 class EnterpriseViolationReportActivity : VbBaseActivity<EnterpriseViolationReportViewModel, ActivityEnterpriseViolationReportBinding>(),
     OnClickListener {
     var violationSelectDialog: ViolationSelectDialog? = null
@@ -52,7 +50,7 @@ class EnterpriseViolationReportActivity : VbBaseActivity<EnterpriseViolationRepo
     var picBase3 = ""
 
     override fun initView() {
-        binding.layoutToolbar.tvTitle.text = i18n(com.rt.base.R.string.协管员违规上报)
+        binding.layoutToolbar.tvTitle.text = i18n(com.rt.base.R.string.企业违规上报)
     }
 
     override fun initListener() {
@@ -88,7 +86,7 @@ class EnterpriseViolationReportActivity : VbBaseActivity<EnterpriseViolationRepo
                 onBackPressedSupport()
             }
 
-            R.id.tv_parkingLot -> {
+            R.id.tv_enterprise -> {
                 violationSelectDialog = ViolationSelectDialog(object : ViolationSelectDialog.ViolationSelectCallBack {
                     override fun parkingLotChoose(parkingLot: String) {
                         binding.tvEnterprise.text = parkingLot
@@ -230,8 +228,21 @@ class EnterpriseViolationReportActivity : VbBaseActivity<EnterpriseViolationRepo
         })
     }
 
+    override fun startObserve() {
+        super.startObserve()
+        mViewModel.apply {
+            errMsg.observe(this@EnterpriseViolationReportActivity) {
+                dismissProgressDialog()
+                ToastUtil.showMiddleToast(it.msg)
+            }
+            mException.observe(this@EnterpriseViolationReportActivity){
+                dismissProgressDialog()
+            }
+        }
+    }
+
     override fun getVbBindingView(): ViewBinding {
-        return ActivityAssistantViolationReportBinding.inflate(layoutInflater)
+        return ActivityEnterpriseViolationReportBinding.inflate(layoutInflater)
     }
 
     override fun onReloadData() {

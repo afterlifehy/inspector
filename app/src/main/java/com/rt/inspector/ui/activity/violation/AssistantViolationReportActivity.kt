@@ -265,6 +265,20 @@ class AssistantViolationReportActivity : VbBaseActivity<AssistantViolationReport
         })
     }
 
+    override fun startObserve() {
+        super.startObserve()
+        mViewModel.apply {
+            errMsg.observe(this@AssistantViolationReportActivity) {
+                dismissProgressDialog()
+                ToastUtil.showMiddleToast(it.msg)
+            }
+            mException.observe(this@AssistantViolationReportActivity){
+                dismissProgressDialog()
+            }
+        }
+    }
+
+
     override fun getVbBindingView(): ViewBinding {
         return ActivityAssistantViolationReportBinding.inflate(layoutInflater)
     }

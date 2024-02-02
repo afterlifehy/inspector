@@ -44,7 +44,7 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/dp_22"
             android:layout_toEndOf="@+id/tv_num"
-            android:drawableEnd="@mipmap/go"
+            android:drawableEnd="@mipmap/ic_arrow_right"
             android:drawablePadding="@dimen/dp_9"
             android:ellipsize="end"
             android:lines="1"

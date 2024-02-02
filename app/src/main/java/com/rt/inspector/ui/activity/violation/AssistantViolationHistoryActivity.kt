@@ -11,6 +11,7 @@ import com.rt.base.arouter.ARouterMap
 import com.rt.base.ext.i18n
 import com.rt.base.ext.show
 import com.rt.base.ext.startArouter
+import com.rt.base.util.ToastUtil
 import com.rt.base.viewbase.VbBaseActivity
 import com.rt.common.util.GlideUtils
 import com.rt.inspector.R
@@ -57,6 +58,19 @@ class AssistantViolationHistoryActivity : VbBaseActivity<AssistantViolationHisto
 
             R.id.ll_history -> {
                 startArouter(ARouterMap.ASSISTANT_VIOLATION_DETAIL)
+            }
+        }
+    }
+
+    override fun startObserve() {
+        super.startObserve()
+        mViewModel.apply {
+            errMsg.observe(this@AssistantViolationHistoryActivity) {
+                dismissProgressDialog()
+                ToastUtil.showMiddleToast(it.msg)
+            }
+            mException.observe(this@AssistantViolationHistoryActivity){
+                dismissProgressDialog()
             }
         }
     }

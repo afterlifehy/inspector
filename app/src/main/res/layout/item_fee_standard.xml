@@ -1,0 +1,805 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fl_feeStandard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.aries.ui.view.radius.RadiusLinearLayout
+        android:id="@+id/rll_high"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/dp_13"
+        android:paddingEnd="@dimen/dp_13"
+        android:paddingBottom="@dimen/dp_18"
+        android:visibility="gone"
+        app:rv_radius="@dimen/dp_7">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_100"
+            android:text="@string/工作日"
+            android:textColor="@color/color_ff1a1a1a"
+            android:textSize="@dimen/sp_19"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_11"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_workDayTime"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableStart="@mipmap/ic_daytime_logo"
+                android:drawablePadding="@dimen/dp_5"
+                android:textColor="@color/color_ff1a1a1a"
+                android:textSize="@dimen/sp_15"
+                tools:text="08:00-次日07:00" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_workNightTime"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableStart="@mipmap/ic_nighttime_logo"
+                android:drawablePadding="@dimen/dp_5"
+                android:textColor="@color/color_ff1a1a1a"
+                android:textSize="@dimen/sp_15"
+                tools:text="22:00-次日07:00" />
+        </LinearLayout>
+
+        <com.aries.ui.view.radius.RadiusLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_18"
+            android:orientation="vertical"
+            app:rv_radius="@dimen/dp_7">
+
+            <com.aries.ui.view.radius.RadiusLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_66"
+                android:orientation="horizontal"
+                app:rv_topLeftRadius="@dimen/dp_7"
+                app:rv_topRightRadius="@dimen/dp_7">
+
+                <com.aries.ui.view.radius.RadiusTextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_1"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/首15分钟"
+                    android:textColor="@color/color_ff1a1a1a"
+                    android:textSize="@dimen/sp_19"
+                    app:rv_backgroundColor="@color/color_ffefefef"
+                    app:rv_topLeftRadius="@dimen/dp_5" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_1"
+                    android:layout_weight="1"
+                    android:background="@color/color_ffefefef"
+                    android:gravity="center"
+                    android:text="@string/后15分钟"
+                    android:textColor="@color/color_ff1a1a1a"
+                    android:textSize="@dimen/sp_19" />
+
+                <com.aries.ui.view.radius.RadiusTextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_1"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/后30分钟"
+                    android:textColor="@color/color_ff1a1a1a"
+                    android:textSize="@dimen/sp_19"
+                    app:rv_backgroundColor="@color/color_ffefefef"
+                    app:rv_topRightRadius="@dimen/dp_5" />
+            </com.aries.ui.view.radius.RadiusLinearLayout>
+
+            <com.aries.ui.view.radius.RadiusLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_66"
+                android:layout_marginTop="@dimen/dp_1"
+                android:orientation="horizontal"
+                app:rv_topLeftRadius="@dimen/dp_7"
+                app:rv_topRightRadius="@dimen/dp_7">
+
+                <com.aries.ui.view.radius.RadiusTextView
+                    android:id="@+id/tv_workDayStart15"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_1"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/color_ff1a1a1a"
+                    android:textSize="@dimen/sp_19"
+                    app:rv_backgroundColor="@color/color_ffefefef"
+                    app:rv_bottomLeftRadius="@dimen/dp_5"
+                    tools:text="10元" />
+
+                <TextView
+                    android:id="@+id/tv_workDayEnd15"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_1"
+                    android:layout_weight="1"
+                    android:background="@color/color_ffefefef"
+                    android:gravity="center"
+                    android:textColor="@color/color_ff1a1a1a"
+                    android:textSize="@dimen/sp_19"
+                    tools:text="10元" />
+
+                <com.aries.ui.view.radius.RadiusTextView
+                    android:id="@+id/tv_workDayEnd30"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_1"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/color_ff1a1a1a"
+                    android:textSize="@dimen/sp_19"
+                    app:rv_backgroundColor="@color/color_ffefefef"
+                    app:rv_bottomRightRadius="@dimen/dp_5"
+                    tools:text="10元" />
+            </com.aries.ui.view.radius.RadiusLinearLayout>
+        </com.aries.ui.view.radius.RadiusLinearLayout>
+
+        <TextView
+            android:id="@+id/tv_workDayTips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_12"
+            android:textColor="@color/color_ff666666"
+            android:textSize="@dimen/sp_15"
+            tools:text="后续每30分钟10元。计次（夜间）10元/次" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginTop="@dimen/dp_10"
+            android:background="@color/color_ffd9d9d9" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_13"
+            android:text="@string/周末"
+            android:textColor="@color/color_ff1a1a1a"
+            android:textSize="@dimen/sp_19"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_11"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_weekendDayTime"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableStart="@mipmap/ic_daytime_logo"
+                android:drawablePadding="@dimen/dp_5"
+                android:textColor="@color/color_ff1a1a1a"
+                android:textSize="@dimen/sp_15"
+                tools:text="08:00-次日07:00" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_weekendNightTime"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableStart="@mipmap/ic_nighttime_logo"
+                android:drawablePadding="@dimen/dp_5"
+                android:textColor="@color/color_ff1a1a1a"
+                android:textSize="@dimen/sp_15"
+                tools:text="22:00-次日07:00" />
+        </LinearLayout>
+
+        <com.aries.ui.view.radius.RadiusLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_18"
+            android:orientation="vertical"
+            app:rv_radius="@dimen/dp_7">
+
+            <com.aries.ui.view.radius.RadiusLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_66"
+                android:orientation="horizontal"
+                app:rv_topLeftRadius="@dimen/dp_7"
+                app:rv_topRightRadius="@dimen/dp_7">
+
+                <com.aries.ui.view.radius.RadiusTextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_1"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/首15分钟"
+                    android:textColor="@color/color_ff1a1a1a"
+                    android:textSize="@dimen/sp_19"
+                    app:rv_backgroundColor="@color/color_ffefefef"
+                    app:rv_topLeftRadius="@dimen/dp_5" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_1"
+                    android:layout_weight="1"
+                    android:background="@color/color_ffefefef"
+                    android:gravity="center"
+                    android:text="@string/后15分钟"
+                    android:textColor="@color/color_ff1a1a1a"
+                    android:textSize="@dimen/sp_19" />
+
+                <com.aries.ui.view.radius.RadiusTextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_1"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/后30分钟"
+                    android:textColor="@color/color_ff1a1a1a"
+                    android:textSize="@dimen/sp_19"
+                    app:rv_backgroundColor="@color/color_ffefefef"
+                    app:rv_topRightRadius="@dimen/dp_5" />
+            </com.aries.ui.view.radius.RadiusLinearLayout>
+
+            <com.aries.ui.view.radius.RadiusLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_66"
+                android:layout_marginTop="@dimen/dp_1"
+                android:orientation="horizontal"
+                app:rv_topLeftRadius="@dimen/dp_7"
+                app:rv_topRightRadius="@dimen/dp_7">
+
+                <com.aries.ui.view.radius.RadiusTextView
+                    android:id="@+id/tv_weekendStart15"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_1"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/color_ff1a1a1a"
+                    android:textSize="@dimen/sp_19"
+                    app:rv_backgroundColor="@color/color_ffefefef"
+                    app:rv_bottomLeftRadius="@dimen/dp_5"
+                    tools:text="10元" />
+
+                <TextView
+                    android:id="@+id/tv_weekendEnd15"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_1"
+                    android:layout_weight="1"
+                    android:background="@color/color_ffefefef"
+                    android:gravity="center"
+                    android:textColor="@color/color_ff1a1a1a"
+                    android:textSize="@dimen/sp_19"
+                    tools:text="10元" />
+
+                <com.aries.ui.view.radius.RadiusTextView
+                    android:id="@+id/tv_weekendEnd30"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_1"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/color_ff1a1a1a"
+                    android:textSize="@dimen/sp_19"
+                    app:rv_backgroundColor="@color/color_ffefefef"
+                    app:rv_bottomRightRadius="@dimen/dp_5"
+                    tools:text="10元" />
+            </com.aries.ui.view.radius.RadiusLinearLayout>
+        </com.aries.ui.view.radius.RadiusLinearLayout>
+
+        <TextView
+            android:id="@+id/tv_weekendTips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_12"
+            android:textColor="@color/color_ff666666"
+            android:textSize="@dimen/sp_15"
+            tools:text="后续每30分钟10元。计次（夜间）10元/次" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginTop="@dimen/dp_10"
+            android:background="@color/color_ffd9d9d9" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_13"
+            android:text="@string/节假日"
+            android:textColor="@color/color_ff1a1a1a"
+            android:textSize="@dimen/sp_19"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_11"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_holidayDayTime"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableStart="@mipmap/ic_daytime_logo"
+                android:drawablePadding="@dimen/dp_5"
+                android:textColor="@color/color_ff1a1a1a"
+                android:textSize="@dimen/sp_15"
+                tools:text="08:00-次日07:00" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_holidayNightTime"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableStart="@mipmap/ic_nighttime_logo"
+                android:drawablePadding="@dimen/dp_5"
+                android:textColor="@color/color_ff1a1a1a"
+                android:textSize="@dimen/sp_15"
+                tools:text="22:00-次日07:00" />
+        </LinearLayout>
+
+        <com.aries.ui.view.radius.RadiusLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_18"
+            android:orientation="vertical"
+            app:rv_radius="@dimen/dp_7">
+
+            <com.aries.ui.view.radius.RadiusLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_66"
+                android:orientation="horizontal"
+                app:rv_topLeftRadius="@dimen/dp_7"
+                app:rv_topRightRadius="@dimen/dp_7">
+
+                <com.aries.ui.view.radius.RadiusTextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_1"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/首15分钟"
+                    android:textColor="@color/color_ff1a1a1a"
+                    android:textSize="@dimen/sp_19"
+                    app:rv_backgroundColor="@color/color_ffefefef"
+                    app:rv_topLeftRadius="@dimen/dp_5" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_1"
+                    android:layout_weight="1"
+                    android:background="@color/color_ffefefef"
+                    android:gravity="center"
+                    android:text="@string/后15分钟"
+                    android:textColor="@color/color_ff1a1a1a"
+                    android:textSize="@dimen/sp_19" />
+
+                <com.aries.ui.view.radius.RadiusTextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_1"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/后30分钟"
+                    android:textColor="@color/color_ff1a1a1a"
+                    android:textSize="@dimen/sp_19"
+                    app:rv_backgroundColor="@color/color_ffefefef"
+                    app:rv_topRightRadius="@dimen/dp_5" />
+            </com.aries.ui.view.radius.RadiusLinearLayout>
+
+            <com.aries.ui.view.radius.RadiusLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_66"
+                android:layout_marginTop="@dimen/dp_1"
+                android:orientation="horizontal"
+                app:rv_topLeftRadius="@dimen/dp_7"
+                app:rv_topRightRadius="@dimen/dp_7">
+
+                <com.aries.ui.view.radius.RadiusTextView
+                    android:id="@+id/tv_holidayStart15"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_1"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/color_ff1a1a1a"
+                    android:textSize="@dimen/sp_19"
+                    app:rv_backgroundColor="@color/color_ffefefef"
+                    app:rv_bottomLeftRadius="@dimen/dp_5"
+                    tools:text="10元" />
+
+                <TextView
+                    android:id="@+id/tv_holidayEnd15"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_1"
+                    android:layout_weight="1"
+                    android:background="@color/color_ffefefef"
+                    android:gravity="center"
+                    android:textColor="@color/color_ff1a1a1a"
+                    android:textSize="@dimen/sp_19"
+                    tools:text="10元" />
+
+                <com.aries.ui.view.radius.RadiusTextView
+                    android:id="@+id/tv_holidayEnd30"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_1"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/color_ff1a1a1a"
+                    android:textSize="@dimen/sp_19"
+                    app:rv_backgroundColor="@color/color_ffefefef"
+                    app:rv_bottomRightRadius="@dimen/dp_5"
+                    tools:text="10元" />
+            </com.aries.ui.view.radius.RadiusLinearLayout>
+        </com.aries.ui.view.radius.RadiusLinearLayout>
+
+        <TextView
+            android:id="@+id/tv_holidayTips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_12"
+            android:textColor="@color/color_ff666666"
+            android:textSize="@dimen/sp_15"
+            tools:text="后续每30分钟10元。计次（夜间）10元/次" />
+
+    </com.aries.ui.view.radius.RadiusLinearLayout>
+
+    <com.aries.ui.view.radius.RadiusLinearLayout
+        android:id="@+id/rll_nonHigh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/dp_13"
+        android:paddingEnd="@dimen/dp_13"
+        android:paddingBottom="@dimen/dp_18"
+        android:visibility="gone"
+        app:rv_radius="@dimen/dp_7">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_100"
+            android:text="@string/计费类型日间"
+            android:textColor="@color/color_ff666666"
+            android:textSize="@dimen/sp_19" />
+
+        <com.aries.ui.view.radius.RadiusLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_18"
+            android:orientation="vertical"
+            app:rv_radius="@dimen/dp_7">
+
+            <com.aries.ui.view.radius.RadiusLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_66"
+                android:orientation="horizontal"
+                app:rv_topLeftRadius="@dimen/dp_7"
+                app:rv_topRightRadius="@dimen/dp_7">
+
+                <com.aries.ui.view.radius.RadiusTextView
+                    android:layout_width="@dimen/dp_78"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/收费类型"
+                    android:textColor="@color/color_ff666666"
+                    android:textSize="@dimen/sp_17"
+                    app:rv_backgroundColor="@color/color_ffefefef"
+                    app:rv_topLeftRadius="@dimen/dp_5" />
+
+                <TextView
+                    android:id="@+id/tv_workDay"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_1"
+                    android:layout_weight="1"
+                    android:background="@color/color_ffefefef"
+                    android:gravity="center"
+                    tools:text="工作日\n08:00-19:30" />
+
+                <TextView
+                    android:id="@+id/tv_weekend"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_1"
+                    android:layout_weight="1"
+                    android:background="@color/color_ffefefef"
+                    android:gravity="center"
+                    tools:text="周末\n08:00-19:30" />
+
+                <com.aries.ui.view.radius.RadiusTextView
+                    android:id="@+id/tv_holiday"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_1"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    app:rv_backgroundColor="@color/color_ffefefef"
+                    app:rv_topRightRadius="@dimen/dp_5"
+                    tools:text="周末\n08:00-19:30" />
+            </com.aries.ui.view.radius.RadiusLinearLayout>
+
+            <com.aries.ui.view.radius.RadiusLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_66"
+                android:layout_marginTop="@dimen/dp_1"
+                android:orientation="horizontal"
+                app:rv_topLeftRadius="@dimen/dp_7"
+                app:rv_topRightRadius="@dimen/dp_7">
+
+                <TextView
+                    android:layout_width="@dimen/dp_78"
+                    android:layout_height="match_parent"
+                    android:background="@color/color_ffefefef"
+                    android:gravity="center"
+                    android:text="@string/按时计费首小时"
+                    android:textColor="@color/color_ff666666"
+                    android:textSize="@dimen/sp_17" />
+
+                <TextView
+                    android:id="@+id/tv_workDayFee1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_1"
+                    android:layout_weight="1"
+                    android:background="@color/color_ffefefef"
+                    android:gravity="center"
+                    tools:text="10元" />
+
+                <TextView
+                    android:id="@+id/tv_weekendFee1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_1"
+                    android:layout_weight="1"
+                    android:background="@color/color_ffefefef"
+                    android:gravity="center"
+                    tools:text="10元" />
+
+                <TextView
+                    android:id="@+id/tv_holidayFee1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_1"
+                    android:layout_weight="1"
+                    android:background="@color/color_ffefefef"
+                    android:gravity="center"
+                    tools:text="10元" />
+            </com.aries.ui.view.radius.RadiusLinearLayout>
+
+            <com.aries.ui.view.radius.RadiusLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_66"
+                android:layout_marginTop="@dimen/dp_1"
+                android:orientation="horizontal"
+                app:rv_topLeftRadius="@dimen/dp_7"
+                app:rv_topRightRadius="@dimen/dp_7">
+
+                <com.aries.ui.view.radius.RadiusTextView
+                    android:layout_width="@dimen/dp_78"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/按时计费半小时"
+                    android:textColor="@color/color_ff666666"
+                    android:textSize="@dimen/sp_17"
+                    app:rv_backgroundColor="@color/color_ffefefef"
+                    app:rv_bottomLeftRadius="@dimen/dp_5" />
+
+                <TextView
+                    android:id="@+id/tv_workDayFee2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_1"
+                    android:layout_weight="1"
+                    android:background="@color/color_ffefefef"
+                    android:gravity="center"
+                    tools:text="10元" />
+
+                <TextView
+                    android:id="@+id/tv_weekendFee2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_1"
+                    android:layout_weight="1"
+                    android:background="@color/color_ffefefef"
+                    android:gravity="center"
+                    tools:text="10元" />
+
+                <com.aries.ui.view.radius.RadiusTextView
+                    android:id="@+id/tv_holidayFee2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_1"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    app:rv_backgroundColor="@color/color_ffefefef"
+                    app:rv_bottomRightRadius="@dimen/dp_5"
+                    tools:text="10元" />
+            </com.aries.ui.view.radius.RadiusLinearLayout>
+        </com.aries.ui.view.radius.RadiusLinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_20"
+            android:text="@string/计费类型计次夜间"
+            android:textColor="@color/color_ff666666"
+            android:textSize="@dimen/sp_19" />
+
+        <com.aries.ui.view.radius.RadiusLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_18"
+            android:orientation="vertical"
+            app:rv_radius="@dimen/dp_7">
+
+            <com.aries.ui.view.radius.RadiusLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_66"
+                android:orientation="horizontal"
+                app:rv_topLeftRadius="@dimen/dp_7"
+                app:rv_topRightRadius="@dimen/dp_7">
+
+                <com.aries.ui.view.radius.RadiusTextView
+                    android:layout_width="@dimen/dp_78"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/收费类型"
+                    android:textColor="@color/color_ff666666"
+                    android:textSize="@dimen/sp_17"
+                    app:rv_backgroundColor="@color/color_ffefefef"
+                    app:rv_topLeftRadius="@dimen/dp_5" />
+
+                <TextView
+                    android:id="@+id/tv_workDayNight"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_1"
+                    android:layout_weight="1"
+                    android:background="@color/color_ffefefef"
+                    android:gravity="center"
+                    tools:text="工作日\n08:00-19:30" />
+
+                <TextView
+                    android:id="@+id/tv_weekendNight"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_1"
+                    android:layout_weight="1"
+                    android:background="@color/color_ffefefef"
+                    android:gravity="center"
+                    tools:text="周末\n08:00-19:30" />
+
+                <com.aries.ui.view.radius.RadiusTextView
+                    android:id="@+id/tv_holidayNight"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_1"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    app:rv_backgroundColor="@color/color_ffefefef"
+                    app:rv_topRightRadius="@dimen/dp_5"
+                    tools:text="周末\n08:00-19:30" />
+            </com.aries.ui.view.radius.RadiusLinearLayout>
+
+            <com.aries.ui.view.radius.RadiusLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_66"
+                android:layout_marginTop="@dimen/dp_1"
+                android:orientation="horizontal"
+                app:rv_topLeftRadius="@dimen/dp_7"
+                app:rv_topRightRadius="@dimen/dp_7">
+
+                <com.aries.ui.view.radius.RadiusTextView
+                    android:layout_width="@dimen/dp_78"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/按次计费次"
+                    android:textColor="@color/color_ff666666"
+                    android:textSize="@dimen/sp_17"
+                    app:rv_backgroundColor="@color/color_ffefefef"
+                    app:rv_bottomLeftRadius="@dimen/dp_5" />
+
+                <TextView
+                    android:id="@+id/tv_workDayFee3"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_1"
+                    android:layout_weight="1"
+                    android:background="@color/color_ffefefef"
+                    android:gravity="center"
+                    tools:text="10元" />
+
+                <TextView
+                    android:id="@+id/tv_weekendFee3"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_1"
+                    android:layout_weight="1"
+                    android:background="@color/color_ffefefef"
+                    android:gravity="center"
+                    tools:text="10元" />
+
+                <com.aries.ui.view.radius.RadiusTextView
+                    android:id="@+id/tv_holidayFee3"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_1"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    app:rv_backgroundColor="@color/color_ffefefef"
+                    app:rv_bottomRightRadius="@dimen/dp_5"
+                    tools:text="10元" />
+            </com.aries.ui.view.radius.RadiusLinearLayout>
+        </com.aries.ui.view.radius.RadiusLinearLayout>
+    </com.aries.ui.view.radius.RadiusLinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_feeStandard"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_80"
+        android:background="@drawable/shape_fee_standard_top_bg"
+        android:paddingStart="@dimen/dp_13"
+        android:paddingEnd="@dimen/dp_13">
+
+        <com.aries.ui.view.radius.RadiusTextView
+            android:id="@+id/rtv_num"
+            android:layout_width="@dimen/dp_32"
+            android:layout_height="@dimen/dp_32"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:textColor="@color/color_ff1a1a1a"
+            android:textSize="@dimen/sp_17"
+            android:textStyle="bold"
+            app:rv_backgroundColor="@color/white"
+            app:rv_radius="@dimen/dp_20"
+            app:rv_strokeColor="@color/color_ffffaf93"
+            app:rv_strokeWidth="@dimen/dp_2"
+            tools:text="01" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dp_20"
+            android:layout_marginEnd="@dimen/dp_25"
+            android:layout_toStartOf="@+id/cb_feeStandard"
+            android:layout_toEndOf="@+id/rtv_num"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_19"
+            tools:text="JA024 长安路(恒丰北路-恒通路)北侧" />
+
+        <CheckBox
+            android:id="@+id/cb_feeStandard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:button="@drawable/selector_fee_standard_arrow" />
+    </RelativeLayout>
+</FrameLayout>

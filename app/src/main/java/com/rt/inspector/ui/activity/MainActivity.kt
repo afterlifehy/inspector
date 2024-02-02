@@ -50,7 +50,7 @@ class MainActivity : VbBaseActivity<MainViewModel, ActivityMainBinding>(), OnCli
             }
 
             R.id.fl_attendanceManagement -> {
-
+                startArouter(ARouterMap.WORK_ATTENDANCE)
             }
 
             R.id.fl_roadBind -> {
@@ -62,7 +62,7 @@ class MainActivity : VbBaseActivity<MainViewModel, ActivityMainBinding>(), OnCli
             }
 
             R.id.fl_info_verification -> {
-
+                startArouter(ARouterMap.INFO_VERIFY_MAIN)
             }
         }
     }
