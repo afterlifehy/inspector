@@ -44,7 +44,7 @@ class InfoVerifyMainActivity : VbBaseActivity<InfoVerifyViewModel, ActivityInfoV
             }
 
             R.id.tv_parkingInfo -> {
-                startArouter(ARouterMap.ENTERPRISE_VIOLATION_REPORT)
+                startArouter(ARouterMap.PARKING_INFO)
             }
 
         }

@@ -40,6 +40,9 @@ object ARouterMap {
     const val BUSINESS_LICENSE = "/inspector_app/businessLicense"
 
     const val FEE_STANDARD = "/inspector_app/feeStandard"
+
+    const val PARKING_INFO = "/inspector_app/parkingInfo"
+
     class common {
         companion object {
 

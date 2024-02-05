@@ -99,4 +99,10 @@
     <string name="后30分钟">后30分钟</string>
     <string name="周末">周末</string>
     <string name="节假日">节假日</string>
+    <string name="确认">确认</string>
+    <string name="车牌">车牌：</string>
+    <string name="用户">用户：</string>
+    <string name="时长">时长：</string>
+    <string name="输入场库编号名称地址">输入场库编号/名称/地址</string>
+    <string name="输入停车人手机号">输入停车人手机号</string>
 </resources>

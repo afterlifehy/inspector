@@ -1,4 +1,4 @@
-package com.rt.inspector.ui.activity.violation
+package com.rt.inspector.ui.activity.infoverify
 
 import android.view.View
 import android.view.View.OnClickListener
@@ -15,16 +15,16 @@ import com.rt.base.util.ToastUtil
 import com.rt.base.viewbase.VbBaseActivity
 import com.rt.common.util.GlideUtils
 import com.rt.inspector.R
-import com.rt.inspector.adapter.AssistantViolationHistoryAdapter
-import com.rt.inspector.databinding.ActivityAssistantViolationHistoryBinding
+import com.rt.inspector.adapter.ParkingInfoAdapter
+import com.rt.inspector.databinding.ActivityParkingInfoBinding
 import com.rt.inspector.dialog.SearchDialog
-import com.rt.inspector.mvvm.viewmodel.AssistantViolationHistoryViewModel
+import com.rt.inspector.mvvm.viewmodel.ParkingInfoViewModel
 
-@Route(path = ARouterMap.ASSISTANT_VIOLATION_HISTORY)
-class AssistantViolationHistoryActivity : VbBaseActivity<AssistantViolationHistoryViewModel, ActivityAssistantViolationHistoryBinding>(),
+@Route(path = ARouterMap.PARKING_INFO)
+class ParkingInfoActivity : VbBaseActivity<ParkingInfoViewModel, ActivityParkingInfoBinding>(),
     OnClickListener {
-    var assistantViolationHistoryAdapter: AssistantViolationHistoryAdapter? = null
-    var assistantViolationHistoryList: MutableList<Int> = ArrayList()
+    var parkingInfoAdapter: ParkingInfoAdapter? = null
+    var parkigngInfoList: MutableList<Int> = ArrayList()
     var searchDialog: SearchDialog? = null
 
     override fun initView() {
@@ -32,15 +32,15 @@ class AssistantViolationHistoryActivity : VbBaseActivity<AssistantViolationHisto
         binding.layoutToolbar.ivRight.show()
         GlideUtils.instance?.loadImage(binding.layoutToolbar.ivRight, com.rt.common.R.mipmap.ic_search)
 
-        binding.rvHistory.setHasFixedSize(true)
-        binding.rvHistory.layoutManager = LinearLayoutManager(this)
-        assistantViolationHistoryAdapter = AssistantViolationHistoryAdapter(assistantViolationHistoryList, this)
-        binding.rvHistory.adapter = assistantViolationHistoryAdapter
+        binding.rvParkingInfo.setHasFixedSize(true)
+        binding.rvParkingInfo.layoutManager = LinearLayoutManager(this)
+        parkingInfoAdapter = ParkingInfoAdapter(parkigngInfoList, this)
+        binding.rvParkingInfo.adapter = parkingInfoAdapter
         var noData = View.inflate(this, R.layout.layout_no_data, null)
         GlideUtils.instance?.loadImage(noData.findViewById<ImageView>(R.id.iv_noData), com.rt.common.R.mipmap.ic_no_search_result)
         noData.findViewById<TextView>(R.id.tv_noDataTitle).text = i18n(com.rt.base.R.string.无搜索结果)
         noData.findViewById<TextView>(R.id.tv_noDataContent).text = i18n(com.rt.base.R.string.切换关键词重新搜索试试看)
-        assistantViolationHistoryAdapter?.setEmptyView(noData)
+        parkingInfoAdapter?.setEmptyView(noData)
     }
 
     override fun initListener() {
@@ -49,9 +49,9 @@ class AssistantViolationHistoryActivity : VbBaseActivity<AssistantViolationHisto
     }
 
     override fun initData() {
-        assistantViolationHistoryList.add(1)
-        assistantViolationHistoryList.add(2)
-        assistantViolationHistoryList.add(3)
+        parkigngInfoList.add(1)
+        parkigngInfoList.add(2)
+        parkigngInfoList.add(3)
     }
 
     override fun onClick(v: View?) {
@@ -65,7 +65,7 @@ class AssistantViolationHistoryActivity : VbBaseActivity<AssistantViolationHisto
             }
 
             R.id.iv_right -> {
-                searchDialog = SearchDialog("",object : SearchDialog.SearchCallBack {
+                searchDialog = SearchDialog(i18n(com.rt.base.R.string.输入停车人手机号), object : SearchDialog.SearchCallBack {
                     override fun confirm(street: String) {
 
                     }
@@ -79,18 +79,18 @@ class AssistantViolationHistoryActivity : VbBaseActivity<AssistantViolationHisto
     override fun startObserve() {
         super.startObserve()
         mViewModel.apply {
-            errMsg.observe(this@AssistantViolationHistoryActivity) {
+            errMsg.observe(this@ParkingInfoActivity) {
                 dismissProgressDialog()
                 ToastUtil.showMiddleToast(it.msg)
             }
-            mException.observe(this@AssistantViolationHistoryActivity) {
+            mException.observe(this@ParkingInfoActivity) {
                 dismissProgressDialog()
             }
         }
     }
 
     override fun getVbBindingView(): ViewBinding {
-        return ActivityAssistantViolationHistoryBinding.inflate(layoutInflater)
+        return ActivityParkingInfoBinding.inflate(layoutInflater)
     }
 
     override fun onReloadData() {
@@ -103,8 +103,8 @@ class AssistantViolationHistoryActivity : VbBaseActivity<AssistantViolationHisto
         return binding.layoutToolbar.toolbar
     }
 
-    override fun providerVMClass(): Class<AssistantViolationHistoryViewModel> {
-        return AssistantViolationHistoryViewModel::class.java
+    override fun providerVMClass(): Class<ParkingInfoViewModel> {
+        return ParkingInfoViewModel::class.java
     }
 
 }
