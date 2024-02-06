@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.aries.ui.view.radius.RadiusLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rll_task"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingTop="@dimen/dp_17"
+    android:paddingEnd="@dimen/dp_13"
+    android:paddingBottom="@dimen/dp_17"
+    app:rv_backgroundColor="@color/white"
+    app:rv_radius="@dimen/dp_7">
+
+    <ImageView
+        android:id="@+id/iv_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:src="@mipmap/ic_task_warning" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_task"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/dp_9"
+        android:drawableEnd="@mipmap/ic_arrow_right"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/color_ff1a1a1a"
+        android:textSize="@dimen/sp_19"
+        tools:text="2023-04-04  JA039-泊位异常2023-04-04  JA039-泊位异常" />
+</com.aries.ui.view.radius.RadiusLinearLayout>

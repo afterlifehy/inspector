@@ -207,5 +207,20 @@
             android:name=".ui.activity.infoverify.ParkingInfoActivity"
             android:exported="false"
             android:launchMode="singleTask" />
+
+        <activity
+            android:name=".ui.activity.taskreception.TaskReceptionActivity"
+            android:exported="false"
+            android:launchMode="singleTask" />
+
+        <activity
+            android:name=".ui.activity.taskreception.AbnormalDetailActivity"
+            android:exported="false"
+            android:launchMode="singleTask" />
+
+        <activity
+            android:name=".ui.activity.preview.PreviewImageActivity"
+            android:exported="false"
+            android:launchMode="singleTask" />
     </application>
 </manifest>

@@ -86,8 +86,8 @@ class GlideUtils private constructor() {
         imageView.tag = null
         val options: RequestOptions = RequestOptions()
             .format(DecodeFormat.PREFER_RGB_565)
-//            .error(R.mipmap.ic_placeholder_2)
-//            .placeholder(R.mipmap.ic_placeholder_2)
+            .error(R.mipmap.ic_placeholder_2)
+            .placeholder(R.mipmap.ic_placeholder_2)
             .diskCacheStrategy(DiskCacheStrategy.NONE)
             .skipMemoryCache(true)
         Glide.with(BaseApplication.instance()).load(url).dontTransform().override(-1).apply(options).into(imageView)

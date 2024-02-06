@@ -105,4 +105,13 @@
     <string name="时长">时长：</string>
     <string name="输入场库编号名称地址">输入场库编号/名称/地址</string>
     <string name="输入停车人手机号">输入停车人手机号</string>
+    <string name="异常编号">异常编号</string>
+    <string name="报告人员">报告人员</string>
+    <string name="联系电话">联系电话</string>
+    <string name="异常时间">异常时间</string>
+    <string name="异常描述">异常描述</string>
+    <string name="问题分析">问题分析</string>
+    <string name="泊位异常详情">泊位异常详情</string>
+    <string name="保存图片">保存图片</string>
+    <string name="保存成功">保存成功</string>
 </resources>

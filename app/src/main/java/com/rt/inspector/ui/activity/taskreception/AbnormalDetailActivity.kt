@@ -1,4 +1,4 @@
-package com.rt.inspector.ui.activity.violation
+package com.rt.inspector.ui.activity.taskreception
 
 import android.os.Bundle
 import android.view.View
@@ -8,19 +8,17 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.rt.base.arouter.ARouterMap
 import com.rt.base.ext.i18n
 import com.rt.base.ext.startArouter
-import com.rt.base.util.ToastUtil
 import com.rt.base.viewbase.VbBaseActivity
 import com.rt.inspector.R
-import com.rt.inspector.databinding.ActivityEnterpriseViolationDetailBinding
-import com.rt.inspector.mvvm.viewmodel.EnterpriseViolationDetailViewModel
+import com.rt.inspector.databinding.ActivityAbnormalDetailBinding
+import com.rt.inspector.mvvm.viewmodel.AbnormalDetailViewModel
 
-@Route(path = ARouterMap.ENTERPRISE_VIOLATION_DETAIL)
-class EnterpriseViolationDetailActivity : VbBaseActivity<EnterpriseViolationDetailViewModel, ActivityEnterpriseViolationDetailBinding>(),
-    OnClickListener {
+@Route(path = ARouterMap.ABNORMAL_DETAIL)
+class AbnormalDetailActivity : VbBaseActivity<AbnormalDetailViewModel, ActivityAbnormalDetailBinding>(), OnClickListener {
     var picList: MutableList<String> = ArrayList()
 
     override fun initView() {
-        binding.layoutToolbar.tvTitle.text = i18n(com.rt.base.R.string.企业违规详情)
+        binding.layoutToolbar.tvTitle.text = i18n(com.rt.base.R.string.泊位异常详情)
     }
 
     override fun initListener() {
@@ -66,21 +64,8 @@ class EnterpriseViolationDetailActivity : VbBaseActivity<EnterpriseViolationDeta
         }
     }
 
-    override fun startObserve() {
-        super.startObserve()
-        mViewModel.apply {
-            errMsg.observe(this@EnterpriseViolationDetailActivity) {
-                dismissProgressDialog()
-                ToastUtil.showMiddleToast(it.msg)
-            }
-            mException.observe(this@EnterpriseViolationDetailActivity) {
-                dismissProgressDialog()
-            }
-        }
-    }
-
     override fun getVbBindingView(): ViewBinding {
-        return ActivityEnterpriseViolationDetailBinding.inflate(layoutInflater)
+        return ActivityAbnormalDetailBinding.inflate(layoutInflater)
     }
 
     override fun onReloadData() {
@@ -93,7 +78,7 @@ class EnterpriseViolationDetailActivity : VbBaseActivity<EnterpriseViolationDeta
         return binding.layoutToolbar.toolbar
     }
 
-    override fun providerVMClass(): Class<EnterpriseViolationDetailViewModel>? {
-        return EnterpriseViolationDetailViewModel::class.java
+    override fun providerVMClass(): Class<AbnormalDetailViewModel> {
+        return AbnormalDetailViewModel::class.java
     }
 }

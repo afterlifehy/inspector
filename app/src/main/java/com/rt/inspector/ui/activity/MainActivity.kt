@@ -58,7 +58,7 @@ class MainActivity : VbBaseActivity<MainViewModel, ActivityMainBinding>(), OnCli
             }
 
             R.id.fl_taskReception -> {
-
+                startArouter(ARouterMap.TASK_RECEPTION)
             }
 
             R.id.fl_info_verification -> {

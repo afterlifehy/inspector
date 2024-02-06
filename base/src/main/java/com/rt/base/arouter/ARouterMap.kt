@@ -43,6 +43,14 @@ object ARouterMap {
 
     const val PARKING_INFO = "/inspector_app/parkingInfo"
 
+    const val TASK_RECEPTION = "/inspector_app/taskReception"
+
+    const val ABNORMAL_DETAIL = "/inspector_app/abnormalDetail"
+
+    const val PREVIEW_IMAGE = "/inspector_app/previewImage"
+    const val IMG_INDEX = "imgIndex"
+    const val IMG_LIST = "imgList"
+
     class common {
         companion object {
 
