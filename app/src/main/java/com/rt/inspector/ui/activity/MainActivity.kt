@@ -54,7 +54,7 @@ class MainActivity : VbBaseActivity<MainViewModel, ActivityMainBinding>(), OnCli
             }
 
             R.id.fl_roadBind -> {
-
+                startArouter(ARouterMap.ROAD_BIND)
             }
 
             R.id.fl_taskReception -> {

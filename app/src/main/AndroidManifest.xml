@@ -222,5 +222,10 @@
             android:name=".ui.activity.preview.PreviewImageActivity"
             android:exported="false"
             android:launchMode="singleTask" />
+
+        <activity
+            android:name=".ui.activity.roadbind.RoadBindActivity"
+            android:exported="false"
+            android:launchMode="singleTask" />
     </application>
 </manifest>

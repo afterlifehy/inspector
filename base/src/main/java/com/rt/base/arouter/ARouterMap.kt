@@ -51,6 +51,7 @@ object ARouterMap {
     const val IMG_INDEX = "imgIndex"
     const val IMG_LIST = "imgList"
 
+    const val ROAD_BIND = "/inspector_app/roadBind"
     class common {
         companion object {
 

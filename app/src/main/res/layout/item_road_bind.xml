@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_road"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingTop="@dimen/dp_6"
+    android:paddingBottom="@dimen/dp_6">
+
+    <TextView
+        android:id="@+id/tv_streetNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_ff1a1a1a"
+        android:textSize="@dimen/sp_19"
+        tools:text="JAZ020_2" />
+
+    <TextView
+        android:id="@+id/tv_streetName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_10"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/color_ff1a1a1a"
+        android:textSize="@dimen/sp_19"
+        tools:text="昌平路(西康路-常德路)" />
+</LinearLayout>
