@@ -119,4 +119,13 @@
     <string name="查询">查询</string>
     <string name="绑定">绑定</string>
     <string name="已绑定的路段列表">已绑定的路段列表</string>
+    <string name="个人信息">个人信息</string>
+    <string name="版本升级">版本升级</string>
+    <string name="签退">签退</string>
+    <string name="我的">我的</string>
+    <string name="确认签退">确认签退</string>
+    <string name="登录账号">登录账号：</string>
+    <string name="用户信息">用户信息：</string>
+    <string name="单位信息">单位信息：</string>
+    <string name="负责路段">负责路段：</string>
 </resources>

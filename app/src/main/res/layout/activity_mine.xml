@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_ffefefef"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:src="@mipmap/ic_mine_bg" />
+
+    <include
+        android:id="@+id/layout_toolbar"
+        layout="@layout/layout_comment_toolbar" />
+
+    <com.aries.ui.view.radius.RadiusLinearLayout
+        android:id="@+id/rll_mine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_toolbar"
+        android:layout_marginStart="@dimen/dp_13"
+        android:layout_marginTop="@dimen/dp_75"
+        android:layout_marginEnd="@dimen/dp_13"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/dp_20"
+        android:paddingTop="@dimen/dp_17"
+        android:paddingEnd="@dimen/dp_20"
+        android:paddingBottom="@dimen/dp_26"
+        app:rv_backgroundColor="@color/white"
+        app:rv_radius="@dimen/dp_7">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:src="@mipmap/ic_ji_logo" />
+
+        <TextView
+            android:id="@+id/tv_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_20"
+            android:textColor="@color/color_ff1a1a1a"
+            android:textSize="@dimen/sp_20"
+            android:textStyle="bold"
+            tools:text="13585663390" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_personalInfo"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_47"
+            android:layout_marginTop="@dimen/dp_31"
+            android:drawableStart="@mipmap/ic_personal_info_logo"
+            android:drawableEnd="@mipmap/ic_arrow_right"
+            android:drawablePadding="@dimen/dp_12"
+            android:gravity="center_vertical"
+            android:text="@string/个人信息"
+            android:textColor="@color/color_ff1a1a1a"
+            android:textSize="@dimen/sp_19" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginTop="@dimen/dp_7"
+            android:background="@color/color_ffd9d9d9" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_versionUpdate"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_47"
+            android:drawableStart="@mipmap/ic_version_update_logo"
+            android:drawableEnd="@mipmap/ic_arrow_right"
+            android:drawablePadding="@dimen/dp_12"
+            android:gravity="center_vertical"
+            android:text="@string/版本升级"
+            android:textColor="@color/color_ff1a1a1a"
+            android:textSize="@dimen/sp_19" />
+    </com.aries.ui.view.radius.RadiusLinearLayout>
+
+    <com.aries.ui.view.radius.RadiusFrameLayout
+        android:id="@+id/rfl_logout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_47"
+        android:layout_below="@+id/rll_mine"
+        android:layout_marginStart="@dimen/dp_13"
+        android:layout_marginTop="@dimen/dp_27"
+        android:layout_marginEnd="@dimen/dp_13"
+        android:gravity="center"
+        app:rv_backgroundColor="@color/color_fff15a24"
+        app:rv_radius="@dimen/dp_7">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawableStart="@mipmap/ic_logout_logo"
+            android:drawablePadding="@dimen/dp_9"
+            android:gravity="center"
+            android:text="@string/签退"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_19" />
+    </com.aries.ui.view.radius.RadiusFrameLayout>
+</RelativeLayout>

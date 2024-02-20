@@ -52,6 +52,11 @@ object ARouterMap {
     const val IMG_LIST = "imgList"
 
     const val ROAD_BIND = "/inspector_app/roadBind"
+
+    const val MINE = "/inspector_app/mine"
+
+    const val PERSONAL_INFO = "/inspector_app/personalInfo"
+
     class common {
         companion object {
 

@@ -38,7 +38,7 @@ class MainActivity : VbBaseActivity<MainViewModel, ActivityMainBinding>(), OnCli
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.iv_head -> {
-
+                startArouter(ARouterMap.MINE)
             }
 
             R.id.fl_parkingManagement -> {

@@ -51,7 +51,6 @@ class BusinessLicenseActivity : VbBaseActivity<BusinessLicenseViewModel, Activit
             }
 
             R.id.ll_businessLicense -> {
-                startArouter(ARouterMap.ASSISTANT_VIOLATION_DETAIL)
             }
         }
     }

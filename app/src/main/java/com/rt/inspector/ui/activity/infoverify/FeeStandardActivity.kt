@@ -36,7 +36,7 @@ class FeeStandardActivity : VbBaseActivity<FeeStandardViewModel, ActivityFeeStan
         binding.rvFeeStandards.adapter = feeStandardAdapter
         feeStandardAdapter?.setExpandCallback(object : FeeStandardAdapter.ExpandFeeStandardCallback {
             override fun expand(street: Int) {
-                feeStandardAdapter?.notifyItemChanged(streetList.indexOf(street))
+//                feeStandardAdapter?.notifyItemChanged(streetList.indexOf(street))
             }
         })
         var noData = View.inflate(this, R.layout.layout_no_data, null)

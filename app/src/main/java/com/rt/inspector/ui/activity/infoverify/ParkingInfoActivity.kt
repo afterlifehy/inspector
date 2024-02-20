@@ -28,7 +28,7 @@ class ParkingInfoActivity : VbBaseActivity<ParkingInfoViewModel, ActivityParking
     var searchDialog: SearchDialog? = null
 
     override fun initView() {
-        binding.layoutToolbar.tvTitle.text = i18n(com.rt.base.R.string.协管员违规历史)
+        binding.layoutToolbar.tvTitle.text = i18n(com.rt.base.R.string.停车人信息)
         binding.layoutToolbar.ivRight.show()
         GlideUtils.instance?.loadImage(binding.layoutToolbar.ivRight, com.rt.common.R.mipmap.ic_search)
 
@@ -61,7 +61,6 @@ class ParkingInfoActivity : VbBaseActivity<ParkingInfoViewModel, ActivityParking
             }
 
             R.id.ll_history -> {
-                startArouter(ARouterMap.ASSISTANT_VIOLATION_DETAIL)
             }
 
             R.id.iv_right -> {
