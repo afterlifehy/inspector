@@ -1,5 +1,6 @@
 package com.rt.common.realm
 
+import com.rt.base.bean.Street
 import io.realm.*
 
 class RealmUtil {
@@ -55,6 +56,10 @@ class RealmUtil {
             realm.executeTransactionAsync { realm -> realm.copyToRealmOrUpdate(realmObjectList) }
     }
 
+    fun findStreetList(): List<Street> {
+        return realm.where(Street::class.java).findAll()
+    }
+
     fun deleteRealmAsync(realmObject: RealmObject) {
         transaction = realm.executeTransactionAsync { realm ->
             realmObject.deleteFromRealm()
@@ -64,6 +69,12 @@ class RealmUtil {
     fun deleteRealmAsync(realmList: RealmResults<RealmObject>) {
         realm.executeTransactionAsync {
             realmList.deleteAllFromRealm()
+        }
+    }
+
+    fun deleteAllStreet() {
+        realm.executeTransaction {
+            it.delete(Street::class.java)
         }
     }
 

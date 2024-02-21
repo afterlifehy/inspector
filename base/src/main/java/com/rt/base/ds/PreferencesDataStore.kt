@@ -105,7 +105,7 @@ object PreferencesKeys {
 
     val name by stringPreferencesKey()
 
-    val loginName by stringPreferencesKey()
+    val department by stringPreferencesKey()
 
     val lastCheckUpdateTime by longPreferencesKey()
 

@@ -46,10 +46,10 @@ class HeaderInterceptor : Interceptor {
         val addHeader = chain.request().newBuilder()
         val timeStamp = System.currentTimeMillis().toString()
         runBlocking {
-            val token = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.simId)
+//            val token = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.simId)
             addHeader.addHeader("Content-Type", "application/json")
                 .addHeader("timestamp", timeStamp)
-                .addHeader("token", token)
+//                .addHeader("token", token)
                 .addHeader("version", AppUtils.getAppVersionName())
                 .addHeader("versionCode", AppUtils.getAppVersionCode().toString())
                 .addHeader("sign", EncryptUtils.encryptMD5ToString(sortParam + timeStamp + Constant.secret))

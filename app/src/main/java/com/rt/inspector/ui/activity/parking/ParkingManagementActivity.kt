@@ -1,13 +1,23 @@
 package com.rt.inspector.ui.activity.parking
 
+import android.os.Bundle
 import android.view.View
 import android.view.View.OnClickListener
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewbinding.ViewBinding
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.fastjson.JSONObject
+import com.blankj.utilcode.util.PhoneUtils
 import com.blankj.utilcode.util.TimeUtils
+import com.rt.base.BaseApplication
 import com.rt.base.arouter.ARouterMap
+import com.rt.base.bean.ParkingManagementBean
+import com.rt.base.ds.PreferencesDataStore
+import com.rt.base.ds.PreferencesKeys
+import com.rt.base.ext.gone
 import com.rt.base.ext.i18n
+import com.rt.base.ext.show
 import com.rt.base.ext.startArouter
 import com.rt.base.util.ToastUtil
 import com.rt.base.viewbase.VbBaseActivity
@@ -16,10 +26,11 @@ import com.rt.inspector.R
 import com.rt.inspector.adapter.ParkingManagementAdapter
 import com.rt.inspector.databinding.ActivityParkingManagementBinding
 import com.rt.inspector.mvvm.viewmodel.ParkingManagementViewModel
+import kotlinx.coroutines.runBlocking
 
 @Route(path = ARouterMap.PARKING_MANAGEMENT)
 class ParkingManagementActivity : VbBaseActivity<ParkingManagementViewModel, ActivityParkingManagementBinding>(), OnClickListener {
-    var parkingList: MutableList<Int> = ArrayList()
+    var parkingList: MutableList<ParkingManagementBean> = ArrayList()
     var parkingManagementAdapter: ParkingManagementAdapter? = null
     var pageIndex = 1
     var pageSize = 10
@@ -33,6 +44,9 @@ class ParkingManagementActivity : VbBaseActivity<ParkingManagementViewModel, Act
         binding.rvParking.layoutManager = LinearLayoutManager(this)
         parkingManagementAdapter = ParkingManagementAdapter(parkingList, this)
         binding.rvParking.adapter = parkingManagementAdapter
+        var noData = View.inflate(this, R.layout.layout_no_data, null)
+        noData.findViewById<TextView>(R.id.tv_noDataContent).text = ""
+        parkingManagementAdapter?.setEmptyView(noData)
 
         selectTime = TimeUtils.millis2String(System.currentTimeMillis(), "yyyy-MM-dd")
         binding.tvDate.text = selectTime
@@ -53,6 +67,9 @@ class ParkingManagementActivity : VbBaseActivity<ParkingManagementViewModel, Act
                 selectTime = TimeUtils.millis2String(timestamp, "yyyy-MM-dd")
                 binding.tvDate.text = selectTime
                 pageIndex = 1
+                binding.srlParking.finishRefresh(5000)
+                parkingList.clear()
+                query()
             }
         }, beginTimestamp, endTimestamp)
         customDatePicker?.setResetVisibility(false)
@@ -83,16 +100,16 @@ class ParkingManagementActivity : VbBaseActivity<ParkingManagementViewModel, Act
     }
 
     fun query() {
-        parkingList.add(1)
-        parkingList.add(2)
-        parkingList.add(3)
-        parkingList.add(4)
-        parkingList.add(5)
-        parkingList.add(6)
-        parkingList.add(7)
-        parkingList.add(8)
-        parkingList.add(9)
-        parkingManagementAdapter?.setList(parkingList)
+        runBlocking {
+            val param = HashMap<String, Any>()
+            val jsonobject = JSONObject()
+            jsonobject["queryDate"] = selectTime
+            jsonobject["loginName"] = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.phone)
+            jsonobject["page"] = pageIndex
+            jsonobject["pageSize"] = pageSize
+            param["attr"] = jsonobject
+            mViewModel.parkingManagementList(param)
+        }
     }
 
     override fun initData() {
@@ -107,14 +124,18 @@ class ParkingManagementActivity : VbBaseActivity<ParkingManagementViewModel, Act
 
             R.id.iv_date -> {
                 if (selectTime.isEmpty()) {
-                    customDatePicker?.show(selectTime)
-                } else {
                     customDatePicker?.show(System.currentTimeMillis())
+                } else {
+                    customDatePicker?.show(selectTime)
                 }
             }
 
             R.id.rll_parking -> {
-                startArouter(ARouterMap.PARKING_LOT)
+                val parkingManagementBean = v.tag as ParkingManagementBean
+                startArouter(ARouterMap.PARKING_LOT, data = Bundle().apply {
+                    putString(ARouterMap.PARKING_LOT_STREET_NAME, parkingManagementBean.streetName)
+                    putString(ARouterMap.PARKING_LOT_STREET_NO, parkingManagementBean.streetNo)
+                })
             }
         }
     }
@@ -122,11 +143,30 @@ class ParkingManagementActivity : VbBaseActivity<ParkingManagementViewModel, Act
     override fun startObserve() {
         super.startObserve()
         mViewModel.apply {
+            parkingManagementListLiveData.observe(this@ParkingManagementActivity) {
+                dismissProgressDialog()
+                val tempList = it.result
+                if (pageIndex == 1) {
+                    parkingList.clear()
+                    parkingList.addAll(tempList)
+                    parkingManagementAdapter?.setList(parkingList)
+                    binding.srlParking.finishRefresh()
+                } else {
+                    if (tempList.isEmpty()) {
+                        pageIndex--
+                        binding.srlParking.finishLoadMoreWithNoMoreData()
+                    } else {
+                        parkingList.addAll(tempList)
+                        parkingManagementAdapter?.setList(parkingList)
+                        binding.srlParking.finishLoadMore(300)
+                    }
+                }
+            }
             errMsg.observe(this@ParkingManagementActivity) {
                 dismissProgressDialog()
                 ToastUtil.showMiddleToast(it.msg)
             }
-            mException.observe(this@ParkingManagementActivity){
+            mException.observe(this@ParkingManagementActivity) {
                 dismissProgressDialog()
                 ToastUtil.showMiddleToast(it.message)
             }

@@ -1,15 +1,15 @@
 package com.rt.base.bean
 
 data class ParkingLotResultBean(
-    var result: List<ParkingLotBean>
+    val result: List<ParkingLotBean>
 )
 
 data class ParkingLotBean(
-    var carColor: String,
-    var carLicense: String,
-    var cleared: String,
-    var orderNo: String,
-    var parkingNo: String,
-    var state: String,
-    var deadLine:Long
+    val carColor: String,
+    val carLicense: String,
+    val cleared: String,
+    val deadLine: Int,
+    val orderNo: String,
+    val parkingNo: String,
+    val state: String
 )

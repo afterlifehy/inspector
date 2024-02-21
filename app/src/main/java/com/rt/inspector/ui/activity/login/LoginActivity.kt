@@ -19,23 +19,29 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.alibaba.fastjson.JSONObject
 import com.blankj.utilcode.util.AppUtils
+import com.blankj.utilcode.util.PhoneUtils
 import com.rt.base.BaseApplication
 import com.rt.base.arouter.ARouterMap
+import com.rt.base.ds.PreferencesDataStore
+import com.rt.base.ds.PreferencesKeys
 import com.rt.base.util.ToastUtil
 import com.rt.base.viewbase.VbBaseActivity
+import com.rt.common.realm.RealmUtil
 import com.tbruyelle.rxpermissions3.RxPermissions
 import com.rt.inspector.R
 import com.rt.inspector.databinding.ActivityLoginBinding
 import com.rt.inspector.mvvm.viewmodel.LoginViewModel
 import com.rt.inspector.util.UpdateUtil
+import kotlinx.coroutines.runBlocking
 
 @Route(path = ARouterMap.LOGIN)
 class LoginActivity : VbBaseActivity<LoginViewModel, ActivityLoginBinding>(), OnClickListener {
+    var rxPermissions = RxPermissions(this@LoginActivity)
 
     @SuppressLint("CheckResult", "MissingPermission")
     override fun initView() {
-        var rxPermissions = RxPermissions(this@LoginActivity)
         rxPermissions.request(
+            Manifest.permission.READ_PHONE_STATE,
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.CAMERA
@@ -126,13 +132,21 @@ class LoginActivity : VbBaseActivity<LoginViewModel, ActivityLoginBinding>(), On
             }
 
             R.id.rtv_login -> {
-                showProgressDialog(20000)
-                val param = HashMap<String, Any>()
-//                        val jsonobject = JSONObject()
-//                        jsonobject["loginName"] = binding.etAccount.text.toString()
-//                        jsonobject["passWord"] = binding.etPw.text.toString()
-//                        param["attr"] = jsonobject
-                mViewModel.login(param)
+                if (rxPermissions.isGranted(Manifest.permission.READ_PHONE_STATE)) {
+                    showProgressDialog(20000)
+                    val param = HashMap<String, Any>()
+                    val jsonobject = JSONObject()
+                    jsonobject["loginName"] = binding.etAccount.text.toString()
+                    jsonobject["password"] = binding.etPw.text.toString()
+                    jsonobject["channelId"] = PhoneUtils.getIMEI()
+                    param["attr"] = jsonobject
+                    mViewModel.login(param)
+                } else {
+                    rxPermissions.request(
+                        Manifest.permission.READ_PHONE_STATE
+                    ).subscribe {
+                    }
+                }
             }
         }
     }
@@ -143,6 +157,13 @@ class LoginActivity : VbBaseActivity<LoginViewModel, ActivityLoginBinding>(), On
         mViewModel.apply {
             loginLiveData.observe(this@LoginActivity) {
                 dismissProgressDialog()
+                runBlocking {
+                    PreferencesDataStore(BaseApplication.instance()).putString(PreferencesKeys.name, it.personInfo.name)
+                    PreferencesDataStore(BaseApplication.instance()).putString(PreferencesKeys.department, it.personInfo.department)
+                    PreferencesDataStore(BaseApplication.instance()).putString(PreferencesKeys.phone, it.personInfo.phone)
+                }
+                RealmUtil.instance?.deleteAllStreet()
+                RealmUtil.instance?.addRealmAsyncList(it.personInfo.manageStreets)
                 ARouter.getInstance().build(ARouterMap.MAIN).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK).navigation()
             }
 //            checkUpdateLiveDate.observe(this@LoginActivity) {

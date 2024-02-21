@@ -64,10 +64,9 @@ class MineActivity : VbBaseActivity<MineViewModel, ActivityMineBinding>(), OnCli
 
                         override fun onRightClickLinsener(msg: String) {
                             runBlocking {
-                                PreferencesDataStore(BaseApplication.instance()).putString(PreferencesKeys.simId, "")
+                                PreferencesDataStore(BaseApplication.instance()).putString(PreferencesKeys.name,"")
+                                PreferencesDataStore(BaseApplication.instance()).putString(PreferencesKeys.department, "")
                                 PreferencesDataStore(BaseApplication.instance()).putString(PreferencesKeys.phone, "")
-                                PreferencesDataStore(BaseApplication.instance()).putString(PreferencesKeys.name, "")
-                                PreferencesDataStore(BaseApplication.instance()).putString(PreferencesKeys.loginName, "")
                             }
                             startArouter(ARouterMap.LOGIN)
                             for (i in ActivityCacheManager.instance().getAllActivity()) {

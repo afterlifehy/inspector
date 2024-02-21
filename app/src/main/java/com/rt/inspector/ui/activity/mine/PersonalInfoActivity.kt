@@ -8,16 +8,21 @@ import androidx.viewbinding.ViewBinding
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.rt.base.BaseApplication
 import com.rt.base.arouter.ARouterMap
+import com.rt.base.bean.Street
+import com.rt.base.ds.PreferencesDataStore
+import com.rt.base.ds.PreferencesKeys
 import com.rt.base.ext.i18N
 import com.rt.base.viewbase.VbBaseActivity
+import com.rt.common.realm.RealmUtil
 import com.rt.common.util.GlideUtils
 import com.rt.inspector.R
 import com.rt.inspector.databinding.ActivityPersonalInfoBinding
 import com.rt.inspector.mvvm.viewmodel.PersonalInfoViewModel
+import kotlinx.coroutines.runBlocking
 
 @Route(path = ARouterMap.PERSONAL_INFO)
 class PersonalInfoActivity : VbBaseActivity<PersonalInfoViewModel, ActivityPersonalInfoBinding>(), OnClickListener {
-    var roadList: MutableList<Int> = ArrayList()
+    var roadList: MutableList<Street> = ArrayList()
 
     override fun initView() {
         binding.layoutToolbar.tvTitle.text = i18N(com.rt.base.R.string.个人信息)
@@ -30,20 +35,15 @@ class PersonalInfoActivity : VbBaseActivity<PersonalInfoViewModel, ActivityPerso
     }
 
     override fun initData() {
-        roadList.add(1)
-        roadList.add(11)
-        roadList.add(12)
-        roadList.add(13)
-        roadList.add(14)
-        roadList.add(15)
-        roadList.add(16)
-        roadList.add(17)
-        roadList.add(18)
-        roadList.add(19)
-        roadList.add(10)
+        runBlocking {
+            binding.tvAccount.text = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.phone)
+            binding.tvName.text = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.name)
+            binding.tvCompany.text = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.department)
+        }
+        RealmUtil.instance?.findStreetList()?.let { roadList.addAll(it) }
         for (i in roadList) {
             val road = View.inflate(BaseApplication.instance(), R.layout.item_personal_road, null)
-            road.findViewById<TextView>(R.id.tv_road).text = i.toString()
+            road.findViewById<TextView>(R.id.tv_road).text = i.streetName
             binding.llRoad.addView(road)
         }
     }
