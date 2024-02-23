@@ -518,6 +518,7 @@
                     android:layout_weight="1"
                     android:background="@color/color_ffefefef"
                     android:gravity="center"
+                    android:textColor="@color/color_ff1a1a1a"
                     tools:text="工作日\n08:00-19:30" />
 
                 <TextView
@@ -528,6 +529,7 @@
                     android:layout_weight="1"
                     android:background="@color/color_ffefefef"
                     android:gravity="center"
+                    android:textColor="@color/color_ff1a1a1a"
                     tools:text="周末\n08:00-19:30" />
 
                 <com.aries.ui.view.radius.RadiusTextView
@@ -537,6 +539,7 @@
                     android:layout_marginStart="@dimen/dp_1"
                     android:layout_weight="1"
                     android:gravity="center"
+                    android:textColor="@color/color_ff1a1a1a"
                     app:rv_backgroundColor="@color/color_ffefefef"
                     app:rv_topRightRadius="@dimen/dp_5"
                     tools:text="周末\n08:00-19:30" />
@@ -567,6 +570,7 @@
                     android:layout_weight="1"
                     android:background="@color/color_ffefefef"
                     android:gravity="center"
+                    android:textColor="@color/color_ff1a1a1a"
                     tools:text="10元" />
 
                 <TextView
@@ -577,6 +581,7 @@
                     android:layout_weight="1"
                     android:background="@color/color_ffefefef"
                     android:gravity="center"
+                    android:textColor="@color/color_ff1a1a1a"
                     tools:text="10元" />
 
                 <TextView
@@ -587,6 +592,7 @@
                     android:layout_weight="1"
                     android:background="@color/color_ffefefef"
                     android:gravity="center"
+                    android:textColor="@color/color_ff1a1a1a"
                     tools:text="10元" />
             </com.aries.ui.view.radius.RadiusLinearLayout>
 
@@ -616,6 +622,7 @@
                     android:layout_weight="1"
                     android:background="@color/color_ffefefef"
                     android:gravity="center"
+                    android:textColor="@color/color_ff1a1a1a"
                     tools:text="10元" />
 
                 <TextView
@@ -626,6 +633,7 @@
                     android:layout_weight="1"
                     android:background="@color/color_ffefefef"
                     android:gravity="center"
+                    android:textColor="@color/color_ff1a1a1a"
                     tools:text="10元" />
 
                 <com.aries.ui.view.radius.RadiusTextView
@@ -635,6 +643,7 @@
                     android:layout_marginStart="@dimen/dp_1"
                     android:layout_weight="1"
                     android:gravity="center"
+                    android:textColor="@color/color_ff1a1a1a"
                     app:rv_backgroundColor="@color/color_ffefefef"
                     app:rv_bottomRightRadius="@dimen/dp_5"
                     tools:text="10元" />
@@ -681,6 +690,7 @@
                     android:layout_weight="1"
                     android:background="@color/color_ffefefef"
                     android:gravity="center"
+                    android:textColor="@color/color_ff1a1a1a"
                     tools:text="工作日\n08:00-19:30" />
 
                 <TextView
@@ -691,6 +701,7 @@
                     android:layout_weight="1"
                     android:background="@color/color_ffefefef"
                     android:gravity="center"
+                    android:textColor="@color/color_ff1a1a1a"
                     tools:text="周末\n08:00-19:30" />
 
                 <com.aries.ui.view.radius.RadiusTextView
@@ -700,6 +711,7 @@
                     android:layout_marginStart="@dimen/dp_1"
                     android:layout_weight="1"
                     android:gravity="center"
+                    android:textColor="@color/color_ff1a1a1a"
                     app:rv_backgroundColor="@color/color_ffefefef"
                     app:rv_topRightRadius="@dimen/dp_5"
                     tools:text="周末\n08:00-19:30" />
@@ -731,6 +743,7 @@
                     android:layout_weight="1"
                     android:background="@color/color_ffefefef"
                     android:gravity="center"
+                    android:textColor="@color/color_ff1a1a1a"
                     tools:text="10元" />
 
                 <TextView
@@ -741,6 +754,7 @@
                     android:layout_weight="1"
                     android:background="@color/color_ffefefef"
                     android:gravity="center"
+                    android:textColor="@color/color_ff1a1a1a"
                     tools:text="10元" />
 
                 <com.aries.ui.view.radius.RadiusTextView
@@ -750,6 +764,7 @@
                     android:layout_marginStart="@dimen/dp_1"
                     android:layout_weight="1"
                     android:gravity="center"
+                    android:textColor="@color/color_ff1a1a1a"
                     app:rv_backgroundColor="@color/color_ffefefef"
                     app:rv_bottomRightRadius="@dimen/dp_5"
                     tools:text="10元" />
@@ -781,6 +796,7 @@
             tools:text="01" />
 
         <TextView
+            android:id="@+id/tv_streetName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"

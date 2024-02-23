@@ -16,8 +16,10 @@ object ARouterMap {
     const val PARKING_LOT_STREET_NO = "streetNo"
 
     const val TRAFFIC_ASSISTANT_LIST = "/inspector_app/trafficAssistantList"
+    const val TRAFFIC_ASSISTANT_STREET_NO = "streetNo"
 
     const val INCOME_COUNTING = "/inspector_app/incomeCounting"
+    const val INCOME_COUNTING_STREET_NO = "streetNo"
 
     const val PARKING_ORDER_DETAIL = "/inspector_app/parkingOrderDetail"
     const val PARKING_ORDER_NO = "orderNo"

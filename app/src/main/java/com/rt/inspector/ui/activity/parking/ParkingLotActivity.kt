@@ -90,14 +90,16 @@ class ParkingLotActivity : VbBaseActivity<ParkingLotViewModel, ActivityParkingLo
                 val parkingLotBean = v.tag as ParkingLotBean
                 if (parkingLotBean.state == "01") {
                 } else {
-                    startArouter(ARouterMap.PARKING_ORDER_DETAIL,data = Bundle().apply {
-                        putString(ARouterMap.PARKING_ORDER_NO,parkingLotBean.orderNo)
+                    startArouter(ARouterMap.PARKING_ORDER_DETAIL, data = Bundle().apply {
+                        putString(ARouterMap.PARKING_ORDER_NO, parkingLotBean.orderNo)
                     })
                 }
             }
 
             R.id.iv_right -> {
-                startArouter(ARouterMap.TRAFFIC_ASSISTANT_LIST)
+                startArouter(ARouterMap.TRAFFIC_ASSISTANT_LIST, data = Bundle().apply {
+                    putString(ARouterMap.TRAFFIC_ASSISTANT_STREET_NO, streetNo)
+                })
             }
         }
     }

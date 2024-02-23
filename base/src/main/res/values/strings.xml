@@ -128,4 +128,12 @@
     <string name="用户信息">用户信息：</string>
     <string name="单位信息">单位信息：</string>
     <string name="负责路段">负责路段：</string>
+    <string name="正常">正常</string>
+    <string name="迟到">迟到</string>
+    <string name="早退">早退</string>
+    <string name="上班超范围">上班超范围</string>
+    <string name="下班超范围">下班超范围</string>
+    <string name="上下班都超范围">上下班都超范围</string>
+    <string name="已认证">已认证</string>
+    <string name="未认证">未认证</string>
 </resources>

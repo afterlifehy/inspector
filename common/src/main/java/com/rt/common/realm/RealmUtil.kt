@@ -60,6 +60,11 @@ class RealmUtil {
         return realm.where(Street::class.java).findAll()
     }
 
+    fun findStreetListByCondition(queryTxt: String): List<Street> {
+        return realm.where(Street::class.java).beginGroup().contains("streetNo", queryTxt, Case.INSENSITIVE).or()
+            .contains("streetName", queryTxt, Case.INSENSITIVE).endGroup().findAll()
+    }
+
     fun deleteRealmAsync(realmObject: RealmObject) {
         transaction = realm.executeTransactionAsync { realm ->
             realmObject.deleteFromRealm()

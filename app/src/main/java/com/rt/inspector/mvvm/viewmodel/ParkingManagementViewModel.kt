@@ -13,7 +13,6 @@ class ParkingManagementViewModel : BaseViewModel() {
         ParkingRepository()
     }
 
-
     val parkingManagementListLiveData = MutableLiveData<ParkingManagementResultBean>()
 
     fun parkingManagementList(param: Map<String, Any?>) {

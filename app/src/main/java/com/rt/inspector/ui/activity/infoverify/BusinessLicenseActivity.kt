@@ -6,7 +6,12 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewbinding.ViewBinding
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.fastjson.JSONObject
+import com.rt.base.BaseApplication
 import com.rt.base.arouter.ARouterMap
+import com.rt.base.bean.BusinessLicenseBean
+import com.rt.base.ds.PreferencesDataStore
+import com.rt.base.ds.PreferencesKeys
 import com.rt.base.ext.i18n
 import com.rt.base.ext.startArouter
 import com.rt.base.util.ToastUtil
@@ -16,12 +21,14 @@ import com.rt.inspector.R
 import com.rt.inspector.adapter.BusinessLicenseAdapter
 import com.rt.inspector.databinding.ActivityBusinessLicenseBinding
 import com.rt.inspector.mvvm.viewmodel.BusinessLicenseViewModel
+import kotlinx.coroutines.runBlocking
 
 @Route(path = ARouterMap.BUSINESS_LICENSE)
 class BusinessLicenseActivity : VbBaseActivity<BusinessLicenseViewModel, ActivityBusinessLicenseBinding>(),
     OnClickListener {
     var businessLicenseAdapter: BusinessLicenseAdapter? = null
-    var businessLicenseList: MutableList<Int> = ArrayList()
+    var businessLicenseList: MutableList<BusinessLicenseBean> = ArrayList()
+
     override fun initView() {
         binding.layoutToolbar.tvTitle.text = i18n(com.rt.base.R.string.经营许可)
 
@@ -39,9 +46,14 @@ class BusinessLicenseActivity : VbBaseActivity<BusinessLicenseViewModel, Activit
     }
 
     override fun initData() {
-        businessLicenseList.add(1)
-        businessLicenseList.add(2)
-        businessLicenseList.add(3)
+        runBlocking {
+            val loginName = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.phone)
+            val param = HashMap<String, Any>()
+            val jsonobject = JSONObject()
+            jsonobject["loginName"] = loginName
+            param["attr"] = jsonobject
+            mViewModel.businessLicenseList(param)
+        }
     }
 
     override fun onClick(v: View?) {
@@ -58,6 +70,11 @@ class BusinessLicenseActivity : VbBaseActivity<BusinessLicenseViewModel, Activit
     override fun startObserve() {
         super.startObserve()
         mViewModel.apply {
+            businessLicenseListLiveData.observe(this@BusinessLicenseActivity) {
+                businessLicenseList.clear()
+                businessLicenseList.addAll(it.result)
+                businessLicenseAdapter?.setList(businessLicenseList)
+            }
             errMsg.observe(this@BusinessLicenseActivity) {
                 dismissProgressDialog()
                 ToastUtil.showMiddleToast(it.msg)

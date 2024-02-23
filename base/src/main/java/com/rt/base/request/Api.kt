@@ -28,4 +28,34 @@ interface Api {
      */
     @POST("S_VO3_05")
     suspend fun parkingLotDetail(@Body param: @JvmSuppressWildcards Map<String, Any?>): HttpWrapper<ParkingLotDetailBean>
+
+    /**
+     * 获取当班协管员信息
+     */
+    @POST("S_VO3_06")
+    suspend fun trafficAssistantList(@Body param: @JvmSuppressWildcards Map<String, Any?>): HttpWrapper<TrafficAssistantResultBean>
+
+    /**
+     * 营收盘点
+     */
+    @POST("S_VO3_07")
+    suspend fun incomeCounting(@Body param: @JvmSuppressWildcards Map<String, Any?>): HttpWrapper<IncomeCountingBean>
+
+    /**
+     * 查询停车路段经营许可信息
+     */
+    @POST("S_VO3_08")
+    suspend fun businessLicenseList(@Body param: @JvmSuppressWildcards Map<String, Any?>): HttpWrapper<BusinessLicenseResultBean>
+
+    /**
+     * 收费标准(非高位路段)
+     */
+    @POST("S_VO3_10")
+    suspend fun feeStandardNotHigh(@Body param: @JvmSuppressWildcards Map<String, Any?>): HttpWrapper<FeeStandardNotHighBean>
+
+    /**
+     * 收费标准(高位路段)
+     */
+    @POST("S_VO2_18")
+    suspend fun feeStandardHigh(@Body param: @JvmSuppressWildcards Map<String, Any?>): HttpWrapper<FeeStandardHighResultBean>
 }

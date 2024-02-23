@@ -29,6 +29,7 @@
             android:id="@+id/tv_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/dp_17"
             android:layout_toEndOf="@+id/rfl_redLine"
             android:textColor="@color/color_fff15a24"
@@ -37,7 +38,7 @@
             tools:text="01" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_streetNo"
+            android:id="@+id/tv_streetName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"

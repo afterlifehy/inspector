@@ -18,9 +18,9 @@ data class PersonInfo(
     val picturePath: String
 )
 
-open class Street(
+open class Street() : RealmObject(){
     @PrimaryKey
-    var streetNo: String = "",
-    var parkingType: String = "",
+    var streetNo: String = ""
+    var parkingType: String = ""
     var streetName: String = ""
-) : RealmObject()
+}

@@ -65,6 +65,6 @@ class SearchDialog(var hintTxt: String, var callback: SearchCallBack) :
     }
 
     interface SearchCallBack {
-        fun confirm(street: String)
+        fun confirm(queryTxt: String)
     }
 }
