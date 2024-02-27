@@ -1,22 +1,36 @@
 package com.rt.inspector.adapter
 
+import android.util.ArrayMap
 import android.view.LayoutInflater
 import android.view.View.OnClickListener
 import android.view.ViewGroup
 import com.blankj.utilcode.util.SizeUtils
 import com.rt.base.adapter.BaseBindingAdapter
 import com.rt.base.adapter.VBViewHolder
+import com.rt.base.bean.QueryParkingInfoBean
 import com.rt.common.util.AppUtil
 import com.rt.inspector.databinding.ItemParkingInfoBinding
 
-class ParkingInfoAdapter(data: MutableList<Int>? = null, val onClickListener: OnClickListener) :
-    BaseBindingAdapter<Int, ItemParkingInfoBinding>(data) {
-    override fun convert(holder: VBViewHolder<ItemParkingInfoBinding>, item: Int) {
+class ParkingInfoAdapter(data: MutableList<QueryParkingInfoBean>? = null, val onClickListener: OnClickListener) :
+    BaseBindingAdapter<QueryParkingInfoBean, ItemParkingInfoBinding>(data) {
+    var isUserMap: MutableMap<String, String> = ArrayMap()
+
+    init {
+        isUserMap["0"] = "否"
+        isUserMap["1"] = "是"
+    }
+
+    override fun convert(holder: VBViewHolder<ItemParkingInfoBinding>, item: QueryParkingInfoBean) {
         val lp = ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         lp.bottomMargin = SizeUtils.dp2px(13f)
         holder.vb.llHistory.layoutParams = lp
 
         holder.vb.tvNum.text = AppUtil.fillZero((data.indexOf(item) + 1).toString())
+        holder.vb.tvName.text = item.driverName + "-" + item.phone
+        holder.vb.tvPlateId.text = item.carLicense
+        holder.vb.tvUser.text = isUserMap[item.isUser]
+        holder.vb.tvTime.text = item.startTime + "~" + item.endTime
+
         holder.vb.llHistory.tag = item
         holder.vb.llHistory.setOnClickListener(onClickListener)
     }

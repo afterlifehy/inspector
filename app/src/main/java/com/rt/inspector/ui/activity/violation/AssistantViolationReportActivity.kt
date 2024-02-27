@@ -14,14 +14,18 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.viewbinding.ViewBinding
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.fastjson.JSONObject
 import com.blankj.utilcode.util.ConvertUtils
 import com.blankj.utilcode.util.EncodeUtils
 import com.blankj.utilcode.util.FileUtils
 import com.rt.base.BaseApplication
 import com.rt.base.arouter.ARouterMap
+import com.rt.base.bean.QueryAssistantNameBean
+import com.rt.base.bean.Street
 import com.rt.base.ext.i18n
 import com.rt.base.util.ToastUtil
 import com.rt.base.viewbase.VbBaseActivity
+import com.rt.common.realm.RealmUtil
 import com.rt.common.util.GlideUtils
 import com.rt.common.util.ImageCompressor
 import com.rt.common.util.ImageUtil
@@ -38,11 +42,11 @@ import java.util.Locale
 class AssistantViolationReportActivity : VbBaseActivity<AssistantViolationReportViewModel, ActivityAssistantViolationReportBinding>(),
     OnClickListener {
     var violationSelectDialog: ViolationSelectDialog? = null
-    var parkingLotList: MutableList<String> = ArrayList()
-    var nameList: MutableList<String> = ArrayList()
+    var parkingLotList: MutableList<Street> = ArrayList()
+    var nameList: MutableList<QueryAssistantNameBean> = ArrayList()
     var typeList: MutableList<String> = ArrayList()
-    var currentParkingLot = ""
-    var currentName = ""
+    var currentParkingLot: Street? = null
+    var currentAssistant: QueryAssistantNameBean? = null
     var currentType = ""
     var imageFile: File? = null
     var photoType = 0
@@ -67,22 +71,7 @@ class AssistantViolationReportActivity : VbBaseActivity<AssistantViolationReport
     }
 
     override fun initData() {
-        parkingLotList.add("1")
-        parkingLotList.add("2")
-        parkingLotList.add("3")
-        parkingLotList.add("4")
-        parkingLotList.add("5")
-        parkingLotList.add("6")
-        parkingLotList.add("7")
-        parkingLotList.add("8")
-        parkingLotList.add("9")
-        parkingLotList.add("10")
-
-        nameList.add("1")
-        nameList.add("2")
-        nameList.add("3")
-        nameList.add("4")
-        nameList.add("5")
+        parkingLotList = RealmUtil.instance?.findStreetList() as MutableList<Street>
 
         typeList.add(i18n(com.rt.base.R.string.工作范围))
         typeList.add(i18n(com.rt.base.R.string.超时未报))
@@ -97,14 +86,15 @@ class AssistantViolationReportActivity : VbBaseActivity<AssistantViolationReport
 
             R.id.tv_parkingLot -> {
                 violationSelectDialog = ViolationSelectDialog(object : ViolationSelectDialog.ViolationSelectCallBack {
-                    override fun parkingLotChoose(parkingLot: String) {
-                        binding.tvParkingLot.text = parkingLot
+                    override fun parkingLotChoose(parkingLot: Street) {
+                        binding.tvParkingLot.text = parkingLot.streetName
                         currentParkingLot = parkingLot
                         binding.tvName.text = ""
-                        currentName = ""
+                        currentAssistant = null
                     }
 
-                    override fun nameChoose(name: String) {
+                    override fun assistantChoose(assistant: QueryAssistantNameBean) {
+
                     }
 
                     override fun typeChoose(type: String) {
@@ -116,33 +106,23 @@ class AssistantViolationReportActivity : VbBaseActivity<AssistantViolationReport
             }
 
             R.id.tv_name -> {
-                if (currentParkingLot.isNotEmpty()) {
-                    violationSelectDialog = ViolationSelectDialog(object : ViolationSelectDialog.ViolationSelectCallBack {
-
-                        override fun parkingLotChoose(parkingLot: String) {
-
-                        }
-
-                        override fun nameChoose(name: String) {
-                            binding.tvName.text = name
-                            currentName = name
-                        }
-
-                        override fun typeChoose(type: String) {
-                        }
-                    })
-                    violationSelectDialog?.setName(1, nameList, currentName)
-                    violationSelectDialog?.show()
-                    arrowChange(binding.tvName)
+                if (currentParkingLot != null) {
+                    val param = HashMap<String, Any>()
+                    val jsonobject = JSONObject()
+                    jsonobject["streetNo"] = currentParkingLot?.streetNo
+                    param["attr"] = jsonobject
+                    mViewModel.queryAssistantName(param)
+                }else{
+                    ToastUtil.showMiddleToast("请先选择场库")
                 }
             }
 
             R.id.tv_type -> {
                 violationSelectDialog = ViolationSelectDialog(object : ViolationSelectDialog.ViolationSelectCallBack {
-                    override fun parkingLotChoose(parkingLot: String) {
+                    override fun parkingLotChoose(parkingLot: Street) {
                     }
 
-                    override fun nameChoose(name: String) {
+                    override fun assistantChoose(assistant: QueryAssistantNameBean) {
                     }
 
                     override fun typeChoose(type: String) {
@@ -171,11 +151,11 @@ class AssistantViolationReportActivity : VbBaseActivity<AssistantViolationReport
             }
 
             R.id.rfl_report -> {
-                if (currentParkingLot.isEmpty()) {
+                if (currentParkingLot == null) {
                     ToastUtil.showMiddleToast(i18n(com.rt.base.R.string.请选择场库))
                     return
                 }
-                if (currentName.isEmpty()) {
+                if (currentAssistant == null) {
                     ToastUtil.showMiddleToast(i18n(com.rt.base.R.string.请选择姓名))
                     return
                 }
@@ -268,11 +248,30 @@ class AssistantViolationReportActivity : VbBaseActivity<AssistantViolationReport
     override fun startObserve() {
         super.startObserve()
         mViewModel.apply {
+            queryAssistantNameLiveData.observe(this@AssistantViolationReportActivity) {
+//                nameList = it.result
+                violationSelectDialog = ViolationSelectDialog(object : ViolationSelectDialog.ViolationSelectCallBack {
+                    override fun parkingLotChoose(parkingLot: Street) {
+
+                    }
+
+                    override fun assistantChoose(assistant: QueryAssistantNameBean) {
+                        binding.tvName.text = assistant.adminName
+                        currentAssistant = assistant
+                    }
+
+                    override fun typeChoose(type: String) {
+                    }
+                })
+                violationSelectDialog?.setName(1, nameList, currentAssistant)
+                violationSelectDialog?.show()
+                arrowChange(binding.tvName)
+            }
             errMsg.observe(this@AssistantViolationReportActivity) {
                 dismissProgressDialog()
                 ToastUtil.showMiddleToast(it.msg)
             }
-            mException.observe(this@AssistantViolationReportActivity){
+            mException.observe(this@AssistantViolationReportActivity) {
                 dismissProgressDialog()
             }
         }

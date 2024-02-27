@@ -19,6 +19,8 @@ import com.blankj.utilcode.util.EncodeUtils
 import com.blankj.utilcode.util.FileUtils
 import com.rt.base.BaseApplication
 import com.rt.base.arouter.ARouterMap
+import com.rt.base.bean.QueryAssistantNameBean
+import com.rt.base.bean.Street
 import com.rt.base.ext.i18n
 import com.rt.base.util.ToastUtil
 import com.rt.base.viewbase.VbBaseActivity
@@ -88,28 +90,29 @@ class EnterpriseViolationReportActivity : VbBaseActivity<EnterpriseViolationRepo
 
             R.id.tv_enterprise -> {
                 violationSelectDialog = ViolationSelectDialog(object : ViolationSelectDialog.ViolationSelectCallBack {
-                    override fun parkingLotChoose(parkingLot: String) {
-                        binding.tvEnterprise.text = parkingLot
-                        currentEnterprise = parkingLot
+                    override fun parkingLotChoose(parkingLot: Street) {
+//                        binding.tvEnterprise.text = parkingLot
+//                        currentEnterprise = parkingLot
                     }
 
-                    override fun nameChoose(name: String) {
+                    override fun assistantChoose(assistant: QueryAssistantNameBean) {
                     }
 
                     override fun typeChoose(type: String) {
                     }
                 })
-                violationSelectDialog?.setParkingLot(0, enterpriseList, currentEnterprise)
+                violationSelectDialog?.setEnterprise(0, enterpriseList, currentEnterprise)
                 violationSelectDialog?.show()
                 arrowChange(binding.tvEnterprise)
             }
 
             R.id.tv_type -> {
                 violationSelectDialog = ViolationSelectDialog(object : ViolationSelectDialog.ViolationSelectCallBack {
-                    override fun parkingLotChoose(parkingLot: String) {
+                    override fun parkingLotChoose(parkingLot: Street) {
+
                     }
 
-                    override fun nameChoose(name: String) {
+                    override fun assistantChoose(assistant: QueryAssistantNameBean) {
                     }
 
                     override fun typeChoose(type: String) {

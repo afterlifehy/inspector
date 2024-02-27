@@ -58,4 +58,16 @@ interface Api {
      */
     @POST("S_VO2_18")
     suspend fun feeStandardHigh(@Body param: @JvmSuppressWildcards Map<String, Any?>): HttpWrapper<FeeStandardHighResultBean>
+
+    /**
+     * 查询停车人信息
+     */
+    @POST("S_VO3_11")
+    suspend fun queryParkingInfo(@Body param: @JvmSuppressWildcards Map<String, Any?>): HttpWrapper<QueryParkingInfoResultBean>
+
+    /**
+     * 查询协管员姓名
+     */
+    @POST("S_VO3_13")
+    suspend fun queryAssistantName(@Body param: @JvmSuppressWildcards Map<String, Any?>): HttpWrapper<QueryAssistantNameResultBean>
 }

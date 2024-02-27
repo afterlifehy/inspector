@@ -7,10 +7,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewbinding.ViewBinding
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.fastjson.JSONObject
+import com.rt.base.BaseApplication
 import com.rt.base.arouter.ARouterMap
+import com.rt.base.bean.QueryParkingInfoBean
+import com.rt.base.ds.PreferencesDataStore
+import com.rt.base.ds.PreferencesKeys
 import com.rt.base.ext.i18n
 import com.rt.base.ext.show
-import com.rt.base.ext.startArouter
 import com.rt.base.util.ToastUtil
 import com.rt.base.viewbase.VbBaseActivity
 import com.rt.common.util.GlideUtils
@@ -19,13 +23,15 @@ import com.rt.inspector.adapter.ParkingInfoAdapter
 import com.rt.inspector.databinding.ActivityParkingInfoBinding
 import com.rt.inspector.dialog.SearchDialog
 import com.rt.inspector.mvvm.viewmodel.ParkingInfoViewModel
+import kotlinx.coroutines.runBlocking
 
 @Route(path = ARouterMap.PARKING_INFO)
 class ParkingInfoActivity : VbBaseActivity<ParkingInfoViewModel, ActivityParkingInfoBinding>(),
     OnClickListener {
     var parkingInfoAdapter: ParkingInfoAdapter? = null
-    var parkigngInfoList: MutableList<Int> = ArrayList()
+    var parkingngInfoList: MutableList<QueryParkingInfoBean> = ArrayList()
     var searchDialog: SearchDialog? = null
+    var loginName = ""
 
     override fun initView() {
         binding.layoutToolbar.tvTitle.text = i18n(com.rt.base.R.string.停车人信息)
@@ -34,7 +40,7 @@ class ParkingInfoActivity : VbBaseActivity<ParkingInfoViewModel, ActivityParking
 
         binding.rvParkingInfo.setHasFixedSize(true)
         binding.rvParkingInfo.layoutManager = LinearLayoutManager(this)
-        parkingInfoAdapter = ParkingInfoAdapter(parkigngInfoList, this)
+        parkingInfoAdapter = ParkingInfoAdapter(parkingngInfoList, this)
         binding.rvParkingInfo.adapter = parkingInfoAdapter
         var noData = View.inflate(this, R.layout.layout_no_data, null)
         GlideUtils.instance?.loadImage(noData.findViewById<ImageView>(R.id.iv_noData), com.rt.common.R.mipmap.ic_no_search_result)
@@ -49,9 +55,19 @@ class ParkingInfoActivity : VbBaseActivity<ParkingInfoViewModel, ActivityParking
     }
 
     override fun initData() {
-        parkigngInfoList.add(1)
-        parkigngInfoList.add(2)
-        parkigngInfoList.add(3)
+        runBlocking {
+            loginName = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.name)
+            queryParkingInfo("")
+        }
+    }
+
+    fun queryParkingInfo(queryTxt: String) {
+        val param = HashMap<String, Any>()
+        val jsonobject = JSONObject()
+        jsonobject["phone"] = queryTxt
+        jsonobject["loginName"] = loginName
+        param["attr"] = jsonobject
+        mViewModel.queryParkingInfo(param)
     }
 
     override fun onClick(v: View?) {
@@ -65,8 +81,8 @@ class ParkingInfoActivity : VbBaseActivity<ParkingInfoViewModel, ActivityParking
 
             R.id.iv_right -> {
                 searchDialog = SearchDialog(i18n(com.rt.base.R.string.输入停车人手机号), object : SearchDialog.SearchCallBack {
-                    override fun confirm(street: String) {
-
+                    override fun confirm(queryTxt: String) {
+                        queryParkingInfo(queryTxt)
                     }
 
                 })
@@ -78,6 +94,10 @@ class ParkingInfoActivity : VbBaseActivity<ParkingInfoViewModel, ActivityParking
     override fun startObserve() {
         super.startObserve()
         mViewModel.apply {
+            queryParkingInfoLiveData.observe(this@ParkingInfoActivity) {
+                parkingngInfoList = it.result as MutableList<QueryParkingInfoBean>
+                parkingInfoAdapter?.setList(parkingngInfoList)
+            }
             errMsg.observe(this@ParkingInfoActivity) {
                 dismissProgressDialog()
                 ToastUtil.showMiddleToast(it.msg)

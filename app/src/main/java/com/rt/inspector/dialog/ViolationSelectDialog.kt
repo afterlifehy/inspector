@@ -1,6 +1,5 @@
 package com.rt.inspector.dialog
 
-import android.content.Context
 import android.view.Gravity
 import android.view.View
 import android.view.View.OnClickListener
@@ -11,9 +10,13 @@ import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.rt.base.BaseApplication
+import com.rt.base.bean.QueryAssistantNameBean
+import com.rt.base.bean.Street
 import com.rt.base.dialog.VBBaseLibDialog
 import com.rt.base.help.ActivityCacheManager
 import com.rt.inspector.R
+import com.rt.inspector.adapter.AssistantSelectAdapter
+import com.rt.inspector.adapter.StreetSelectAdapter
 import com.rt.inspector.adapter.ViolationSelectAdapter
 import com.rt.inspector.databinding.DialogViolationSelectBinding
 
@@ -21,7 +24,11 @@ class ViolationSelectDialog(var callBack: ViolationSelectCallBack) : VBBaseLibDi
     ActivityCacheManager.instance().getCurrentActivity()!!,
     com.rt.base.R.style.CommonBottomDialogStyle
 ), OnClickListener {
+    var streetSelectAdapter: StreetSelectAdapter? = null
+    var assistantAdapter: AssistantSelectAdapter? = null
     var violationSelectAdapter: ViolationSelectAdapter? = null
+    var selectStreet: Street? = null
+    var selectAssistant: QueryAssistantNameBean? = null
     var selectViolation: String? = null
     var dataType = 0
 
@@ -34,29 +41,29 @@ class ViolationSelectDialog(var callBack: ViolationSelectCallBack) : VBBaseLibDi
         binding.rtvOk.setOnClickListener(this)
     }
 
-    fun setParkingLot(dataType: Int, parkingLotList: MutableList<String>, current: String) {
+    fun setParkingLot(dataType: Int, parkingLotList: MutableList<Street>, current: Street?) {
         setDialogHeight(parkingLotList.size)
         this.dataType = dataType
         binding.rvSelect.setHasFixedSize(true)
         binding.rvSelect.layoutManager = LinearLayoutManager(BaseApplication.instance())
-        violationSelectAdapter =
-            ViolationSelectAdapter(parkingLotList, current, object : ViolationSelectAdapter.ViolationSelectAdapterCallBack {
-                override fun choose(violation: String) {
-                    selectViolation = violation
+        streetSelectAdapter =
+            StreetSelectAdapter(parkingLotList, current, object : StreetSelectAdapter.StreetSelectAdapterCallBack {
+                override fun choose(street: Street?) {
+                    selectStreet = street
                 }
             })
         binding.rvSelect.adapter = violationSelectAdapter
     }
 
-    fun setName(dataType: Int, nameList: MutableList<String>, current: String) {
+    fun setName(dataType: Int, nameList: MutableList<QueryAssistantNameBean>, current: QueryAssistantNameBean?) {
         setDialogHeight(nameList.size)
         this.dataType = dataType
         binding.rvSelect.setHasFixedSize(true)
         binding.rvSelect.layoutManager = LinearLayoutManager(BaseApplication.instance())
-        violationSelectAdapter =
-            ViolationSelectAdapter(nameList, current, object : ViolationSelectAdapter.ViolationSelectAdapterCallBack {
-                override fun choose(violation: String) {
-                    selectViolation = violation
+        assistantAdapter =
+            AssistantSelectAdapter(nameList, current, object : AssistantSelectAdapter.AssistantSelectAdapterCallBack {
+                override fun choose(assistant: QueryAssistantNameBean?) {
+                    selectAssistant = assistant
                 }
             })
         binding.rvSelect.adapter = violationSelectAdapter
@@ -69,6 +76,20 @@ class ViolationSelectDialog(var callBack: ViolationSelectCallBack) : VBBaseLibDi
         binding.rvSelect.layoutManager = LinearLayoutManager(BaseApplication.instance())
         violationSelectAdapter =
             ViolationSelectAdapter(typeList, current, object : ViolationSelectAdapter.ViolationSelectAdapterCallBack {
+                override fun choose(violation: String) {
+                    selectViolation = violation
+                }
+            })
+        binding.rvSelect.adapter = violationSelectAdapter
+    }
+
+    fun setEnterprise(dataType: Int, enterpriseList: MutableList<String>, current: String) {
+        setDialogHeight(enterpriseList.size)
+        this.dataType = dataType
+        binding.rvSelect.setHasFixedSize(true)
+        binding.rvSelect.layoutManager = LinearLayoutManager(BaseApplication.instance())
+        violationSelectAdapter =
+            ViolationSelectAdapter(enterpriseList, current, object : ViolationSelectAdapter.ViolationSelectAdapterCallBack {
                 override fun choose(violation: String) {
                     selectViolation = violation
                 }
@@ -89,11 +110,11 @@ class ViolationSelectDialog(var callBack: ViolationSelectCallBack) : VBBaseLibDi
             R.id.rtv_ok -> {
                 when (dataType) {
                     0 -> {
-                        callBack.parkingLotChoose(selectViolation.toString())
+                        callBack.parkingLotChoose(selectStreet!!)
                     }
 
                     1 -> {
-                        callBack.nameChoose(selectViolation.toString())
+                        callBack.assistantChoose(selectAssistant!!)
                     }
 
                     2 -> {
@@ -130,8 +151,8 @@ class ViolationSelectDialog(var callBack: ViolationSelectCallBack) : VBBaseLibDi
     }
 
     interface ViolationSelectCallBack {
-        fun parkingLotChoose(parkingLot: String)
-        fun nameChoose(name: String)
+        fun parkingLotChoose(parkingLot: Street)
+        fun assistantChoose(assistant: QueryAssistantNameBean)
         fun typeChoose(type: String)
     }
 
