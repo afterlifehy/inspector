@@ -1,8 +1,10 @@
 package com.rt.common.util
 
 import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
@@ -45,6 +47,14 @@ class GlideUtils private constructor() {
 
     fun loadImage(iv: ImageView?, url: Bitmap?) {
         Glide.with(BaseApplication.instance()).load(url).apply(defaultOption!!).into(iv!!)
+    }
+
+    fun loadImage(iv: ImageView?, url: ByteArray?) {
+        Glide.with(BaseApplication.instance()).load(url).apply(defaultOption!!).into(iv!!)
+    }
+
+    fun loadBase64Image(iv: ImageView?, base64: String?) {
+        Glide.with(BaseApplication.instance()).load("data:image/jpg;base64," + base64).apply(defaultOption!!).into(iv!!)
     }
 
     fun loadImage(iv: ImageView, url: String?, placeholder: Int) {
@@ -91,6 +101,17 @@ class GlideUtils private constructor() {
             .diskCacheStrategy(DiskCacheStrategy.NONE)
             .skipMemoryCache(true)
         Glide.with(BaseApplication.instance()).load(url).dontTransform().override(-1).apply(options).into(imageView)
+    }
+
+    fun loadBitmapImagePreview(imageView: PhotoView, bitmap: Bitmap?) {
+        imageView.tag = null
+        val options: RequestOptions = RequestOptions()
+            .format(DecodeFormat.PREFER_RGB_565)
+            .error(R.mipmap.ic_placeholder_2)
+            .placeholder(R.mipmap.ic_placeholder_2)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .skipMemoryCache(true)
+        Glide.with(BaseApplication.instance()).load(bitmap).dontTransform().override(-1).apply(options).into(imageView)
     }
 
     fun loadLongImage(iv: ImageView, bitmap: Bitmap?) {

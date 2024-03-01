@@ -8,6 +8,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.rt.base.arouter.ARouterMap
 import com.rt.base.ext.i18n
 import com.rt.base.ext.startArouter
+import com.rt.base.util.Constant
 import com.rt.base.viewbase.VbBaseActivity
 import com.rt.inspector.R
 import com.rt.inspector.databinding.ActivityAbnormalDetailBinding
@@ -43,6 +44,7 @@ class AbnormalDetailActivity : VbBaseActivity<AbnormalDetailViewModel, ActivityA
 
             R.id.riv_img1 -> {
                 startArouter(ARouterMap.PREVIEW_IMAGE, data = Bundle().apply {
+                    putInt(ARouterMap.IMG_TYPE, Constant.IMG_STRING)
                     putInt(ARouterMap.IMG_INDEX, 0)
                     putStringArrayList(ARouterMap.IMG_LIST, picList as ArrayList<String>)
                 })
@@ -50,6 +52,7 @@ class AbnormalDetailActivity : VbBaseActivity<AbnormalDetailViewModel, ActivityA
 
             R.id.riv_img2 -> {
                 startArouter(ARouterMap.PREVIEW_IMAGE, data = Bundle().apply {
+                    putInt(ARouterMap.IMG_TYPE, Constant.IMG_STRING)
                     putInt(ARouterMap.IMG_INDEX, 1)
                     putStringArrayList(ARouterMap.IMG_LIST, picList as ArrayList<String>)
                 })
@@ -57,6 +60,7 @@ class AbnormalDetailActivity : VbBaseActivity<AbnormalDetailViewModel, ActivityA
 
             R.id.riv_img3 -> {
                 startArouter(ARouterMap.PREVIEW_IMAGE, data = Bundle().apply {
+                    putInt(ARouterMap.IMG_TYPE, Constant.IMG_STRING)
                     putInt(ARouterMap.IMG_INDEX, 2)
                     putStringArrayList(ARouterMap.IMG_LIST, picList as ArrayList<String>)
                 })

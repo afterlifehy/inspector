@@ -10,12 +10,14 @@ import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.rt.base.BaseApplication
+import com.rt.base.bean.EnterpriseBean
 import com.rt.base.bean.QueryAssistantNameBean
 import com.rt.base.bean.Street
 import com.rt.base.dialog.VBBaseLibDialog
 import com.rt.base.help.ActivityCacheManager
 import com.rt.inspector.R
 import com.rt.inspector.adapter.AssistantSelectAdapter
+import com.rt.inspector.adapter.EnterpriseSelectAdapter
 import com.rt.inspector.adapter.StreetSelectAdapter
 import com.rt.inspector.adapter.ViolationSelectAdapter
 import com.rt.inspector.databinding.DialogViolationSelectBinding
@@ -27,9 +29,11 @@ class ViolationSelectDialog(var callBack: ViolationSelectCallBack) : VBBaseLibDi
     var streetSelectAdapter: StreetSelectAdapter? = null
     var assistantAdapter: AssistantSelectAdapter? = null
     var violationSelectAdapter: ViolationSelectAdapter? = null
+    var enterpriseSelectAdapter: EnterpriseSelectAdapter? = null
     var selectStreet: Street? = null
     var selectAssistant: QueryAssistantNameBean? = null
     var selectViolation: String? = null
+    var selectEnterprise: EnterpriseBean? = null
     var dataType = 0
 
     init {
@@ -52,10 +56,10 @@ class ViolationSelectDialog(var callBack: ViolationSelectCallBack) : VBBaseLibDi
                     selectStreet = street
                 }
             })
-        binding.rvSelect.adapter = violationSelectAdapter
+        binding.rvSelect.adapter = streetSelectAdapter
     }
 
-    fun setName(dataType: Int, nameList: MutableList<QueryAssistantNameBean>, current: QueryAssistantNameBean?) {
+    fun setAssistant(dataType: Int, nameList: MutableList<QueryAssistantNameBean>, current: QueryAssistantNameBean?) {
         setDialogHeight(nameList.size)
         this.dataType = dataType
         binding.rvSelect.setHasFixedSize(true)
@@ -66,7 +70,7 @@ class ViolationSelectDialog(var callBack: ViolationSelectCallBack) : VBBaseLibDi
                     selectAssistant = assistant
                 }
             })
-        binding.rvSelect.adapter = violationSelectAdapter
+        binding.rvSelect.adapter = assistantAdapter
     }
 
     fun setType(dataType: Int, typeList: MutableList<String>, current: String) {
@@ -83,24 +87,24 @@ class ViolationSelectDialog(var callBack: ViolationSelectCallBack) : VBBaseLibDi
         binding.rvSelect.adapter = violationSelectAdapter
     }
 
-    fun setEnterprise(dataType: Int, enterpriseList: MutableList<String>, current: String) {
+    fun setEnterprise(dataType: Int, enterpriseList: MutableList<EnterpriseBean>, current: EnterpriseBean?) {
         setDialogHeight(enterpriseList.size)
         this.dataType = dataType
         binding.rvSelect.setHasFixedSize(true)
         binding.rvSelect.layoutManager = LinearLayoutManager(BaseApplication.instance())
-        violationSelectAdapter =
-            ViolationSelectAdapter(enterpriseList, current, object : ViolationSelectAdapter.ViolationSelectAdapterCallBack {
-                override fun choose(violation: String) {
-                    selectViolation = violation
+        enterpriseSelectAdapter =
+            EnterpriseSelectAdapter(enterpriseList, current, object : EnterpriseSelectAdapter.EnterpriseSelectAdapterCallBack {
+                override fun choose(enterprise: EnterpriseBean?) {
+                    selectEnterprise = enterprise
                 }
             })
-        binding.rvSelect.adapter = violationSelectAdapter
+        binding.rvSelect.adapter = enterpriseSelectAdapter
     }
 
     fun setDialogHeight(size: Int) {
         var height = SizeUtils.dp2px(58f) * size + SizeUtils.dp2px(135f)
-        if (height > ScreenUtils.getAppScreenHeight() - BarUtils.getStatusBarHeight()) {
-            height = ScreenUtils.getAppScreenHeight() - BarUtils.getStatusBarHeight()
+        if (height > ScreenUtils.getAppScreenHeight() - BarUtils.getStatusBarHeight() - SizeUtils.dp2px(87f)) {
+            height = ScreenUtils.getAppScreenHeight() - BarUtils.getStatusBarHeight() - SizeUtils.dp2px(87f)
         }
         setLayout(ScreenUtils.getAppScreenWidth().toFloat(), height.toFloat())
     }
@@ -119,6 +123,10 @@ class ViolationSelectDialog(var callBack: ViolationSelectCallBack) : VBBaseLibDi
 
                     2 -> {
                         callBack.typeChoose(selectViolation.toString())
+                    }
+
+                    3 -> {
+                        callBack.enterpriseChoose(selectEnterprise!!)
                     }
                 }
                 dismiss()
@@ -154,6 +162,7 @@ class ViolationSelectDialog(var callBack: ViolationSelectCallBack) : VBBaseLibDi
         fun parkingLotChoose(parkingLot: Street)
         fun assistantChoose(assistant: QueryAssistantNameBean)
         fun typeChoose(type: String)
+        fun enterpriseChoose(enterprise: EnterpriseBean)
     }
 
 }

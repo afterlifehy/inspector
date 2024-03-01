@@ -5,19 +5,29 @@ import android.view.View.OnClickListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewbinding.ViewBinding
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.fastjson.JSONObject
+import com.rt.base.BaseApplication
 import com.rt.base.arouter.ARouterMap
+import com.rt.base.bean.TaskBean
+import com.rt.base.ds.PreferencesDataStore
+import com.rt.base.ds.PreferencesKeys
 import com.rt.base.ext.i18n
 import com.rt.base.ext.startArouter
+import com.rt.base.util.ToastUtil
 import com.rt.base.viewbase.VbBaseActivity
+import com.rt.common.util.FileUtil
+import com.rt.common.util.GlideUtils
 import com.rt.inspector.R
 import com.rt.inspector.adapter.TaskReceptionAdapter
 import com.rt.inspector.databinding.ActivityTaskReceptionBinding
 import com.rt.inspector.mvvm.viewmodel.TaskReceptionViewModel
+import kotlinx.coroutines.runBlocking
 
 @Route(path = ARouterMap.TASK_RECEPTION)
 class TaskReceptionActivity : VbBaseActivity<TaskReceptionViewModel, ActivityTaskReceptionBinding>(), OnClickListener {
     var taskReceptionAdapter: TaskReceptionAdapter? = null
-    var taskReceptionList: MutableList<Int> = ArrayList()
+    var taskReceptionList: MutableList<TaskBean> = ArrayList()
+    var loginName = ""
 
     override fun initView() {
         binding.layoutToolbar.tvTitle.text = i18n(com.rt.base.R.string.任务接收)
@@ -33,16 +43,15 @@ class TaskReceptionActivity : VbBaseActivity<TaskReceptionViewModel, ActivityTas
     }
 
     override fun initData() {
-        taskReceptionList.add(1)
-        taskReceptionList.add(2)
-        taskReceptionList.add(3)
-        taskReceptionList.add(4)
-        taskReceptionList.add(5)
-        taskReceptionList.add(6)
-        taskReceptionList.add(7)
-        taskReceptionList.add(8)
-        taskReceptionList.add(9)
-        taskReceptionList.add(10)
+        showProgressDialog(5000)
+        runBlocking {
+            loginName = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.phone)
+            val param = HashMap<String, Any>()
+            val jsonobject = JSONObject()
+            jsonobject["loginName"] = loginName
+            param["attr"] = jsonobject
+            mViewModel.queryTask(param)
+        }
     }
 
     override fun onClick(v: View?) {
@@ -53,6 +62,24 @@ class TaskReceptionActivity : VbBaseActivity<TaskReceptionViewModel, ActivityTas
 
             R.id.rll_task -> {
                 startArouter(ARouterMap.ABNORMAL_DETAIL)
+            }
+        }
+    }
+
+    override fun startObserve() {
+        super.startObserve()
+        mViewModel.apply {
+            queryTaskLiveData.observe(this@TaskReceptionActivity) {
+                dismissProgressDialog()
+                taskReceptionList = it.result as MutableList<TaskBean>
+                taskReceptionAdapter?.setList(taskReceptionList)
+            }
+            errMsg.observe(this@TaskReceptionActivity) {
+                dismissProgressDialog()
+                ToastUtil.showMiddleToast(it.msg)
+            }
+            mException.observe(this@TaskReceptionActivity) {
+                dismissProgressDialog()
             }
         }
     }

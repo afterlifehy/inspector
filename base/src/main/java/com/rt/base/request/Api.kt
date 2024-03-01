@@ -70,4 +70,52 @@ interface Api {
      */
     @POST("S_VO3_13")
     suspend fun queryAssistantName(@Body param: @JvmSuppressWildcards Map<String, Any?>): HttpWrapper<QueryAssistantNameResultBean>
+
+    /**
+     * 协管员违规上报
+     */
+    @POST("S_VO3_14")
+    suspend fun assistantViolationReport(@Body param: @JvmSuppressWildcards Map<String, Any?>): HttpWrapper<Any>
+
+    /**
+     * 协管员违规历史查询
+     */
+    @POST("S_VO3_15")
+    suspend fun queryAssistantViolationHistory(@Body param: @JvmSuppressWildcards Map<String, Any?>): HttpWrapper<AssistantViolationHistoryResultBean>
+
+    /**
+     * 协管员违规信息详情
+     */
+    @POST("S_VO3_24")
+    suspend fun assistantViolationInfoDetail(@Body param: @JvmSuppressWildcards Map<String, Any?>): HttpWrapper<AssistantViolationInfoDetailResultBean>
+
+    /**
+     * 企业列表
+     */
+    @POST("S_VO3_25")
+    suspend fun queryEnterpriseList(@Body param: @JvmSuppressWildcards Map<String, Any?>): HttpWrapper<EnterpriseResultBean>
+
+    /**
+     * 企业违规上报
+     */
+    @POST("S_VO3_26")
+    suspend fun enterpriseViolationReport(@Body param: @JvmSuppressWildcards Map<String, Any?>): HttpWrapper<Any>
+
+    /**
+     * 企业违规历史查询
+     */
+    @POST("S_VO3_27")
+    suspend fun queryEnterpriseViolationHistory(@Body param: @JvmSuppressWildcards Map<String, Any?>): HttpWrapper<EnterpriseViolationHistoryResultBean>
+
+    /**
+     * 企业违规详情
+     */
+    @POST("S_VO3_28")
+    suspend fun enterpriseViolationInfoDetail(@Body param: @JvmSuppressWildcards Map<String, Any?>): HttpWrapper<EnterpriseViolationInfoDetailResultBean>
+
+    /**
+     * 查询任务
+     */
+    @POST("S_VO3_16")
+    suspend fun queryTask(@Body param: @JvmSuppressWildcards Map<String, Any?>): HttpWrapper<TaskResultBean>
 }

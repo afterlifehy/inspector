@@ -136,4 +136,12 @@
     <string name="上下班都超范围">上下班都超范围</string>
     <string name="已认证">已认证</string>
     <string name="未认证">未认证</string>
+    <string name="未处理">未处理</string>
+    <string name="已解决">已解决</string>
+    <string name="处理中">处理中</string>
+    <string name="使用私人二维码收费">使用私人二维码收费</string>
+    <string name="泊位异常">泊位异常</string>
+    <string name="人员异常">人员异常</string>
+    <string name="停车异常">停车异常</string>
+    <string name="其他">其他</string>
 </resources>

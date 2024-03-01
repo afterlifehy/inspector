@@ -8,6 +8,7 @@ import androidx.viewbinding.ViewBinding
 import androidx.viewpager.widget.ViewPager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.rt.base.arouter.ARouterMap
+import com.rt.base.util.Constant
 import com.rt.base.viewbase.VbBaseActivity
 import com.rt.inspector.R
 import com.rt.inspector.adapter.SamplePagerAdapter
@@ -19,19 +20,34 @@ import java.util.ArrayList
 @Route(path = ARouterMap.PREVIEW_IMAGE)
 class PreviewImageActivity : VbBaseActivity<PreviewImageViewModel, ActivityPreviewImageBinding>(), OnClickListener {
     var index = 0
-    var imageList: ArrayList<String> = ArrayList()
+    var imageList: MutableList<String> = ArrayList()
+    var imageBsae64List: MutableList<String> = ArrayList()
     var samplePagerAdapter: SamplePagerAdapter? = null
+    var imgType = Constant.IMG_STRING
 
     @SuppressLint("SetTextI18n", "CheckResult")
     override fun initView() {
+        imgType = intent.getIntExtra(ARouterMap.IMG_TYPE, 0)
         index = intent.getIntExtra(ARouterMap.IMG_INDEX, 0)
-        imageList = intent.getStringArrayListExtra(ARouterMap.IMG_LIST) as ArrayList<String>
+        when (imgType) {
+            Constant.IMG_STRING -> {
+                imageList = intent.getStringArrayListExtra(ARouterMap.IMG_LIST) as ArrayList<String>
+                samplePagerAdapter = SamplePagerAdapter(this, imgType, imageList)
+                binding.hvpViewpager.adapter = samplePagerAdapter
+                binding.hvpViewpager.currentItem = index
+                binding.hvpViewpager.offscreenPageLimit = imageList.size
+                binding.rtvIndicator.text = "${(index + 1)}/${imageList.size}"
+            }
 
-        samplePagerAdapter = SamplePagerAdapter(this, imageList)
-        binding.hvpViewpager.adapter = samplePagerAdapter
-        binding.hvpViewpager.currentItem = index
-        binding.hvpViewpager.offscreenPageLimit = imageList.size
-        binding.rtvIndicator.text = "${(index + 1)}/${imageList.size}"
+            Constant.IMG_BYTEARRAY -> {
+                imageBsae64List = intent.getStringArrayListExtra(ARouterMap.IMG_LIST)!!
+                samplePagerAdapter = SamplePagerAdapter(this, imgType, imageBsae64List)
+                binding.hvpViewpager.adapter = samplePagerAdapter
+                binding.hvpViewpager.currentItem = index
+                binding.hvpViewpager.offscreenPageLimit = imageBsae64List.size
+                binding.rtvIndicator.text = "${(index + 1)}/${imageBsae64List.size}"
+            }
+        }
 
         binding.hvpViewpager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(
@@ -43,7 +59,15 @@ class PreviewImageActivity : VbBaseActivity<PreviewImageViewModel, ActivityPrevi
             }
 
             override fun onPageSelected(position: Int) {
-                binding.rtvIndicator.text = "${(position + 1)}/${imageList.size}"
+                when (imgType) {
+                    Constant.IMG_STRING -> {
+                        binding.rtvIndicator.text = "${(position + 1)}/${imageList.size}"
+                    }
+
+                    Constant.IMG_BYTEARRAY -> {
+                        binding.rtvIndicator.text = "${(position + 1)}/${imageBsae64List.size}"
+                    }
+                }
             }
 
             override fun onPageScrollStateChanged(state: Int) {

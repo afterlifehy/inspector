@@ -4,6 +4,7 @@ import android.content.DialogInterface
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.util.Base64
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
@@ -13,19 +14,34 @@ import com.github.chrisbanes.photoview.PhotoView
 import com.rt.base.BaseApplication
 import com.rt.base.ext.i18n
 import com.rt.base.help.ActivityCacheManager
+import com.rt.base.util.Constant
 import com.rt.base.util.ToastUtil
+import com.rt.common.util.FileUtil
 import com.rt.common.util.GlideUtils
 import com.rt.inspector.R
-import java.util.ArrayList
+import kotlin.collections.ArrayList
 
-class SamplePagerAdapter(
-    var onClickListener: View.OnClickListener?,
-    var list: ArrayList<String>?
-) : PagerAdapter() {
+class SamplePagerAdapter : PagerAdapter {
+    var onClickListener: View.OnClickListener? = null
+    var imgType: Int = Constant.IMG_STRING
     var saveBuilder: AlertDialog.Builder? = null
     var bitmap: Bitmap? = null
     var drawable: Drawable? = null
     private val cacheView: View? = null
+    var list: MutableList<String> = ArrayList()
+    var base64List: MutableList<String> = ArrayList()
+
+    constructor(onClickListener: View.OnClickListener, imgType: Int, list: MutableList<String>, temp: Int = 0) {
+        this.onClickListener = onClickListener
+        this.imgType = imgType
+        this.list = list
+    }
+
+    constructor(onClickListener: View.OnClickListener, imgType: Int, base64List: MutableList<String>) {
+        this.onClickListener = onClickListener
+        this.imgType = imgType
+        this.base64List = base64List
+    }
 
     private val onDismissListener = DialogInterface.OnDismissListener {
         if (null != cacheView) {
@@ -56,11 +72,23 @@ class SamplePagerAdapter(
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val convertView =
             View.inflate(BaseApplication.instance(), R.layout.item_preview_img, null)
-        if (list != null) {
-            var url = ""
-            url = list!![position]
-            GlideUtils.instance?.loadImagePreview(convertView.findViewById(R.id.pv_img), url)
-            (convertView.findViewById(R.id.pv_img) as PhotoView).maximumScale = 10.0f
+        when (imgType) {
+            Constant.IMG_STRING -> {
+                if (list != null) {
+                    var url = ""
+                    url = list[position]
+                    GlideUtils.instance?.loadImagePreview(convertView.findViewById(R.id.pv_img), url)
+                    (convertView.findViewById(R.id.pv_img) as PhotoView).maximumScale = 10.0f
+                }
+            }
+
+            Constant.IMG_BYTEARRAY -> {
+                if (base64List != null) {
+                    val base64 = base64List[position]
+                    GlideUtils.instance?.loadImage(convertView.findViewById(R.id.pv_img), Base64.decode(base64, Base64.NO_WRAP))
+                    (convertView.findViewById(R.id.pv_img) as PhotoView).maximumScale = 10.0f
+                }
+            }
         }
         container.addView(
             convertView,
@@ -88,7 +116,13 @@ class SamplePagerAdapter(
     }
 
     override fun getCount(): Int {
-        return if (list == null) 1 else list!!.size
+        if (imgType == Constant.IMG_STRING) {
+            return if (list == null) 1 else list.size
+        } else if (imgType == Constant.IMG_BYTEARRAY) {
+            return if (base64List == null) 1 else base64List.size
+        } else {
+            return 0
+        }
     }
 
     override fun isViewFromObject(view: View, `object`: Any): Boolean {

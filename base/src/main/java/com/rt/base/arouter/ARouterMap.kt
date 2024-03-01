@@ -31,12 +31,14 @@ object ARouterMap {
     const val ASSISTANT_VIOLATION_HISTORY = "/inspector_app/assistantViolationHistory"
 
     const val ASSISTANT_VIOLATION_DETAIL = "/inspector_app/assistantViolationDetail"
+    const val ASSISTANT_MVIOLATEID = "mviolateId"
 
-    const val ENTERPRISE_VIOLATION_REPORT = "/inspector_app/enterpriseViolationDetail"
+    const val ENTERPRISE_VIOLATION_REPORT = "/inspector_app/enterpriseViolationReport"
 
     const val ENTERPRISE_VIOLATION_HISTORY = "/inspector_app/enterpriseViolationHistory"
 
     const val ENTERPRISE_VIOLATION_DETAIL = "/inspector_app/enterpriseViolationDetail"
+    const val ENTERPRISE_MVIOLATEID = "mviolateId"
 
     const val WORK_ATTENDANCE = "/inspector_app/workAttendance"
 
@@ -53,6 +55,7 @@ object ARouterMap {
     const val ABNORMAL_DETAIL = "/inspector_app/abnormalDetail"
 
     const val PREVIEW_IMAGE = "/inspector_app/previewImage"
+    const val IMG_TYPE = "imgType"
     const val IMG_INDEX = "imgIndex"
     const val IMG_LIST = "imgList"
 

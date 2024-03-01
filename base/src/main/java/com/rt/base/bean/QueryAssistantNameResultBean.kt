@@ -1,7 +1,7 @@
 package com.rt.base.bean
 
 data class QueryAssistantNameResultBean(
-    val result: QueryAssistantNameBean
+    val result: List<QueryAssistantNameBean>
 )
 
 data class QueryAssistantNameBean(

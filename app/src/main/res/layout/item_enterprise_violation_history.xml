@@ -42,7 +42,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_toEndOf="@+id/tv_num"
             android:drawablePadding="@dimen/dp_9"
+            android:gravity="end"
             android:textColor="@color/color_ff1a1a1a"
             android:textSize="@dimen/sp_19"
             tools:text="上海市闸北停车管理有限公司" />

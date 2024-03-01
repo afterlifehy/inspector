@@ -60,9 +60,12 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
                     android:drawableEnd="@mipmap/ic_violation_arrow_down"
+                    android:ellipsize="end"
                     android:gravity="center_vertical"
-                    android:text="@string/请选择"
-                    android:textColor="@color/color_ff999999"
+                    android:hint="@string/请选择"
+                    android:maxLines="1"
+                    android:textColor="@color/color_ff1a1a1a"
+                    android:textColorHint="@color/color_ff999999"
                     android:textSize="@dimen/sp_17" />
             </com.aries.ui.view.radius.RadiusFrameLayout>
         </LinearLayout>
@@ -99,8 +102,9 @@
                     android:layout_gravity="center_vertical"
                     android:drawableEnd="@mipmap/ic_violation_arrow_down"
                     android:gravity="center_vertical"
-                    android:text="@string/请选择"
-                    android:textColor="@color/color_ff999999"
+                    android:hint="@string/请选择"
+                    android:textColor="@color/color_ff1a1a1a"
+                    android:textColorHint="@color/color_ff999999"
                     android:textSize="@dimen/sp_17" />
             </com.aries.ui.view.radius.RadiusFrameLayout>
         </LinearLayout>
@@ -137,8 +141,9 @@
                     android:layout_gravity="center_vertical"
                     android:drawableEnd="@mipmap/ic_violation_arrow_down"
                     android:gravity="center_vertical"
-                    android:text="@string/请选择"
-                    android:textColor="@color/color_ff999999"
+                    android:hint="@string/请选择"
+                    android:textColor="@color/color_ff1a1a1a"
+                    android:textColorHint="@color/color_ff999999"
                     android:textSize="@dimen/sp_17" />
             </com.aries.ui.view.radius.RadiusFrameLayout>
         </LinearLayout>

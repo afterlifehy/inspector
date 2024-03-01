@@ -1,30 +1,34 @@
 package com.rt.inspector.ui.activity.violation
 
+import android.os.Bundle
 import android.view.View
 import android.view.View.OnClickListener
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewbinding.ViewBinding
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.fastjson.JSONObject
+import com.rt.base.BaseApplication
 import com.rt.base.arouter.ARouterMap
+import com.rt.base.bean.EnterpriseViolationHistoryBean
+import com.rt.base.ds.PreferencesDataStore
+import com.rt.base.ds.PreferencesKeys
 import com.rt.base.ext.i18n
-import com.rt.base.ext.show
 import com.rt.base.ext.startArouter
 import com.rt.base.util.ToastUtil
 import com.rt.base.viewbase.VbBaseActivity
-import com.rt.common.util.GlideUtils
 import com.rt.inspector.R
-import com.rt.inspector.adapter.AssistantViolationHistoryAdapter
 import com.rt.inspector.adapter.EnterpriseViolationHistoryAdapter
 import com.rt.inspector.databinding.ActivityEnterpriseViolationHistoryBinding
 import com.rt.inspector.mvvm.viewmodel.EnterpriseViolationHistoryViewModel
+import kotlinx.coroutines.runBlocking
 
 @Route(path = ARouterMap.ENTERPRISE_VIOLATION_HISTORY)
 class EnterpriseViolationHistoryActivity : VbBaseActivity<EnterpriseViolationHistoryViewModel, ActivityEnterpriseViolationHistoryBinding>(),
     OnClickListener {
     var enterpriseViolationHistoryAdapter: EnterpriseViolationHistoryAdapter? = null
-    var enterpriseViolationHistoryList: MutableList<Int> = ArrayList()
+    var enterpriseViolationHistoryList: MutableList<EnterpriseViolationHistoryBean> = ArrayList()
+    var loginName = ""
+
     override fun initView() {
         binding.layoutToolbar.tvTitle.text = i18n(com.rt.base.R.string.企业违规历史)
 
@@ -41,9 +45,15 @@ class EnterpriseViolationHistoryActivity : VbBaseActivity<EnterpriseViolationHis
     }
 
     override fun initData() {
-        enterpriseViolationHistoryList.add(1)
-        enterpriseViolationHistoryList.add(2)
-        enterpriseViolationHistoryList.add(3)
+        runBlocking {
+            loginName = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.phone)
+            showProgressDialog(5000)
+            val param = HashMap<String, Any>()
+            val jsonobject = JSONObject()
+            jsonobject["loginName"] = loginName
+            param["attr"] = jsonobject
+            mViewModel.queryEnterpriseViolationHistory(param)
+        }
     }
 
     override fun onClick(v: View?) {
@@ -53,7 +63,10 @@ class EnterpriseViolationHistoryActivity : VbBaseActivity<EnterpriseViolationHis
             }
 
             R.id.ll_history -> {
-                startArouter(ARouterMap.ENTERPRISE_VIOLATION_DETAIL)
+                val enterpriseViolationHistoryBean = v.tag as EnterpriseViolationHistoryBean
+                startArouter(ARouterMap.ENTERPRISE_VIOLATION_DETAIL, data = Bundle().apply {
+                    putString(ARouterMap.ENTERPRISE_MVIOLATEID, enterpriseViolationHistoryBean.mviolateId)
+                })
             }
         }
     }
@@ -61,11 +74,16 @@ class EnterpriseViolationHistoryActivity : VbBaseActivity<EnterpriseViolationHis
     override fun startObserve() {
         super.startObserve()
         mViewModel.apply {
+            queryEnterpriseViolationHistoryLiveData.observe(this@EnterpriseViolationHistoryActivity) {
+                dismissProgressDialog()
+                enterpriseViolationHistoryList = it.result as MutableList<EnterpriseViolationHistoryBean>
+                enterpriseViolationHistoryAdapter?.setList(enterpriseViolationHistoryList)
+            }
             errMsg.observe(this@EnterpriseViolationHistoryActivity) {
                 dismissProgressDialog()
                 ToastUtil.showMiddleToast(it.msg)
             }
-            mException.observe(this@EnterpriseViolationHistoryActivity){
+            mException.observe(this@EnterpriseViolationHistoryActivity) {
                 dismissProgressDialog()
             }
         }

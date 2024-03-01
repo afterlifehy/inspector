@@ -14,6 +14,8 @@ class AssistantViolationReportViewModel : BaseViewModel() {
     }
 
     val queryAssistantNameLiveData = MutableLiveData<QueryAssistantNameResultBean>()
+    val assistantViolationReportLiveData = MutableLiveData<Any>()
+
     fun queryAssistantName(param: Map<String, Any?>) {
         launch {
             val response = withContext(Dispatchers.IO) {
@@ -21,6 +23,19 @@ class AssistantViolationReportViewModel : BaseViewModel() {
             }
             executeResponse(response, {
                 queryAssistantNameLiveData.value = response.attr
+            }, {
+                traverseErrorMsg(ErrorMessage(msg = response.msg, code = response.status))
+            })
+        }
+    }
+
+    fun assistantViolationReport(param: Map<String, Any?>) {
+        launch {
+            val response = withContext(Dispatchers.IO) {
+                mViolationRepository.assistantViolationReport(param)
+            }
+            executeResponse(response, {
+                assistantViolationReportLiveData.value = response.attr
             }, {
                 traverseErrorMsg(ErrorMessage(msg = response.msg, code = response.status))
             })

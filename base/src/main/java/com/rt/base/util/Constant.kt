@@ -7,5 +7,8 @@ object Constant {
     const val timeOut = 100L
     const val rt_FILE_PATH = "/rt"
     const val secret = "JijKEPxhO8GZ3H+fY5KXsAJF+1HZfYuMDhJTsy6x"
+
+    const val IMG_STRING = 0
+    const val IMG_BYTEARRAY = 1
 }
 

@@ -36,8 +36,9 @@
             android:layout_height="wrap_content"
             android:drawableStart="@mipmap/ic_enterprise_logo"
             android:drawablePadding="@dimen/dp_12"
-            android:paddingStart="@dimen/sp_17"
+            android:paddingStart="@dimen/dp_17"
             android:paddingTop="@dimen/dp_13"
+            android:paddingEnd="@dimen/dp_17"
             android:paddingBottom="@dimen/dp_13"
             android:textColor="@color/color_ff1a1a1a"
             android:textSize="@dimen/sp_19"
@@ -170,6 +171,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/dp_6"
                 android:layout_weight="1"
+                android:scaleType="centerCrop"
                 android:src="@mipmap/ic_placeholder"
                 app:riv_corner_radius="@dimen/dp_7" />
 
@@ -180,6 +182,7 @@
                 android:layout_marginStart="@dimen/dp_3"
                 android:layout_marginEnd="@dimen/dp_3"
                 android:layout_weight="1"
+                android:scaleType="centerCrop"
                 android:src="@mipmap/ic_placeholder"
                 app:riv_corner_radius="@dimen/dp_7" />
 
@@ -189,6 +192,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_6"
                 android:layout_weight="1"
+                android:scaleType="centerCrop"
                 android:src="@mipmap/ic_placeholder"
                 app:riv_corner_radius="@dimen/dp_7" />
         </LinearLayout>
