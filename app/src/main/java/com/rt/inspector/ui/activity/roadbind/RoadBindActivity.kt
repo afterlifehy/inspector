@@ -5,7 +5,12 @@ import android.view.View.OnClickListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewbinding.ViewBinding
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.fastjson.JSONObject
+import com.rt.base.BaseApplication
 import com.rt.base.arouter.ARouterMap
+import com.rt.base.bean.Road
+import com.rt.base.ds.PreferencesDataStore
+import com.rt.base.ds.PreferencesKeys
 import com.rt.base.ext.i18n
 import com.rt.base.util.ToastUtil
 import com.rt.base.viewbase.VbBaseActivity
@@ -13,11 +18,13 @@ import com.rt.inspector.R
 import com.rt.inspector.adapter.RoadBindAdapter
 import com.rt.inspector.databinding.ActivityRoadBindBinding
 import com.rt.inspector.mvvm.viewmodel.RoadBindViewModel
+import kotlinx.coroutines.runBlocking
 
 @Route(path = ARouterMap.ROAD_BIND)
 class RoadBindActivity : VbBaseActivity<RoadBindViewModel, ActivityRoadBindBinding>(), OnClickListener {
     var roadBindAdapter: RoadBindAdapter? = null
-    var roadBindList: MutableList<Int> = ArrayList()
+    var roadBindList: MutableList<Road> = ArrayList()
+    var loginName = ""
 
     override fun initView() {
         binding.layoutToolbar.tvTitle.text = i18n(com.rt.base.R.string.路段绑定)
@@ -35,10 +42,17 @@ class RoadBindActivity : VbBaseActivity<RoadBindViewModel, ActivityRoadBindBindi
     }
 
     override fun initData() {
-        roadBindList.add(1)
-        roadBindList.add(2)
-        roadBindList.add(3)
-        roadBindList.add(4)
+        runBlocking {
+            loginName = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.phone)
+        }
+    }
+
+    fun getBindRoadInfo() {
+        val param = HashMap<String, Any>()
+        val jsonobject = JSONObject()
+        jsonobject["managerAccount"] = binding.etAccount.text.toString()
+        param["attr"] = jsonobject
+        mViewModel.getBindRoadInfo(param)
     }
 
     override fun onClick(v: View?) {
@@ -52,6 +66,7 @@ class RoadBindActivity : VbBaseActivity<RoadBindViewModel, ActivityRoadBindBindi
                     ToastUtil.showMiddleToast("请输入协管员账号")
                     return
                 }
+                getBindRoadInfo()
             }
 
             R.id.rtv_bind -> {
@@ -63,6 +78,36 @@ class RoadBindActivity : VbBaseActivity<RoadBindViewModel, ActivityRoadBindBindi
                     ToastUtil.showMiddleToast("请输入路段编号")
                     return
                 }
+                showProgressDialog(5000)
+                val param = HashMap<String, Any>()
+                val jsonobject = JSONObject()
+                jsonobject["loginName"] = loginName
+                jsonobject["managerAccount"] = binding.etAccount.text.toString()
+                jsonobject["streetNo"] = binding.etStreetNo.text.toString()
+                param["attr"] = jsonobject
+                mViewModel.bindRoad(param)
+            }
+        }
+    }
+
+    override fun startObserve() {
+        super.startObserve()
+        mViewModel.apply {
+            getBindRoadInfoLiveData.observe(this@RoadBindActivity) {
+                dismissProgressDialog()
+                roadBindList = it.result as MutableList<Road>
+                roadBindAdapter?.setList(roadBindList)
+            }
+            bindRoadLiveData.observe(this@RoadBindActivity) {
+                dismissProgressDialog()
+                getBindRoadInfo()
+            }
+            errMsg.observe(this@RoadBindActivity) {
+                dismissProgressDialog()
+                ToastUtil.showMiddleToast(it.msg)
+            }
+            mException.observe(this@RoadBindActivity) {
+                dismissProgressDialog()
             }
         }
     }

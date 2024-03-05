@@ -4,8 +4,12 @@ import android.view.View
 import android.view.View.OnClickListener
 import androidx.viewbinding.ViewBinding
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.fastjson.JSONObject
 import com.blankj.utilcode.util.TimeUtils
+import com.rt.base.BaseApplication
 import com.rt.base.arouter.ARouterMap
+import com.rt.base.ds.PreferencesDataStore
+import com.rt.base.ds.PreferencesKeys
 import com.rt.base.ext.gone
 import com.rt.base.ext.hide
 import com.rt.base.ext.i18n
@@ -21,12 +25,15 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 
 @Route(path = ARouterMap.WORK_ATTENDANCE)
 class WorkAttendanceActivity : VbBaseActivity<WorkAttendanceViewModel, ActivityWorkAttendanceBinding>(), OnClickListener {
     private var job: Job? = null
-    var type = 0 //0未签到 1未签退 2已签退
+    var signState = "01" //01未签到 02未签退 03已签退
+    var loginName = ""
+    var clockTime = ""
 
     override fun initView() {
         binding.layoutToolbar.tvTitle.text = i18n(com.rt.base.R.string.考勤)
@@ -44,20 +51,6 @@ class WorkAttendanceActivity : VbBaseActivity<WorkAttendanceViewModel, ActivityW
                 delay(1000)
             }
         }
-
-        when (type) {
-            0 -> {
-                binding.tvLogInOut.text = i18n(com.rt.base.R.string.上班打卡)
-            }
-
-            1 -> {
-                binding.tvLogInOut.text = i18n(com.rt.base.R.string.下班打卡)
-            }
-
-            2 -> {
-                binding.tvLogInOut.hide()
-            }
-        }
     }
 
     override fun initListener() {
@@ -66,6 +59,15 @@ class WorkAttendanceActivity : VbBaseActivity<WorkAttendanceViewModel, ActivityW
     }
 
     override fun initData() {
+        showProgressDialog(5000)
+        runBlocking {
+            loginName = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.phone)
+            val param = HashMap<String, Any>()
+            val jsonobject = JSONObject()
+            jsonobject["loginName"] = loginName
+            param["attr"] = jsonobject
+            mViewModel.workAttendanceRecord(param)
+        }
     }
 
     override fun onClick(v: View?) {
@@ -75,31 +77,82 @@ class WorkAttendanceActivity : VbBaseActivity<WorkAttendanceViewModel, ActivityW
             }
 
             R.id.tv_logInOut -> {
-                when (type) {
-                    0 -> {
-                        type = 1
-                        binding.tvOnWorkTime.show()
-                        binding.rtvNoSignIn.gone()
-                        binding.tvLogInOut.text = i18n(com.rt.base.R.string.下班打卡)
-                        binding.tvOnWorkTime.text = TimeUtils.millis2String(System.currentTimeMillis(), "yyyy-MM-dd HH:mm:ss")
+                when (signState) {
+                    "01" -> {
+                        clockTime = TimeUtils.millis2String(System.currentTimeMillis(), "yyyy-MM-dd HH:mm:ss")
+                        clockInOut()
                     }
 
-                    1 -> {
-                        type = 2
-                        binding.tvOffWorkTime.show()
-                        binding.rtvNoSignOut.gone()
-                        binding.tvLogInOut.hide()
-                        binding.tvOffWorkTime.text = TimeUtils.millis2String(System.currentTimeMillis(), "yyyy-MM-dd HH:mm:ss")
+                    "02" -> {
+                        clockTime = TimeUtils.millis2String(System.currentTimeMillis(), "yyyy-MM-dd HH:mm:ss")
+                        clockInOut()
                     }
-
                 }
             }
         }
     }
 
+    fun clockInOut() {
+        val param = HashMap<String, Any>()
+        val jsonobject = JSONObject()
+        jsonobject["loginName"] = loginName
+        jsonobject["signTime"] = clockTime
+        jsonobject["longitude"] = ""
+        jsonobject["latitude"] = ""
+        jsonobject["signState"] = signState
+        param["attr"] = jsonobject
+        mViewModel.clockInOut(param)
+    }
+
     override fun startObserve() {
         super.startObserve()
         mViewModel.apply {
+            clockInOutLiveData.observe(this@WorkAttendanceActivity) {
+                dismissProgressDialog()
+                when (signState) {
+                    "01" -> {
+                        binding.tvOnWorkTime.show()
+                        binding.rtvNoSignIn.gone()
+                        binding.tvLogInOut.text = i18n(com.rt.base.R.string.下班打卡)
+                        binding.tvOnWorkTime.text = clockTime
+                        signState = "02"
+                    }
+
+                    "02" -> {
+                        binding.tvOffWorkTime.show()
+                        binding.rtvNoSignOut.gone()
+                        binding.tvLogInOut.hide()
+                        binding.tvOffWorkTime.text = clockTime
+                        signState = "03"
+                    }
+                }
+            }
+            workAttendanceRecordLiveData.observe(this@WorkAttendanceActivity) {
+                dismissProgressDialog()
+                signState = it.signState
+                when (it.signState) {
+                    "01" -> {
+                        binding.tvLogInOut.text = i18n(com.rt.base.R.string.上班打卡)
+                    }
+
+                    "02" -> {
+                        binding.tvOnWorkTime.show()
+                        binding.rtvNoSignIn.gone()
+                        binding.tvLogInOut.text = i18n(com.rt.base.R.string.下班打卡)
+                        binding.tvOnWorkTime.text = it.onTime
+                    }
+
+                    "03" -> {
+                        binding.tvOnWorkTime.show()
+                        binding.rtvNoSignIn.gone()
+                        binding.tvOffWorkTime.show()
+                        binding.rtvNoSignOut.gone()
+                        binding.tvLogInOut.hide()
+                        binding.tvOnWorkTime.text = it.onTime
+                        binding.tvOffWorkTime.text = it.offTime
+                    }
+                }
+            }
             errMsg.observe(this@WorkAttendanceActivity) {
                 dismissProgressDialog()
                 ToastUtil.showMiddleToast(it.msg)

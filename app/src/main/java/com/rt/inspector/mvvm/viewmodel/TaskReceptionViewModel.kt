@@ -3,6 +3,7 @@ package com.rt.inspector.mvvm.viewmodel
 import androidx.lifecycle.MutableLiveData
 import com.rt.base.base.mvvm.BaseViewModel
 import com.rt.base.base.mvvm.ErrorMessage
+import com.rt.base.bean.TaskDetailBean
 import com.rt.base.bean.TaskResultBean
 import com.rt.inspector.mvvm.repository.TaskRepository
 import kotlinx.coroutines.Dispatchers

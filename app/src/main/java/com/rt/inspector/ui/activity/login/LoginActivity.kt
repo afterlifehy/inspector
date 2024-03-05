@@ -22,6 +22,7 @@ import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.PhoneUtils
 import com.rt.base.BaseApplication
 import com.rt.base.arouter.ARouterMap
+import com.rt.base.bean.UpdateBean
 import com.rt.base.ds.PreferencesDataStore
 import com.rt.base.ds.PreferencesKeys
 import com.rt.base.util.ToastUtil
@@ -37,6 +38,7 @@ import kotlinx.coroutines.runBlocking
 @Route(path = ARouterMap.LOGIN)
 class LoginActivity : VbBaseActivity<LoginViewModel, ActivityLoginBinding>(), OnClickListener {
     var rxPermissions = RxPermissions(this@LoginActivity)
+    var updateBean: UpdateBean? = null
 
     @SuppressLint("CheckResult", "MissingPermission")
     override fun initView() {
@@ -120,8 +122,7 @@ class LoginActivity : VbBaseActivity<LoginViewModel, ActivityLoginBinding>(), On
         val jsonobject = JSONObject()
         jsonobject["version"] = AppUtils.getAppVersionName()
         param["attr"] = jsonobject
-//        mViewModel.checkUpdate(param)
-//        TODO（检查更新）
+        mViewModel.checkUpdate(param)
     }
 
     @SuppressLint("CheckResult", "MissingPermission")
@@ -155,6 +156,19 @@ class LoginActivity : VbBaseActivity<LoginViewModel, ActivityLoginBinding>(), On
     override fun startObserve() {
         super.startObserve()
         mViewModel.apply {
+            checkUpdateLiveData.observe(this@LoginActivity){
+                updateBean = it
+                if (updateBean?.state == "0") {
+                    UpdateUtil.instance?.checkNewVersion(updateBean!!, object : UpdateUtil.UpdateInterface {
+                        @RequiresApi(Build.VERSION_CODES.O)
+                        override fun requestionPermission() {
+                            requestPermissions()
+                        }
+                    })
+                } else {
+                    ToastUtil.showMiddleToast("当前已是最新版本")
+                }
+            }
             loginLiveData.observe(this@LoginActivity) {
                 dismissProgressDialog()
                 runBlocking {

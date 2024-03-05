@@ -4,12 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.rt.base.adapter.BaseBindingAdapter
 import com.rt.base.adapter.VBViewHolder
+import com.rt.base.bean.Road
 import com.rt.inspector.databinding.ItemRoadBindBinding
 
-class RoadBindAdapter(data: MutableList<Int>? = null) : BaseBindingAdapter<Int, ItemRoadBindBinding>(data) {
-    override fun convert(holder: VBViewHolder<ItemRoadBindBinding>, item: Int) {
-        holder.vb.tvStreetNo.text = "JAZ020_2"
-        holder.vb.tvStreetName.text = "昌平路(西康路-常德路)"
+class RoadBindAdapter(data: MutableList<Road>? = null) : BaseBindingAdapter<Road, ItemRoadBindBinding>(data) {
+    override fun convert(holder: VBViewHolder<ItemRoadBindBinding>, item: Road) {
+        holder.vb.tvStreetNo.text = item.streetNo
+        holder.vb.tvStreetName.text = item.streetName
     }
 
     override fun createViewBinding(inflater: LayoutInflater, parent: ViewGroup): ItemRoadBindBinding {

@@ -53,6 +53,9 @@ object ARouterMap {
     const val TASK_RECEPTION = "/inspector_app/taskReception"
 
     const val ABNORMAL_DETAIL = "/inspector_app/abnormalDetail"
+    const val TASK_NO = "taskNo"
+    const val TASK_SOURCE = "taskSource"
+    const val ABNORMAL_ID = "abnormalId"
 
     const val PREVIEW_IMAGE = "/inspector_app/previewImage"
     const val IMG_TYPE = "imgType"

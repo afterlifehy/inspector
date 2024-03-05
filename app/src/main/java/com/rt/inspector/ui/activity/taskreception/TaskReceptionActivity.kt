@@ -1,5 +1,6 @@
 package com.rt.inspector.ui.activity.taskreception
 
+import android.os.Bundle
 import android.view.View
 import android.view.View.OnClickListener
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -9,6 +10,7 @@ import com.alibaba.fastjson.JSONObject
 import com.rt.base.BaseApplication
 import com.rt.base.arouter.ARouterMap
 import com.rt.base.bean.TaskBean
+import com.rt.base.bean.TaskDetailBean
 import com.rt.base.ds.PreferencesDataStore
 import com.rt.base.ds.PreferencesKeys
 import com.rt.base.ext.i18n
@@ -61,7 +63,12 @@ class TaskReceptionActivity : VbBaseActivity<TaskReceptionViewModel, ActivityTas
             }
 
             R.id.rll_task -> {
-                startArouter(ARouterMap.ABNORMAL_DETAIL)
+                val taskBean = v.tag as TaskBean
+                startArouter(ARouterMap.ABNORMAL_DETAIL, data = Bundle().apply {
+                    putString(ARouterMap.TASK_NO, taskBean.taskNo)
+                    putString(ARouterMap.TASK_SOURCE, taskBean.taskSource)
+                    putString(ARouterMap.ABNORMAL_ID, taskBean.abnormalId)
+                })
             }
         }
     }

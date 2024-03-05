@@ -118,4 +118,40 @@ interface Api {
      */
     @POST("S_VO3_16")
     suspend fun queryTask(@Body param: @JvmSuppressWildcards Map<String, Any?>): HttpWrapper<TaskResultBean>
+
+    /**
+     * 查看任务详情
+     */
+    @POST("S_VO3_17")
+    suspend fun queryTaskDetail(@Body param: @JvmSuppressWildcards Map<String, Any?>): HttpWrapper<TaskDetailBean>
+
+    /**
+     * 获取考勤记录
+     */
+    @POST("S_VO3_19")
+    suspend fun workAttendanceRecord(@Body param: @JvmSuppressWildcards Map<String, Any?>): HttpWrapper<WorkAttendanceRecordBean>
+
+    /**
+     * 考勤打卡
+     */
+    @POST("S_VO3_20")
+    suspend fun clockInOut(@Body param: @JvmSuppressWildcards Map<String, Any?>): HttpWrapper<Any>
+
+    /**
+     * 获取协管员绑定的路段信息
+     */
+    @POST("S_VO3_21")
+    suspend fun getBindRoadInfo(@Body param: @JvmSuppressWildcards Map<String, Any?>): HttpWrapper<BindRoadInfoResultBean>
+
+    /**
+     * 给协管员账号注册路段
+     */
+    @POST("S_VO3_22")
+    suspend fun bindRoad(@Body param: @JvmSuppressWildcards Map<String, Any?>): HttpWrapper<Any>
+
+    /**
+     * 检查最新版本
+     */
+    @POST("S_VO3_23")
+    suspend fun checkUpdate(@Body param: @JvmSuppressWildcards Map<String, Any?>): HttpWrapper<UpdateBean>
 }

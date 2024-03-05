@@ -25,7 +25,7 @@
         android:layout_marginStart="@dimen/dp_13"
         android:layout_marginTop="@dimen/dp_11"
         android:layout_marginEnd="@dimen/dp_13"
-        android:paddingStart="@dimen/dp_16"
+        android:paddingStart="@dimen/dp_14"
         android:paddingEnd="@dimen/dp_10"
         app:rv_backgroundColor="@color/white"
         app:rv_radius="@dimen/dp_7">
@@ -43,10 +43,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="@dimen/dp_12"
+            android:layout_marginStart="@dimen/dp_8"
             android:gravity="end"
             android:textColor="@color/color_fff15a24"
-            android:textSize="@dimen/sp_17"
+            android:textSize="@dimen/sp_16"
             tools:text="BWJA0390420230404150030" />
     </com.aries.ui.view.radius.RadiusLinearLayout>
 
@@ -176,7 +176,7 @@
                 android:textSize="@dimen/sp_17" />
 
             <TextView
-                android:id="@+id/tv_time"
+                android:id="@+id/tv_abnormalDesc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
