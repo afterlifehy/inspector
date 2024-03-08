@@ -52,16 +52,16 @@ android {
 
     signingConfigs {
         create("release") {
-//            storeFile = file("demo.jks")
-//            storePassword = "1q2w3e4r5t"
-//            keyAlias = "mykey"
-//            keyPassword = "1q2w3e4r5t"
+            storeFile = file("inspector.jks")
+            storePassword = "20240307"
+            keyAlias = "key0"
+            keyPassword = "20240307"
         }
         getByName("debug") {
-//            storeFile = file("demo.jks")
-//            storePassword = "1q2w3e4r5t"
-//            keyAlias = "mykey"
-//            keyPassword = "1q2w3e4r5t"
+            storeFile = file("inspector.jks")
+            storePassword = "20240307"
+            keyAlias = "key0"
+            keyPassword = "20240307"
         }
     }
 

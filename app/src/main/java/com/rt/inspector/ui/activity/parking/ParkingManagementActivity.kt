@@ -100,6 +100,7 @@ class ParkingManagementActivity : VbBaseActivity<ParkingManagementViewModel, Act
     }
 
     fun query() {
+        showProgressDialog(5000)
         runBlocking {
             val param = HashMap<String, Any>()
             val jsonobject = JSONObject()
