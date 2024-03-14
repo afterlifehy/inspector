@@ -1,5 +1,7 @@
 package com.rt.inspector.ui.activity.violation
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
@@ -40,6 +42,7 @@ import com.rt.inspector.R
 import com.rt.inspector.databinding.ActivityEnterpriseViolationReportBinding
 import com.rt.inspector.dialog.ViolationSelectDialog
 import com.rt.inspector.mvvm.viewmodel.EnterpriseViolationReportViewModel
+import com.tbruyelle.rxpermissions3.RxPermissions
 import kotlinx.coroutines.runBlocking
 import java.io.File
 import java.text.SimpleDateFormat
@@ -67,6 +70,8 @@ class EnterpriseViolationReportActivity : VbBaseActivity<EnterpriseViolationRepo
     var picBase2 = ""
     var picBase3 = ""
     var fileList: MutableList<UploadImageBean> = ArrayList()
+
+    var rxPermissions = RxPermissions(this@EnterpriseViolationReportActivity)
 
     override fun initView() {
         binding.layoutToolbar.tvTitle.text = i18n(com.rt.base.R.string.企业违规上报)
@@ -162,7 +167,7 @@ class EnterpriseViolationReportActivity : VbBaseActivity<EnterpriseViolationRepo
             }
 
             R.id.rfl_report -> {
-                if (currentEnterprise==null) {
+                if (currentEnterprise == null) {
                     ToastUtil.showMiddleToast(i18n(com.rt.base.R.string.请选择企业))
                     return
                 }
@@ -193,27 +198,36 @@ class EnterpriseViolationReportActivity : VbBaseActivity<EnterpriseViolationRepo
         }
     }
 
+    @SuppressLint("CheckResult")
     fun takePhoto() {
-        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        val photoFile: File? = createImageFile()
-        val photoURI: Uri = FileProvider.getUriForFile(
-            this,
-            "com.rt.inspector.fileprovider",
-            photoFile!!
-        )
-        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-        takePictureIntent.putExtra("android.intent.extra.quickCapture", true)
-        when (photoType) {
-            1 -> {
-                takePictureLauncher1.launch(takePictureIntent)
-            }
+        rxPermissions.request(
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA
+        ).subscribe {
+            if (it) {
+                val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                val photoFile: File? = createImageFile()
+                val photoURI: Uri = FileProvider.getUriForFile(
+                    this,
+                    "com.rt.inspector.fileprovider",
+                    photoFile!!
+                )
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                takePictureIntent.putExtra("android.intent.extra.quickCapture", true)
+                when (photoType) {
+                    1 -> {
+                        takePictureLauncher1.launch(takePictureIntent)
+                    }
 
-            2 -> {
-                takePictureLauncher2.launch(takePictureIntent)
-            }
+                    2 -> {
+                        takePictureLauncher2.launch(takePictureIntent)
+                    }
 
-            3 -> {
-                takePictureLauncher3.launch(takePictureIntent)
+                    3 -> {
+                        takePictureLauncher3.launch(takePictureIntent)
+                    }
+                }
             }
         }
     }
@@ -348,7 +362,7 @@ class EnterpriseViolationReportActivity : VbBaseActivity<EnterpriseViolationRepo
                 dismissProgressDialog()
                 ToastUtil.showMiddleToast(it.msg)
             }
-            mException.observe(this@EnterpriseViolationReportActivity){
+            mException.observe(this@EnterpriseViolationReportActivity) {
                 dismissProgressDialog()
             }
         }

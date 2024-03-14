@@ -12,6 +12,12 @@ interface Api {
     suspend fun login(@Body param: @JvmSuppressWildcards Map<String, Any?>): HttpWrapper<LoginBean>
 
     /**
+     * 稽查员轨迹上传
+     */
+    @POST("S_VO3_02")
+    suspend fun locationUpload(@Body param: @JvmSuppressWildcards Map<String, Any?>): HttpWrapper<Any>
+
+    /**
      * 获取路段信息
      */
     @POST("S_VO3_03")

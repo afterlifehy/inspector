@@ -172,7 +172,7 @@
         android:textSize="@dimen/sp_19"
         android:textStyle="bold" />
 
-    <com.aries.ui.view.radius.RadiusFrameLayout
+    <com.aries.ui.view.radius.RadiusRelativeLayout
         android:id="@+id/rtv_onWork"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_60"
@@ -190,38 +190,67 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_gravity="center_vertical"
             android:text="@string/上班时间"
             android:textColor="@color/color_ff666666"
             android:textSize="@dimen/sp_19" />
 
-        <TextView
-            android:id="@+id/tv_onWorkTime"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end|center_vertical"
-            android:textColor="@color/color_ff1a1a1a"
-            android:textSize="@dimen/sp_19"
-            android:visibility="gone"
-            tools:text="2023-06-25 07:00:00" />
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layoutDirection="rtl"
+            android:orientation="horizontal">
 
-        <com.aries.ui.view.radius.RadiusTextView
-            android:id="@+id/rtv_noSignIn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|center_vertical"
-            android:paddingStart="@dimen/dp_8"
-            android:paddingTop="@dimen/dp_4"
-            android:paddingEnd="@dimen/dp_8"
-            android:paddingBottom="@dimen/dp_4"
-            android:text="@string/未签到"
-            android:textColor="@color/color_ff2e95ff"
-            android:textSize="@dimen/sp_15"
-            app:rv_backgroundColor="@color/color_192e95ff"
-            app:rv_radius="@dimen/dp_5" />
-    </com.aries.ui.view.radius.RadiusFrameLayout>
+            <com.aries.ui.view.radius.RadiusTextView
+                android:id="@+id/rtv_onWorkRangeStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:paddingStart="@dimen/dp_8"
+                android:paddingTop="@dimen/dp_4"
+                android:paddingEnd="@dimen/dp_8"
+                android:paddingBottom="@dimen/dp_4"
+                android:text="@string/未签到"
+                android:textColor="@color/color_ff2e95ff"
+                android:textSize="@dimen/sp_15"
+                android:visibility="gone"
+                app:rv_backgroundColor="@color/color_192e95ff"
+                app:rv_radius="@dimen/dp_5" />
 
-    <com.aries.ui.view.radius.RadiusFrameLayout
+            <com.aries.ui.view.radius.RadiusTextView
+                android:id="@+id/rtv_onWorkStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/dp_5"
+                android:layout_marginEnd="@dimen/dp_5"
+                android:paddingStart="@dimen/dp_8"
+                android:paddingTop="@dimen/dp_4"
+                android:paddingEnd="@dimen/dp_8"
+                android:paddingBottom="@dimen/dp_4"
+                android:text="@string/未签到"
+                android:textColor="@color/color_ff2e95ff"
+                android:textSize="@dimen/sp_15"
+                app:rv_backgroundColor="@color/color_192e95ff"
+                app:rv_radius="@dimen/dp_5" />
+
+            <TextView
+                android:id="@+id/tv_onWorkTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/dp_5"
+                android:textColor="@color/color_ff1a1a1a"
+                android:textSize="@dimen/sp_19"
+                tools:text="07:00:00" />
+        </LinearLayout>
+    </com.aries.ui.view.radius.RadiusRelativeLayout>
+
+    <com.aries.ui.view.radius.RadiusRelativeLayout
         android:id="@+id/rtv_offWork"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_60"
@@ -239,36 +268,62 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:layout_centerVertical="true"
             android:text="@string/下班时间"
             android:textColor="@color/color_ff666666"
             android:textSize="@dimen/sp_19" />
 
-        <TextView
-            android:id="@+id/tv_offWorkTime"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end|center_vertical"
-            android:textColor="@color/color_ff1a1a1a"
-            android:textSize="@dimen/sp_19"
-            android:visibility="gone"
-            tools:text="2023-06-25 07:00:00" />
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layoutDirection="rtl"
+            android:orientation="horizontal">
 
-        <com.aries.ui.view.radius.RadiusTextView
-            android:id="@+id/rtv_noSignOut"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|center_vertical"
-            android:paddingStart="@dimen/dp_8"
-            android:paddingTop="@dimen/dp_4"
-            android:paddingEnd="@dimen/dp_8"
-            android:paddingBottom="@dimen/dp_4"
-            android:text="@string/未签退"
-            android:textColor="@color/color_fff15a24"
-            android:textSize="@dimen/sp_15"
-            app:rv_backgroundColor="@color/color_19f15a24"
-            app:rv_radius="@dimen/dp_5" />
-    </com.aries.ui.view.radius.RadiusFrameLayout>
+            <com.aries.ui.view.radius.RadiusTextView
+                android:id="@+id/rtv_offWorkRangeStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:paddingStart="@dimen/dp_8"
+                android:paddingTop="@dimen/dp_4"
+                android:paddingEnd="@dimen/dp_8"
+                android:paddingBottom="@dimen/dp_4"
+                android:text="@string/未签退"
+                android:textColor="@color/color_fff15a24"
+                android:textSize="@dimen/sp_15"
+                android:visibility="gone"
+                app:rv_backgroundColor="@color/color_19f15a24"
+                app:rv_radius="@dimen/dp_5" />
+
+            <com.aries.ui.view.radius.RadiusTextView
+                android:id="@+id/rtv_offWorkStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_5"
+                android:layout_marginEnd="@dimen/dp_5"
+                android:paddingStart="@dimen/dp_8"
+                android:paddingTop="@dimen/dp_4"
+                android:paddingEnd="@dimen/dp_8"
+                android:paddingBottom="@dimen/dp_4"
+                android:text="@string/未签退"
+                android:textColor="@color/color_fff15a24"
+                android:textSize="@dimen/sp_15"
+                app:rv_backgroundColor="@color/color_19f15a24"
+                app:rv_radius="@dimen/dp_5" />
+
+            <TextView
+                android:id="@+id/tv_offWorkTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp_5"
+                android:layout_toStartOf="@+id/rtv_offWorkStatus"
+                android:textColor="@color/color_ff1a1a1a"
+                android:textSize="@dimen/sp_19"
+                tools:text="07:00:00" />
+        </LinearLayout>
+    </com.aries.ui.view.radius.RadiusRelativeLayout>
 
     <TextView
         android:layout_width="wrap_content"

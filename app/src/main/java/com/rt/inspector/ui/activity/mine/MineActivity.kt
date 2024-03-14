@@ -39,6 +39,7 @@ import kotlinx.coroutines.runBlocking
 @Route(path = ARouterMap.MINE)
 class MineActivity : VbBaseActivity<MineViewModel, ActivityMineBinding>(), OnClickListener {
     var updateBean: UpdateBean? = null
+    var loginName = ""
 
     override fun initView() {
         binding.layoutToolbar.tvTitle.text = i18N(com.rt.base.R.string.我的)
@@ -54,6 +55,10 @@ class MineActivity : VbBaseActivity<MineViewModel, ActivityMineBinding>(), OnCli
     }
 
     override fun initData() {
+        runBlocking {
+            loginName = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.phone)
+            binding.tvAccount.text = loginName
+        }
     }
 
     override fun onClick(v: View?) {

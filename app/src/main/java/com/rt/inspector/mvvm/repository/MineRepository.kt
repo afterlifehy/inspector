@@ -8,4 +8,8 @@ class MineRepository: BaseRepository() {
     suspend fun checkUpdate(param: @JvmSuppressWildcards Map<String, Any?>): HttpWrapper<UpdateBean> {
         return mServer.checkUpdate(param)
     }
+
+    suspend fun locationUpload(param: @JvmSuppressWildcards Map<String, Any?>): HttpWrapper<Any> {
+        return mServer.locationUpload(param)
+    }
 }

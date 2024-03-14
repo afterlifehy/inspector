@@ -1,5 +1,7 @@
 package com.rt.inspector.ui.activity.violation
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
@@ -41,6 +43,7 @@ import com.rt.inspector.R
 import com.rt.inspector.databinding.ActivityAssistantViolationReportBinding
 import com.rt.inspector.dialog.ViolationSelectDialog
 import com.rt.inspector.mvvm.viewmodel.AssistantViolationReportViewModel
+import com.tbruyelle.rxpermissions3.RxPermissions
 import kotlinx.coroutines.runBlocking
 import java.io.File
 import java.text.SimpleDateFormat
@@ -70,6 +73,8 @@ class AssistantViolationReportActivity : VbBaseActivity<AssistantViolationReport
     var picBase2 = ""
     var picBase3 = ""
     var fileList: MutableList<UploadImageBean> = ArrayList()
+
+    var rxPermissions = RxPermissions(this@AssistantViolationReportActivity)
 
     override fun initView() {
         binding.layoutToolbar.tvTitle.text = i18n(com.rt.base.R.string.协管员违规上报)
@@ -214,27 +219,36 @@ class AssistantViolationReportActivity : VbBaseActivity<AssistantViolationReport
         }
     }
 
+    @SuppressLint("CheckResult")
     fun takePhoto() {
-        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        val photoFile: File? = createImageFile()
-        val photoURI: Uri = FileProvider.getUriForFile(
-            this,
-            "com.rt.inspector.fileprovider",
-            photoFile!!
-        )
-        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-        takePictureIntent.putExtra("android.intent.extra.quickCapture", true)
-        when (photoType) {
-            1 -> {
-                takePictureLauncher1.launch(takePictureIntent)
-            }
+        rxPermissions.request(
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA
+        ).subscribe {
+            if (it) {
+                val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                val photoFile: File? = createImageFile()
+                val photoURI: Uri = FileProvider.getUriForFile(
+                    this,
+                    "com.rt.inspector.fileprovider",
+                    photoFile!!
+                )
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                takePictureIntent.putExtra("android.intent.extra.quickCapture", true)
+                when (photoType) {
+                    1 -> {
+                        takePictureLauncher1.launch(takePictureIntent)
+                    }
 
-            2 -> {
-                takePictureLauncher2.launch(takePictureIntent)
-            }
+                    2 -> {
+                        takePictureLauncher2.launch(takePictureIntent)
+                    }
 
-            3 -> {
-                takePictureLauncher3.launch(takePictureIntent)
+                    3 -> {
+                        takePictureLauncher3.launch(takePictureIntent)
+                    }
+                }
             }
         }
     }

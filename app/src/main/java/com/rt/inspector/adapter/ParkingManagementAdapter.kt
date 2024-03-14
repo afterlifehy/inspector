@@ -14,7 +14,11 @@ class ParkingManagementAdapter(data: MutableList<ParkingManagementBean>? = null,
     override fun convert(holder: VBViewHolder<ItemParkingManagementBinding>, item: ParkingManagementBean) {
         holder.vb.tvNum.text = AppUtil.fillZero((data.indexOf(item) + 1).toString())
         if (item.adminNames.isNotEmpty()) {
-            holder.vb.tvStreetNo.text = item.streetNo + "-" + item.adminNames[0]
+            var adminNames = ""
+            for (i in item.adminNames) {
+                adminNames += i + ","
+            }
+            holder.vb.tvStreetNo.text = item.streetNo + "-" + adminNames.substring(0, adminNames.length - 1)
         } else {
             holder.vb.tvStreetNo.text = item.streetNo
         }

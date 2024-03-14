@@ -3,7 +3,11 @@ package com.rt.inspector.ui.activity.login
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
@@ -25,6 +29,7 @@ import com.rt.base.arouter.ARouterMap
 import com.rt.base.bean.UpdateBean
 import com.rt.base.ds.PreferencesDataStore
 import com.rt.base.ds.PreferencesKeys
+import com.rt.base.ext.i18N
 import com.rt.base.util.ToastUtil
 import com.rt.base.viewbase.VbBaseActivity
 import com.rt.common.realm.RealmUtil
@@ -39,15 +44,40 @@ import kotlinx.coroutines.runBlocking
 class LoginActivity : VbBaseActivity<LoginViewModel, ActivityLoginBinding>(), OnClickListener {
     var rxPermissions = RxPermissions(this@LoginActivity)
     var updateBean: UpdateBean? = null
+    var locationManager: LocationManager? = null
+    var lat = 121.445345
+    var lon = 31.238665
+    var locationEnable = 0
 
     @SuppressLint("CheckResult", "MissingPermission")
     override fun initView() {
         rxPermissions.request(
+            Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.READ_PHONE_STATE,
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.CAMERA
         ).subscribe {
+            if (rxPermissions.isGranted(Manifest.permission.ACCESS_FINE_LOCATION)) {
+                locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+                val provider = LocationManager.NETWORK_PROVIDER
+                locationManager?.requestLocationUpdates(provider, 1000, 1f, object : LocationListener {
+                    override fun onLocationChanged(location: Location) {
+                        lat = location.latitude
+                        lon = location.longitude
+                        locationEnable = 1
+                    }
+
+                    override fun onProviderDisabled(provider: String) {
+                        locationEnable = -1
+                        ToastUtil.showMiddleToast(i18N(com.rt.base.R.string.定位不可用))
+                    }
+
+                    override fun onProviderEnabled(provider: String) {
+                        locationEnable = 1
+                    }
+                })
+            }
         }
     }
 
