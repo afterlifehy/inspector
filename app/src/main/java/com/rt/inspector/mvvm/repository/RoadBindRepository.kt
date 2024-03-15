@@ -12,4 +12,8 @@ class RoadBindRepository : BaseRepository() {
     suspend fun bindRoad(param: @JvmSuppressWildcards Map<String, Any?>): HttpWrapper<Any> {
         return mServer.bindRoad(param)
     }
+
+    suspend fun unbindRoad(param: @JvmSuppressWildcards Map<String, Any?>): HttpWrapper<Any> {
+        return mServer.unbindRoad(param)
+    }
 }

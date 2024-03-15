@@ -39,6 +39,7 @@ class RoadBindActivity : VbBaseActivity<RoadBindViewModel, ActivityRoadBindBindi
         binding.layoutToolbar.flBack.setOnClickListener(this)
         binding.rtvSearch.setOnClickListener(this)
         binding.rtvBind.setOnClickListener(this)
+        binding.rtvUnbind.setOnClickListener(this)
     }
 
     override fun initData() {
@@ -87,6 +88,20 @@ class RoadBindActivity : VbBaseActivity<RoadBindViewModel, ActivityRoadBindBindi
                 param["attr"] = jsonobject
                 mViewModel.bindRoad(param)
             }
+
+            R.id.rtv_unbind -> {
+                if (binding.etAccount.text.toString().isEmpty()) {
+                    ToastUtil.showMiddleToast("请输入协管员账号")
+                    return
+                }
+                showProgressDialog(5000)
+                val param = HashMap<String, Any>()
+                val jsonobject = JSONObject()
+                jsonobject["loginName"] = loginName
+                jsonobject["managerAccount"] = binding.etAccount.text.toString()
+                param["attr"] = jsonobject
+                mViewModel.unbindRoad(param)
+            }
         }
     }
 
@@ -101,6 +116,9 @@ class RoadBindActivity : VbBaseActivity<RoadBindViewModel, ActivityRoadBindBindi
             bindRoadLiveData.observe(this@RoadBindActivity) {
                 dismissProgressDialog()
                 getBindRoadInfo()
+            }
+            unbindRoadLiveData.observe(this@RoadBindActivity){
+                dismissProgressDialog()
             }
             errMsg.observe(this@RoadBindActivity) {
                 dismissProgressDialog()

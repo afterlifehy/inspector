@@ -158,6 +158,12 @@ interface Api {
     /**
      * 检查最新版本
      */
-    @POST("S_VO3_23")
+    @POST("S_V_01")
     suspend fun checkUpdate(@Body param: @JvmSuppressWildcards Map<String, Any?>): HttpWrapper<UpdateBean>
+
+    /**
+     * 注销绑定路段
+     */
+    @POST("S_VO3_30")
+    suspend fun unbindRoad(@Body param: @JvmSuppressWildcards Map<String, Any?>): HttpWrapper<Any>
 }

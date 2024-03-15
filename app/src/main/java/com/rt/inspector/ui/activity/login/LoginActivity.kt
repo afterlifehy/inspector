@@ -151,6 +151,7 @@ class LoginActivity : VbBaseActivity<LoginViewModel, ActivityLoginBinding>(), On
         val param = HashMap<String, Any>()
         val jsonobject = JSONObject()
         jsonobject["version"] = AppUtils.getAppVersionName()
+        jsonobject["softType"] = "13"
         param["attr"] = jsonobject
         mViewModel.checkUpdate(param)
     }

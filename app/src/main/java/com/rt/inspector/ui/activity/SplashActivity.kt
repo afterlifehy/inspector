@@ -83,12 +83,12 @@ class SplashActivity : VbBaseActivity<SplashViewModel, ActivitySplashBinding>(),
     }
 
     override fun onProjectFinish() {
-//        runBlocking {
-//            PreferencesDataStore(BaseApplication.instance()).putString(PreferencesKeys.name,"")
-//            PreferencesDataStore(BaseApplication.instance()).putString(PreferencesKeys.department, "")
-//            PreferencesDataStore(BaseApplication.instance()).putString(PreferencesKeys.phone, "")
-//        }
-//        RealmUtil.instance?.deleteAllStreet()
+        runBlocking {
+            PreferencesDataStore(BaseApplication.instance()).putString(PreferencesKeys.name,"")
+            PreferencesDataStore(BaseApplication.instance()).putString(PreferencesKeys.department, "")
+            PreferencesDataStore(BaseApplication.instance()).putString(PreferencesKeys.phone, "")
+        }
+        RealmUtil.instance?.deleteAllStreet()
         Handler(Looper.getMainLooper()).postDelayed({
             runBlocking {
                 if (PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.name).isEmpty()) {

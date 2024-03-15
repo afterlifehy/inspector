@@ -16,6 +16,7 @@ class RoadBindViewModel : BaseViewModel() {
 
     val getBindRoadInfoLiveData = MutableLiveData<BindRoadInfoResultBean>()
     val bindRoadLiveData = MutableLiveData<Any>()
+    val unbindRoadLiveData = MutableLiveData<Any>()
 
     fun getBindRoadInfo(param: Map<String, Any?>) {
         launch {
@@ -37,6 +38,19 @@ class RoadBindViewModel : BaseViewModel() {
             }
             executeResponse(response, {
                 bindRoadLiveData.value = response.attr
+            }, {
+                traverseErrorMsg(ErrorMessage(msg = response.msg, code = response.status))
+            })
+        }
+    }
+
+    fun unbindRoad(param: Map<String, Any?>) {
+        launch {
+            val response = withContext(Dispatchers.IO) {
+                mRoadBindRepository.unbindRoad(param)
+            }
+            executeResponse(response, {
+                unbindRoadLiveData.value = response.attr
             }, {
                 traverseErrorMsg(ErrorMessage(msg = response.msg, code = response.status))
             })
