@@ -10,6 +10,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.fastjson.JSONObject
 import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.SizeUtils
+import com.efs.sdk.base.core.util.Log
 import com.rt.base.arouter.ARouterMap
 import com.rt.base.bean.TaskBean
 import com.rt.base.ext.i18n
@@ -35,6 +36,8 @@ class AbnormalDetailActivity : VbBaseActivity<AbnormalDetailViewModel, ActivityA
         taskNo = intent.getStringExtra(ARouterMap.TASK_NO).toString()
         taskSource = intent.getStringExtra(ARouterMap.TASK_SOURCE).toString()
         abnormalId = intent.getStringExtra(ARouterMap.ABNORMAL_ID).toString()
+
+        Log.v("123", intent.data.toString())
 
         val lp = binding.rivImg1.layoutParams as LinearLayout.LayoutParams
         lp.height = (ScreenUtils.getScreenWidth() - SizeUtils.dp2px(78f)) / 3
@@ -111,13 +114,13 @@ class AbnormalDetailActivity : VbBaseActivity<AbnormalDetailViewModel, ActivityA
                 binding.tvAbnormalDesc.text = it.abnormalDesc
                 binding.tvProblemAnalysis.text = it.remark
                 if (it.abnormalPhotoPath != null && it.abnormalPhotoPath.isNotEmpty()) {
-                    GlideUtils.instance?.loadImage(binding.rivImg1, it.abnormalPhotoPath[0])
+                    GlideUtils.instance?.loadImage(binding.rivImg1, it.abnormalPhotoPath[0], com.rt.common.R.mipmap.ic_placeholder)
                     picList.add(it.abnormalPhotoPath[0])
                     if (it.abnormalPhotoPath.size > 1) {
-                        GlideUtils.instance?.loadImage(binding.rivImg2, it.abnormalPhotoPath[1])
+                        GlideUtils.instance?.loadImage(binding.rivImg2, it.abnormalPhotoPath[1], com.rt.common.R.mipmap.ic_placeholder)
                         picList.add(it.abnormalPhotoPath[1])
                         if (it.abnormalPhotoPath.size > 2) {
-                            GlideUtils.instance?.loadImage(binding.rivImg3, it.abnormalPhotoPath[2])
+                            GlideUtils.instance?.loadImage(binding.rivImg3, it.abnormalPhotoPath[2], com.rt.common.R.mipmap.ic_placeholder)
                             picList.add(it.abnormalPhotoPath[2])
                         }
                     }

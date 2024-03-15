@@ -129,10 +129,12 @@ class FeeStandardActivity : VbBaseActivity<FeeStandardViewModel, ActivityFeeStan
         mViewModel.apply {
             feeStandardNotHighLiveData.observe(this@FeeStandardActivity) {
                 currentFeeStandardBean?.feeStandardNotHighBean = it
+                currentFeeStandardBean?.feeStandardHighResultBean = null
                 feeStandardAdapter?.notifyItemChanged(feeStandardList.indexOf(currentFeeStandardBean))
             }
             feeStandardHighLiveData.observe(this@FeeStandardActivity) {
                 currentFeeStandardBean?.feeStandardHighResultBean = it
+                currentFeeStandardBean?.feeStandardNotHighBean = null
                 feeStandardAdapter?.notifyItemChanged(feeStandardList.indexOf(currentFeeStandardBean))
             }
             errMsg.observe(this@FeeStandardActivity) {

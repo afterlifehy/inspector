@@ -26,6 +26,12 @@ android {
                 arg("AROUTER_MODULE_NAME", project.name)
             }
         }
+
+        val manifestPlaceholders = mapOf(
+            "JPUSH_PKGNAME" to "com.rt.inspector",
+            "JPUSH_APPKEY" to "3aec3f9069c2e7e44c36fee6", // 值来自开发者平台取得的AppKey
+            "JPUSH_CHANNEL" to "default_developer"
+        )
     }
 
     buildFeatures {
@@ -212,4 +218,6 @@ dependencies {
     api(ThirdPart.umeng_apm)
 
     api(ThirdPart.luban)
+
+    api(ThirdPart.jpush)
 }

@@ -77,7 +77,7 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.rt.inspector.fileprovider"
+            android:authorities="${JPUSH_PKGNAME}.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
@@ -85,9 +85,6 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <meta-data
-            android:name="CHANNEL"
-            android:value="${CHANNEL}" />
         <meta-data
             android:name="design_width"
             android:value="360" />
@@ -99,6 +96,94 @@
         <meta-data
             android:name="android.max_aspect"
             android:value="2.1" />
+
+        <meta-data
+            android:name="JPUSH_CHANNEL"
+            android:value="${JPUSH_CHANNEL}"
+            tools:replace="android:value" />
+
+        <meta-data
+            android:name="JPUSH_APPKEY"
+            android:value="${JPUSH_APPKEY}"
+            tools:replace="android:value" />
+
+        <!-- since 3.0.9 Required SDK 核心功能 -->
+        <provider
+            android:name="cn.jpush.android.service.DataProvider"
+            android:authorities="${JPUSH_PKGNAME}.DataProvider"
+            android:exported="false"
+            android:process=":pushcore"
+            tools:replace="android:authorities" />
+
+        <activity
+            android:name="cn.jpush.android.service.JNotifyActivity"
+            android:exported="true"
+            android:taskAffinity=""
+            android:theme="@style/JPushTheme">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.JNotifyActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="cn.android.service.JTransitActivity"
+            android:exported="true"
+            android:taskAffinity=""
+            android:theme="@style/JPushTheme">
+            <intent-filter>
+                <action android:name="cn.android.service.JTransitActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name="cn.jpush.android.service.PushService"
+            android:enabled="true"
+            android:exported="false"
+            android:process=":pushcore">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTER" />
+                <action android:name="cn.jpush.android.intent.REPORT" />
+                <action android:name="cn.jpush.android.intent.PushService" />
+                <action android:name="cn.jpush.android.intent.PUSH_TIME" />
+            </intent-filter>
+        </service>
+
+        <receiver
+            android:name="cn.jpush.android.service.PushReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter android:priority="1000">
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" /> <!-- Required  显示通知栏 -->
+                <category android:name="${JPUSH_PKGNAME}" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".jpush.MyJPService"
+            android:enabled="true"
+            android:exported="false"
+            android:process=":pushcore">
+            <intent-filter>
+                <action android:name="cn.jiguang.user.service.action" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".jpush.MyJPMessageService"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.SERVICE_MESSAGE" />
+                <category android:name="${JPUSH_PKGNAME}" />
+            </intent-filter>
+        </service>
 
         <activity
             android:name=".ui.activity.SplashActivity"
@@ -215,8 +300,13 @@
 
         <activity
             android:name=".ui.activity.taskreception.AbnormalDetailActivity"
-            android:exported="false"
-            android:launchMode="singleTask" />
+            android:exported="true"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="cn.jiguang.myaction"></action>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".ui.activity.preview.PreviewImageActivity"

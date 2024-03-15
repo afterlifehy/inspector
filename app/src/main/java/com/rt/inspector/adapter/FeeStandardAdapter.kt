@@ -84,9 +84,9 @@ class FeeStandardAdapter(data: MutableList<FeeStandardBean>? = null) : BaseBindi
             holder.vb.tvWeekendEnd15.text = feeStandardHighResultBean.result[1].second + "元"
             holder.vb.tvWeekendEnd30.text = feeStandardHighResultBean.result[1].third + "元"
 
-            holder.vb.tvWorkDayTime.text =
+            holder.vb.tvHolidayDayTime.text =
                 feeStandardHighResultBean.result[2].whiteStart + "-" + feeStandardHighResultBean.result[2].whiteEnd
-            holder.vb.tvWorkNightTime.text =
+            holder.vb.tvHolidayNightTime.text =
                 feeStandardHighResultBean.result[2].blackStart + "-次日" + feeStandardHighResultBean.result[2].blackEnd
             holder.vb.tvHolidayStart15.text = feeStandardHighResultBean.result[2].first + "元"
             holder.vb.tvHolidayEnd15.text = feeStandardHighResultBean.result[2].second + "元"

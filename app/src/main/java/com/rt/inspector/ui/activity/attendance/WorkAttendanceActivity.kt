@@ -1,6 +1,7 @@
 package com.rt.inspector.ui.activity.attendance
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.location.Location
 import android.location.LocationListener
@@ -76,12 +77,16 @@ class WorkAttendanceActivity : VbBaseActivity<WorkAttendanceViewModel, ActivityW
         showProgressDialog(5000)
         runBlocking {
             loginName = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.phone)
-            val param = HashMap<String, Any>()
-            val jsonobject = JSONObject()
-            jsonobject["loginName"] = loginName
-            param["attr"] = jsonobject
-            mViewModel.workAttendanceRecord(param)
+            workAttendanceRecord()
         }
+    }
+
+    fun workAttendanceRecord() {
+        val param = HashMap<String, Any>()
+        val jsonobject = JSONObject()
+        jsonobject["loginName"] = loginName
+        param["attr"] = jsonobject
+        mViewModel.workAttendanceRecord(param)
     }
 
     override fun onClick(v: View?) {
@@ -106,6 +111,7 @@ class WorkAttendanceActivity : VbBaseActivity<WorkAttendanceViewModel, ActivityW
         }
     }
 
+    @SuppressLint("CheckResult", "MissingPermission")
     fun clockInOut() {
         rxPermissions.request(
             Manifest.permission.ACCESS_FINE_LOCATION
@@ -151,30 +157,7 @@ class WorkAttendanceActivity : VbBaseActivity<WorkAttendanceViewModel, ActivityW
                 dismissProgressDialog()
                 when (signState) {
                     "01" -> {
-                        binding.tvLogInOut.text = i18n(com.rt.base.R.string.下班打卡)
-                        binding.tvOnWorkTime.text = clockTime
-                        signState = "02"
-
-                        binding.tvLogInOut.text = i18n(com.rt.base.R.string.下班打卡)
-                        binding.tvOnWorkTime.text = clockTime
-                        binding.rtvOnWorkRangeStatus.show()
-                        binding.rtvOffWorkStatus.show()
-                        binding.rtvOffWorkRangeStatus.gone()
-//                        if (it.onState == "00") {
-//                            binding.rtvOnWorkStatus.text = i18n(com.rt.base.R.string.正常)
-//                        } else if (it.onState == "01") {
-//                            binding.rtvOnWorkStatus.text = i18n(com.rt.base.R.string.迟到)
-//                        }
-//                        if (it.locationState == "00") {
-//                            binding.rtvOnWorkRangeStatus.text = i18n(com.rt.base.R.string.正常范围)
-//                        } else if (it.onState == "01") {
-//                            binding.rtvOnWorkRangeStatus.text = i18n(com.rt.base.R.string.超出范围)
-//                        } else if (it.onState == "02") {
-//                            binding.rtvOnWorkRangeStatus.text = i18n(com.rt.base.R.string.正常范围)
-//                        } else if (it.onState == "03") {
-//                            binding.rtvOnWorkRangeStatus.text = i18n(com.rt.base.R.string.超出范围)
-//                        }
-                        binding.rtvOffWorkStatus.text = i18n(com.rt.base.R.string.未签退)
+                        workAttendanceRecord()
                     }
 
                     "02" -> {

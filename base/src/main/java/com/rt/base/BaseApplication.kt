@@ -3,6 +3,8 @@ package com.rt.base
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
+import cn.jiguang.api.utils.JCollectionAuth
+import cn.jpush.android.api.JPushInterface
 import com.alibaba.android.arouter.launcher.ARouter
 import com.rt.base.help.ActivityCacheManager
 import com.rt.base.http.OnAddOkhttpInterceptor
@@ -37,6 +39,13 @@ abstract class BaseApplication : Application(), Application.ActivityLifecycleCal
 //            .loadSkin()
         initClient()
         initArouter()
+        initJPush()
+    }
+
+    private fun initJPush() {
+        JPushInterface.setDebugMode(true)
+        JPushInterface.init(this@BaseApplication)
+        JCollectionAuth.setAuth(this@BaseApplication, true)
     }
 
     fun initArouter() {

@@ -162,4 +162,6 @@ object ThirdPart {
     const val umeng_apm = "com.umeng.umsdk:apm:1.5.2"
 
     const val luban = "top.zibin:Luban:1.1.8"
+
+    const val jpush = "cn.jiguang.sdk:jpush:5.2.4"
 }

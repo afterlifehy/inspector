@@ -28,6 +28,10 @@ android {
                 arg("AROUTER_MODULE_NAME", project.name)
             }
         }
+
+        manifestPlaceholders["JPUSH_PKGNAME"] = applicationId!!
+        manifestPlaceholders["JPUSH_APPKEY"] = "3aec3f9069c2e7e44c36fee6"
+        manifestPlaceholders["JPUSH_CHANNEL"] = "default_developer"
     }
 
     buildFeatures {
