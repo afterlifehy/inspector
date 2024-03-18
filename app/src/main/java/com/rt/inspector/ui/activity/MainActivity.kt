@@ -12,6 +12,8 @@ import android.view.View.OnClickListener
 import androidx.viewbinding.ViewBinding
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.fastjson.JSONObject
+import com.blankj.utilcode.util.PermissionUtils
+import com.blankj.utilcode.util.PermissionUtils.FullCallback
 import com.rt.base.BaseApplication
 import com.rt.base.arouter.ARouterMap
 import com.rt.base.ds.PreferencesDataStore
@@ -44,10 +46,8 @@ class MainActivity : VbBaseActivity<MainViewModel, ActivityMainBinding>(), OnCli
     override fun initView() {
         repeatCheckLocation {
             runOnUiThread {
-                rxPermissions.request(
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                ).subscribe {
-                    if (it) {
+                PermissionUtils.permission(Manifest.permission.ACCESS_FINE_LOCATION).callback(object : FullCallback {
+                    override fun onGranted(granted: MutableList<String>) {
                         if (locationManager == null) {
                             locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
                             val provider = LocationManager.NETWORK_PROVIDER
@@ -82,9 +82,13 @@ class MainActivity : VbBaseActivity<MainViewModel, ActivityMainBinding>(), OnCli
                         } else {
                             ToastUtil.showMiddleToast("Provider Disabled")
                         }
-                    } else {
                     }
-                }
+
+                    override fun onDenied(deniedForever: MutableList<String>, denied: MutableList<String>) {
+
+                    }
+
+                }).request()
             }
         }
     }
@@ -92,7 +96,7 @@ class MainActivity : VbBaseActivity<MainViewModel, ActivityMainBinding>(), OnCli
     fun repeatCheckLocation(action: () -> Unit) {
         GlobalScope.launch {
             while (true) {
-                delay(600000)
+                delay(10000)
                 action.invoke()
             }
         }

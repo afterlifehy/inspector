@@ -110,14 +110,19 @@ class RoadBindActivity : VbBaseActivity<RoadBindViewModel, ActivityRoadBindBindi
         mViewModel.apply {
             getBindRoadInfoLiveData.observe(this@RoadBindActivity) {
                 dismissProgressDialog()
-                roadBindList = it.result as MutableList<Road>
-                roadBindAdapter?.setList(roadBindList)
+                if (it != null && it.result != null) {
+                    roadBindList = it.result as MutableList<Road>
+                    roadBindAdapter?.setList(roadBindList)
+                } else {
+                    roadBindList.clear()
+                    roadBindAdapter?.setList(roadBindList)
+                }
             }
             bindRoadLiveData.observe(this@RoadBindActivity) {
                 dismissProgressDialog()
                 getBindRoadInfo()
             }
-            unbindRoadLiveData.observe(this@RoadBindActivity){
+            unbindRoadLiveData.observe(this@RoadBindActivity) {
                 dismissProgressDialog()
             }
             errMsg.observe(this@RoadBindActivity) {

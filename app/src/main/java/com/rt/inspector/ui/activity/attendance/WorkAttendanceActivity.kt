@@ -14,6 +14,7 @@ import com.alibaba.fastjson.JSONObject
 import com.blankj.utilcode.util.TimeUtils
 import com.rt.base.BaseApplication
 import com.rt.base.arouter.ARouterMap
+import com.rt.base.dialog.DialogHelp
 import com.rt.base.ds.PreferencesDataStore
 import com.rt.base.ds.PreferencesKeys
 import com.rt.base.ext.gone
@@ -106,6 +107,11 @@ class WorkAttendanceActivity : VbBaseActivity<WorkAttendanceViewModel, ActivityW
                         clockTime = TimeUtils.millis2String(System.currentTimeMillis(), "HH:mm")
                         clockInOut()
                     }
+
+                    "03" -> {
+                        clockTime = TimeUtils.millis2String(System.currentTimeMillis(), "HH:mm")
+                        clockInOut()
+                    }
                 }
             }
         }
@@ -160,18 +166,30 @@ class WorkAttendanceActivity : VbBaseActivity<WorkAttendanceViewModel, ActivityW
                         workAttendanceRecord()
                     }
 
-                    "02" -> {
-                        runBlocking {
-                            PreferencesDataStore(BaseApplication.instance()).putString(PreferencesKeys.name, "")
-                            PreferencesDataStore(BaseApplication.instance()).putString(PreferencesKeys.department, "")
-                            PreferencesDataStore(BaseApplication.instance()).putString(PreferencesKeys.phone, "")
-                        }
-                        startArouter(ARouterMap.LOGIN)
-                        for (i in ActivityCacheManager.instance().getAllActivity()) {
-                            if (i !is LoginActivity) {
-                                i.finish()
-                            }
-                        }
+                    "02", "03" -> {
+                        DialogHelp.Builder().setTitle("下班打卡成功")
+                            .isAloneButton(true)
+                            .setRightMsg("确定")
+                            .setCancelable(false)
+                            .setOnButtonClickLinsener(object : DialogHelp.OnButtonClickLinsener {
+                                override fun onLeftClickLinsener(msg: String) {
+                                }
+
+                                override fun onRightClickLinsener(msg: String) {
+                                    runBlocking {
+                                        PreferencesDataStore(BaseApplication.instance()).putString(PreferencesKeys.name, "")
+                                        PreferencesDataStore(BaseApplication.instance()).putString(PreferencesKeys.department, "")
+                                        PreferencesDataStore(BaseApplication.instance()).putString(PreferencesKeys.phone, "")
+                                    }
+                                    startArouter(ARouterMap.LOGIN)
+                                    for (i in ActivityCacheManager.instance().getAllActivity()) {
+                                        if (i !is LoginActivity) {
+                                            i.finish()
+                                        }
+                                    }
+                                }
+
+                            }).build(this@WorkAttendanceActivity).showDailog()
                     }
                 }
             }
