@@ -29,7 +29,11 @@ class ParkingInfoAdapter(data: MutableList<QueryParkingInfoBean>? = null, val on
         holder.vb.tvName.text = item.driverName + "-" + item.phone
         holder.vb.tvPlateId.text = item.carLicense
         holder.vb.tvUser.text = isUserMap[item.isUser]
-        holder.vb.tvTime.text = item.startTime + "~" + item.endTime
+        if (item.startTime.isNotEmpty()) {
+            holder.vb.tvTime.text = item.startTime + "~" + item.endTime
+        } else {
+            holder.vb.tvTime.text = ""
+        }
 
         holder.vb.llHistory.tag = item
         holder.vb.llHistory.setOnClickListener(onClickListener)
