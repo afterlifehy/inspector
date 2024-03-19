@@ -28,6 +28,7 @@ import com.rt.base.help.ActivityCacheManager
 import com.rt.base.util.ToastUtil
 import com.rt.base.viewbase.VbBaseActivity
 import com.rt.common.util.GlideUtils
+import com.rt.inspector.BuildConfig
 import com.rt.inspector.R
 import com.rt.inspector.databinding.ActivityMineBinding
 import com.rt.inspector.mvvm.viewmodel.MineViewModel
@@ -45,6 +46,12 @@ class MineActivity : VbBaseActivity<MineViewModel, ActivityMineBinding>(), OnCli
         binding.layoutToolbar.tvTitle.text = i18N(com.rt.base.R.string.我的)
         binding.layoutToolbar.tvTitle.setTextColor(ContextCompat.getColor(BaseApplication.instance(), com.rt.base.R.color.white))
         GlideUtils.instance?.loadImage(binding.layoutToolbar.ivBack, com.rt.common.R.mipmap.ic_back_white)
+
+        if (BuildConfig.is_dev) {
+            binding.tvVersion.text = "v" + AppUtils.getAppVersionName() + "_Dev"
+        } else {
+            binding.tvVersion.text = "v" + AppUtils.getAppVersionName()
+        }
     }
 
     override fun initListener() {
@@ -75,6 +82,7 @@ class MineActivity : VbBaseActivity<MineViewModel, ActivityMineBinding>(), OnCli
                 val param = HashMap<String, Any>()
                 val jsonobject = JSONObject()
                 jsonobject["version"] = AppUtils.getAppVersionName()
+                jsonobject["softType"] = "13"
                 param["attr"] = jsonobject
                 mViewModel.checkUpdate(param)
             }
@@ -89,6 +97,7 @@ class MineActivity : VbBaseActivity<MineViewModel, ActivityMineBinding>(), OnCli
 
                         override fun onRightClickLinsener(msg: String) {
                             runBlocking {
+                                PreferencesDataStore.instance.putBoolean(PreferencesKeys.isUpdateLocation, false)
                                 PreferencesDataStore(BaseApplication.instance()).putString(PreferencesKeys.name, "")
                                 PreferencesDataStore(BaseApplication.instance()).putString(PreferencesKeys.department, "")
                                 PreferencesDataStore(BaseApplication.instance()).putString(PreferencesKeys.phone, "")

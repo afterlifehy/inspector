@@ -79,6 +79,8 @@ class LoginActivity : VbBaseActivity<LoginViewModel, ActivityLoginBinding>(), On
                 })
             }
         }
+
+        binding.tvVersion.text = "v" + AppUtils.getAppVersionName()
     }
 
     override fun initListener() {

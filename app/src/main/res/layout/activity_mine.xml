@@ -69,17 +69,31 @@
             android:layout_marginTop="@dimen/dp_7"
             android:background="@color/color_ffd9d9d9" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_versionUpdate"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_47"
-            android:drawableStart="@mipmap/ic_version_update_logo"
-            android:drawableEnd="@mipmap/ic_arrow_right"
-            android:drawablePadding="@dimen/dp_12"
-            android:gravity="center_vertical"
-            android:text="@string/版本升级"
-            android:textColor="@color/color_ff1a1a1a"
-            android:textSize="@dimen/sp_19" />
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_versionUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_47"
+                android:drawableStart="@mipmap/ic_version_update_logo"
+                android:drawablePadding="@dimen/dp_12"
+                android:gravity="center_vertical"
+                android:text="@string/版本升级"
+                android:textColor="@color/color_ff1a1a1a"
+                android:textSize="@dimen/sp_19" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center_vertical"
+                android:drawableEnd="@mipmap/ic_arrow_right"
+                android:drawablePadding="@dimen/dp_8"
+                android:textColor="@color/color_ff1a1a1a"
+                android:textSize="@dimen/sp_19" />
+        </FrameLayout>
     </com.aries.ui.view.radius.RadiusLinearLayout>
 
     <com.aries.ui.view.radius.RadiusFrameLayout

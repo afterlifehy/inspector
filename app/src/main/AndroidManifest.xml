@@ -51,6 +51,9 @@
     <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
 
+    <uses-permission android:name="android.permission.SET_TIME"/>
+
+
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />

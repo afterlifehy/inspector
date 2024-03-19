@@ -94,10 +94,14 @@ class MainActivity : VbBaseActivity<MainViewModel, ActivityMainBinding>(), OnCli
     }
 
     fun repeatCheckLocation(action: () -> Unit) {
-        GlobalScope.launch {
-            while (true) {
-                delay(10000)
-                action.invoke()
+        runBlocking {
+            PreferencesDataStore.instance.putBoolean(PreferencesKeys.isUpdateLocation, true)
+            val isUpdateLocation = PreferencesDataStore.instance.getBoolean(PreferencesKeys.isUpdateLocation)
+            GlobalScope.launch {
+                while (isUpdateLocation) {
+                    delay(10000)
+                    action.invoke()
+                }
             }
         }
     }
