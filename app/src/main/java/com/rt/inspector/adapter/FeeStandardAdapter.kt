@@ -32,7 +32,7 @@ class FeeStandardAdapter(data: MutableList<FeeStandardBean>? = null) : BaseBindi
 
         holder.vb.rtvNum.text = AppUtil.fillZero((data.indexOf(item) + 1).toString())
         val street = item.street
-        holder.vb.tvStreetName.text = street!!.streetName
+        holder.vb.tvStreetName.text = street!!.streetNo + " " + street.streetName
         holder.vb.cbFeeStandard.setOnCheckedChangeListener(null)
         holder.vb.cbFeeStandard.isChecked = item.isExpand
         if (item.isExpand && item.feeStandardNotHighBean != null) {
@@ -75,6 +75,7 @@ class FeeStandardAdapter(data: MutableList<FeeStandardBean>? = null) : BaseBindi
             holder.vb.tvWorkDayStart15.text = feeStandardHighResultBean.result[0].first + "元"
             holder.vb.tvWorkDayEnd15.text = feeStandardHighResultBean.result[0].second + "元"
             holder.vb.tvWorkDayEnd30.text = feeStandardHighResultBean.result[0].third + "元"
+            holder.vb.tvWorkDayTips.text = "${feeStandardHighResultBean.result[0].unitPrice}。计次(夜间) ${feeStandardHighResultBean.result[0].period}元/次"
 
             holder.vb.tvWeekendDayTime.text =
                 feeStandardHighResultBean.result[1].whiteStart + "-" + feeStandardHighResultBean.result[1].whiteEnd
@@ -83,6 +84,7 @@ class FeeStandardAdapter(data: MutableList<FeeStandardBean>? = null) : BaseBindi
             holder.vb.tvWeekendStart15.text = feeStandardHighResultBean.result[1].first + "元"
             holder.vb.tvWeekendEnd15.text = feeStandardHighResultBean.result[1].second + "元"
             holder.vb.tvWeekendEnd30.text = feeStandardHighResultBean.result[1].third + "元"
+            holder.vb.tvWeekendTips.text = "${feeStandardHighResultBean.result[1].unitPrice}。计次(夜间) ${feeStandardHighResultBean.result[0].period}元/次"
 
             holder.vb.tvHolidayDayTime.text =
                 feeStandardHighResultBean.result[2].whiteStart + "-" + feeStandardHighResultBean.result[2].whiteEnd
@@ -91,6 +93,7 @@ class FeeStandardAdapter(data: MutableList<FeeStandardBean>? = null) : BaseBindi
             holder.vb.tvHolidayStart15.text = feeStandardHighResultBean.result[2].first + "元"
             holder.vb.tvHolidayEnd15.text = feeStandardHighResultBean.result[2].second + "元"
             holder.vb.tvHolidayEnd30.text = feeStandardHighResultBean.result[2].third + "元"
+            holder.vb.tvHolidayTips.text = "${feeStandardHighResultBean.result[2].unitPrice}。计次(夜间) ${feeStandardHighResultBean.result[0].period}元/次"
         } else {
             holder.vb.rllHigh.gone()
             holder.vb.rllNonHigh.gone()
@@ -101,22 +104,23 @@ class FeeStandardAdapter(data: MutableList<FeeStandardBean>? = null) : BaseBindi
                 if (holder.vb.cbFeeStandard.isChecked) {
                     holder.vb.cbFeeStandard.isChecked = false
                     item.isExpand = false
-                    if (item.street!!.parkingType == "1") {
-                        holder.vb.rllHigh.gone()
-                    } else {
-                        holder.vb.rllNonHigh.gone()
-                    }
+                    holder.vb.rllNonHigh.gone()
+                    holder.vb.rllHigh.gone()
                     Log.v("1234", "3   " + item.street!!.streetName + item.isExpand.toString())
                 } else {
                     holder.vb.cbFeeStandard.isChecked = true
                     item.isExpand = true
                     if (item.street!!.parkingType == "1") {
                         holder.vb.rllHigh.show()
+                        holder.vb.rllNonHigh.gone()
                     } else {
                         holder.vb.rllNonHigh.show()
+                        holder.vb.rllHigh.gone()
                     }
-                    callback?.expand(item)
-                    Log.v("1234", "4   " + item.street!!.streetName + item.isExpand.toString())
+                    if (!item.isExpand) {
+                        callback?.expand(item)
+                        Log.v("1234", "4   " + item.street!!.streetName + item.isExpand.toString())
+                    }
                 }
             }
         })
@@ -125,8 +129,10 @@ class FeeStandardAdapter(data: MutableList<FeeStandardBean>? = null) : BaseBindi
                 if (isChecked) {
                     if (item.street!!.parkingType == "1") {
                         holder.vb.rllHigh.show()
+                        holder.vb.rllNonHigh.gone()
                     } else {
                         holder.vb.rllNonHigh.show()
+                        holder.vb.rllHigh.gone()
                     }
                     item.isExpand = true
                     Log.v("1234", "1   " + item.street!!.streetName + item.isExpand.toString())
