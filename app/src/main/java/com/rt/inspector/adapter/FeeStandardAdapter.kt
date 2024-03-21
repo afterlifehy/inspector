@@ -37,6 +37,7 @@ class FeeStandardAdapter(data: MutableList<FeeStandardBean>? = null) : BaseBindi
         holder.vb.cbFeeStandard.isChecked = item.isExpand
         if (item.isExpand && item.feeStandardNotHighBean != null) {
             holder.vb.rllNonHigh.show()
+            holder.vb.rllHigh.gone()
             Log.v("1234", "11   " + street.streetName + item.isExpand.toString())
             val feeStandardNotHighBean = item.feeStandardNotHighBean!!
             val strings = arrayOf(i18n(com.rt.base.R.string.工作日) + "\n", feeStandardNotHighBean.timing.duration[0])
@@ -66,6 +67,7 @@ class FeeStandardAdapter(data: MutableList<FeeStandardBean>? = null) : BaseBindi
             holder.vb.tvHolidayFee3.text = feeStandardNotHighBean.count.money[2] + "元"
         } else if (item.isExpand && item.feeStandardHighResultBean != null) {
             holder.vb.rllHigh.show()
+            holder.vb.rllNonHigh.gone()
             Log.v("1234", "22   " + street.streetName + item.isExpand.toString())
             val feeStandardHighResultBean = item.feeStandardHighResultBean!!
             holder.vb.tvWorkDayTime.text =
