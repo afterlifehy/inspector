@@ -120,6 +120,7 @@ class RoadBindActivity : VbBaseActivity<RoadBindViewModel, ActivityRoadBindBindi
             }
             bindRoadLiveData.observe(this@RoadBindActivity) {
                 dismissProgressDialog()
+                ToastUtil.showMiddleToast("绑定成功")
                 getBindRoadInfo()
             }
             unbindRoadLiveData.observe(this@RoadBindActivity) {

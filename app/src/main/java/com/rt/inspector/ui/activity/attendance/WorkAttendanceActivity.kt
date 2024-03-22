@@ -177,7 +177,7 @@ class WorkAttendanceActivity : VbBaseActivity<WorkAttendanceViewModel, ActivityW
 
                                 override fun onRightClickLinsener(msg: String) {
                                     runBlocking {
-                                        PreferencesDataStore.instance.putBoolean(PreferencesKeys.isUpdateLocation, false)
+                                        PreferencesDataStore(BaseApplication.instance()).putBoolean(PreferencesKeys.isUpdateLocation, false)
                                         PreferencesDataStore(BaseApplication.instance()).putString(PreferencesKeys.name, "")
                                         PreferencesDataStore(BaseApplication.instance()).putString(PreferencesKeys.department, "")
                                         PreferencesDataStore(BaseApplication.instance()).putString(PreferencesKeys.phone, "")
