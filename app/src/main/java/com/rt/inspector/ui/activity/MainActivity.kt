@@ -71,13 +71,15 @@ class MainActivity : VbBaseActivity<MainViewModel, ActivityMainBinding>(), OnCli
                         if (locationEnable != -1) {
                             runBlocking {
                                 loginName = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.phone)
-                                val param = HashMap<String, Any>()
-                                val jsonobject = JSONObject()
-                                jsonobject["loginName"] = loginName
-                                jsonobject["longitude"] = lon
-                                jsonobject["latitude"] = lat
-                                param["attr"] = jsonobject
-                                mViewModel.locationUpload(param)
+                                if (loginName.isNotEmpty()) {
+                                    val param = HashMap<String, Any>()
+                                    val jsonobject = JSONObject()
+                                    jsonobject["loginName"] = loginName
+                                    jsonobject["longitude"] = lon
+                                    jsonobject["latitude"] = lat
+                                    param["attr"] = jsonobject
+                                    mViewModel.locationUpload(param)
+                                }
                             }
                         } else {
                             ToastUtil.showMiddleToast("Provider Disabled")
@@ -96,10 +98,8 @@ class MainActivity : VbBaseActivity<MainViewModel, ActivityMainBinding>(), OnCli
     fun repeatCheckLocation(action: () -> Unit) {
         runBlocking {
             PreferencesDataStore(BaseApplication.instance()).putBoolean(PreferencesKeys.isUpdateLocation, true)
-            val isUpdateLocation = PreferencesDataStore(BaseApplication.instance()).getBoolean(PreferencesKeys.isUpdateLocation)
-            Log.v("1234",isUpdateLocation.toString())
             GlobalScope.launch {
-                while (isUpdateLocation) {
+                while (PreferencesDataStore(BaseApplication.instance()).getBoolean(PreferencesKeys.isUpdateLocation)) {
                     delay(10000)
                     action.invoke()
                 }
