@@ -2,16 +2,12 @@ package com.rt.inspector.ui.activity
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Context
-import android.location.Location
-import android.location.LocationListener
-import android.location.LocationManager
-import android.util.Log
 import android.view.View
 import android.view.View.OnClickListener
 import androidx.viewbinding.ViewBinding
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.fastjson.JSONObject
+import com.baidu.location.LocationClientOption
 import com.blankj.utilcode.util.PermissionUtils
 import com.blankj.utilcode.util.PermissionUtils.FullCallback
 import com.rt.base.BaseApplication
@@ -24,6 +20,7 @@ import com.rt.base.help.ActivityCacheManager
 import com.rt.base.util.ToastUtil
 import com.rt.base.viewbase.VbBaseActivity
 import com.rt.common.util.AppUtil
+import com.rt.common.util.BaiduLocationUtil
 import com.rt.inspector.R
 import com.rt.inspector.databinding.ActivityMainBinding
 import com.rt.inspector.mvvm.viewmodel.MainViewModel
@@ -36,7 +33,7 @@ import kotlinx.coroutines.runBlocking
 @Route(path = ARouterMap.MAIN)
 class MainActivity : VbBaseActivity<MainViewModel, ActivityMainBinding>(), OnClickListener {
     var rxPermissions = RxPermissions(this@MainActivity)
-    var locationManager: LocationManager? = null
+    lateinit var baiduLocationUtil: BaiduLocationUtil
     var lat = 121.445345
     var lon = 31.238665
     var locationEnable = 0
@@ -48,26 +45,28 @@ class MainActivity : VbBaseActivity<MainViewModel, ActivityMainBinding>(), OnCli
             runOnUiThread {
                 PermissionUtils.permission(Manifest.permission.ACCESS_FINE_LOCATION).callback(object : FullCallback {
                     override fun onGranted(granted: MutableList<String>) {
-                        if (locationManager == null) {
-                            locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-                            val provider = LocationManager.NETWORK_PROVIDER
-                            locationManager?.requestLocationUpdates(provider, 1000, 1f, object : LocationListener {
-                                override fun onLocationChanged(location: Location) {
-                                    lat = location.latitude
-                                    lon = location.longitude
+                        baiduLocationUtil = BaiduLocationUtil()
+                        baiduLocationUtil.initBaiduLocation()
+                        val callback = object : BaiduLocationUtil.BaiduLocationCallBack {
+                            override fun locationChange(
+                                lon: Double,
+                                lat: Double,
+                                location: LocationClientOption?,
+                                isSuccess: Boolean,
+                                address: String?
+                            ) {
+                                if (isSuccess) {
+                                    this@MainActivity.lat = lat
+                                    this@MainActivity.lon = lon
                                     locationEnable = 1
-                                }
-
-                                override fun onProviderDisabled(provider: String) {
+                                } else {
                                     locationEnable = -1
-                                    ToastUtil.showMiddleToast("Provider Disabled")
                                 }
+                            }
 
-                                override fun onProviderEnabled(provider: String) {
-                                    locationEnable = 1
-                                }
-                            })
                         }
+                        baiduLocationUtil.setBaiduLocationCallBack(callback)
+                        baiduLocationUtil.startLocation()
                         if (locationEnable != -1) {
                             runBlocking {
                                 loginName = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.phone)

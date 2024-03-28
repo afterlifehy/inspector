@@ -220,4 +220,6 @@ dependencies {
     api(ThirdPart.luban)
 
     api(ThirdPart.jpush)
+
+    api(ThirdPart.baiduMapLocation)
 }

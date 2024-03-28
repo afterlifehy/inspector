@@ -164,4 +164,6 @@ object ThirdPart {
     const val luban = "top.zibin:Luban:1.1.8"
 
     const val jpush = "cn.jiguang.sdk:jpush:5.2.4"
+
+    const val baiduMapLocation = "com.baidu.lbsyun:BaiduMapSDK_Location:9.3.7"
 }

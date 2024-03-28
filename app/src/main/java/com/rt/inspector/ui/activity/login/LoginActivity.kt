@@ -3,11 +3,7 @@ package com.rt.inspector.ui.activity.login
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import android.location.Location
-import android.location.LocationListener
-import android.location.LocationManager
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
@@ -22,6 +18,7 @@ import androidx.viewbinding.ViewBinding
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.alibaba.fastjson.JSONObject
+import com.baidu.location.LocationClientOption
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.PhoneUtils
 import com.rt.base.BaseApplication
@@ -33,6 +30,7 @@ import com.rt.base.ext.i18N
 import com.rt.base.util.ToastUtil
 import com.rt.base.viewbase.VbBaseActivity
 import com.rt.common.realm.RealmUtil
+import com.rt.common.util.BaiduLocationUtil
 import com.tbruyelle.rxpermissions3.RxPermissions
 import com.rt.inspector.R
 import com.rt.inspector.databinding.ActivityLoginBinding
@@ -44,7 +42,7 @@ import kotlinx.coroutines.runBlocking
 class LoginActivity : VbBaseActivity<LoginViewModel, ActivityLoginBinding>(), OnClickListener {
     var rxPermissions = RxPermissions(this@LoginActivity)
     var updateBean: UpdateBean? = null
-    var locationManager: LocationManager? = null
+    lateinit var baiduLocationUtil: BaiduLocationUtil
     var lat = 121.445345
     var lon = 31.238665
     var locationEnable = 0
@@ -59,24 +57,28 @@ class LoginActivity : VbBaseActivity<LoginViewModel, ActivityLoginBinding>(), On
             Manifest.permission.CAMERA
         ).subscribe {
             if (rxPermissions.isGranted(Manifest.permission.ACCESS_FINE_LOCATION)) {
-                locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-                val provider = LocationManager.NETWORK_PROVIDER
-                locationManager?.requestLocationUpdates(provider, 1000, 1f, object : LocationListener {
-                    override fun onLocationChanged(location: Location) {
-                        lat = location.latitude
-                        lon = location.longitude
-                        locationEnable = 1
+                baiduLocationUtil = BaiduLocationUtil()
+                baiduLocationUtil.initBaiduLocation()
+                val callback = object : BaiduLocationUtil.BaiduLocationCallBack {
+                    override fun locationChange(
+                        lon: Double,
+                        lat: Double,
+                        location: LocationClientOption?,
+                        isSuccess: Boolean,
+                        address: String?
+                    ) {
+                        if (isSuccess) {
+                            this@LoginActivity.lat = lat
+                            this@LoginActivity.lon = lon
+                            locationEnable = 1
+                        } else {
+                            locationEnable = -1
+                        }
                     }
 
-                    override fun onProviderDisabled(provider: String) {
-                        locationEnable = -1
-                        ToastUtil.showMiddleToast(i18N(com.rt.base.R.string.定位不可用))
-                    }
-
-                    override fun onProviderEnabled(provider: String) {
-                        locationEnable = 1
-                    }
-                })
+                }
+                baiduLocationUtil.setBaiduLocationCallBack(callback)
+                baiduLocationUtil.startLocation()
             }
         }
 
