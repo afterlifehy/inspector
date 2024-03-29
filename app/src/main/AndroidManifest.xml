@@ -122,6 +122,8 @@
             android:value="iuUW0uESn4P8YZJrqnvsHmjwxxWoyH9f" >
         </meta-data>
 
+        <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote"/>
+
         <!-- since 3.0.9 Required SDK 核心功能 -->
         <provider
             android:name="cn.jpush.android.service.DataProvider"
