@@ -8,7 +8,7 @@ data class ParkingLotBean(
     val carColor: String,
     val carLicense: String,
     val cleared: String,
-    val deadLine: Int,
+    val deadLine: Long,
     val orderNo: String,
     val parkingNo: String,
     val state: String
