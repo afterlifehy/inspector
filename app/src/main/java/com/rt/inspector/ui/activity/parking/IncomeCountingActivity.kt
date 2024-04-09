@@ -30,11 +30,13 @@ class IncomeCountingActivity : VbBaseActivity<IncomeCountingViewModel, ActivityI
     val styles = arrayOf(TextStyle.BOLD, TextStyle.NORMAL)
     var streetNo = ""
     var loginName = ""
+    var managerAccount = ""
 
     override fun initView() {
         binding.layoutToolbar.tvTitle.text = i18N(com.rt.base.R.string.营收盘点)
 
         streetNo = intent.getStringExtra(ARouterMap.INCOME_COUNTING_STREET_NO).toString()
+        managerAccount = intent.getStringExtra(ARouterMap.INCOME_MANAGE_COUNT).toString()
     }
 
     override fun initListener() {
@@ -49,6 +51,7 @@ class IncomeCountingActivity : VbBaseActivity<IncomeCountingViewModel, ActivityI
             val jsonobject = JSONObject()
             jsonobject["loginName"] = loginName
             jsonobject["streetNo"] = streetNo
+            jsonobject["managerAccount"] = managerAccount
             param["attr"] = jsonobject
             mViewModel.incomeCounting(param)
         }

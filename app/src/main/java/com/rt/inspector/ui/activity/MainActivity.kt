@@ -99,7 +99,7 @@ class MainActivity : VbBaseActivity<MainViewModel, ActivityMainBinding>(), OnCli
             PreferencesDataStore(BaseApplication.instance()).putBoolean(PreferencesKeys.isUpdateLocation, true)
             GlobalScope.launch {
                 while (PreferencesDataStore(BaseApplication.instance()).getBoolean(PreferencesKeys.isUpdateLocation)) {
-                    delay(10000)
+                    delay(1000 * 60 * 5)
                     action.invoke()
                 }
             }

@@ -20,6 +20,7 @@ object ARouterMap {
 
     const val INCOME_COUNTING = "/inspector_app/incomeCounting"
     const val INCOME_COUNTING_STREET_NO = "streetNo"
+    const val INCOME_MANAGE_COUNT = "managerAccount"
 
     const val PARKING_ORDER_DETAIL = "/inspector_app/parkingOrderDetail"
     const val PARKING_ORDER_NO = "orderNo"

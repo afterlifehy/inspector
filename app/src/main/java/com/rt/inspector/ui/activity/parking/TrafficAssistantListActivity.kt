@@ -59,8 +59,10 @@ class TrafficAssistantListActivity : VbBaseActivity<TrafficAssistantListViewMode
             }
 
             R.id.ll_trafficAssistant -> {
+                val trafficAssistantBean = v.tag as TrafficAssistantBean
                 startArouter(ARouterMap.INCOME_COUNTING,data = Bundle().apply {
                     putString(ARouterMap.INCOME_COUNTING_STREET_NO,streetNo)
+                    putString(ARouterMap.INCOME_MANAGE_COUNT,trafficAssistantBean.managerAccount)
                 })
             }
         }
