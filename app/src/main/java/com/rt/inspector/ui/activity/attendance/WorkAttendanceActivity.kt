@@ -64,6 +64,30 @@ class WorkAttendanceActivity : VbBaseActivity<WorkAttendanceViewModel, ActivityW
                 delay(1000)
             }
         }
+        if (rxPermissions.isGranted(Manifest.permission.ACCESS_FINE_LOCATION)) {
+            baiduLocationUtil = BaiduLocationUtil()
+            baiduLocationUtil.initBaiduLocation()
+            val callback = object : BaiduLocationUtil.BaiduLocationCallBack {
+                override fun locationChange(
+                    lon: Double,
+                    lat: Double,
+                    location: LocationClientOption?,
+                    isSuccess: Boolean,
+                    address: String?
+                ) {
+                    if (isSuccess) {
+                        this@WorkAttendanceActivity.lat = lat
+                        this@WorkAttendanceActivity.lon = lon
+                        locationEnable = 1
+                    } else {
+                        locationEnable = -1
+                    }
+                }
+
+            }
+            baiduLocationUtil.setBaiduLocationCallBack(callback)
+            baiduLocationUtil.startLocation()
+        }
     }
 
     override fun initListener() {
@@ -116,42 +140,48 @@ class WorkAttendanceActivity : VbBaseActivity<WorkAttendanceViewModel, ActivityW
 
     @SuppressLint("CheckResult", "MissingPermission")
     fun clockInOut() {
-        rxPermissions.request(
-            Manifest.permission.ACCESS_FINE_LOCATION
-        ).subscribe {
-            if (it) {
-                baiduLocationUtil = BaiduLocationUtil()
-                baiduLocationUtil.initBaiduLocation()
-                val callback = object : BaiduLocationUtil.BaiduLocationCallBack {
-                    override fun locationChange(
-                        lon: Double,
-                        lat: Double,
-                        location: LocationClientOption?,
-                        isSuccess: Boolean,
-                        address: String?
-                    ) {
-                        if (isSuccess) {
-                            this@WorkAttendanceActivity.lon = lon
-                            this@WorkAttendanceActivity.lat = lat
-                            locationEnable = 1
-                        } else {
-                            locationEnable = -1
-                        }
-                    }
+        if (locationEnable == 1) {
+            showProgressDialog(5000)
+            val param = HashMap<String, Any>()
+            val jsonobject = JSONObject()
+            jsonobject["loginName"] = loginName
+            jsonobject["signTime"] = clockTime
+            jsonobject["longitude"] = lon.toString()
+            jsonobject["latitude"] = lat.toString()
+            jsonobject["signState"] = signState
+            param["attr"] = jsonobject
+            mViewModel.clockInOut(param)
+        } else {
+            if (rxPermissions.isGranted(Manifest.permission.ACCESS_FINE_LOCATION)) {
+                ToastUtil.showMiddleToast("未获取到位置信息")
+            } else {
+                rxPermissions.request(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.READ_PHONE_STATE).subscribe {
+                    if (it) {
+                        baiduLocationUtil = BaiduLocationUtil()
+                        baiduLocationUtil.initBaiduLocation()
+                        val callback = object : BaiduLocationUtil.BaiduLocationCallBack {
+                            override fun locationChange(
+                                lon: Double,
+                                lat: Double,
+                                location: LocationClientOption?,
+                                isSuccess: Boolean,
+                                address: String?
+                            ) {
+                                if (isSuccess) {
+                                    this@WorkAttendanceActivity.lat = lat
+                                    this@WorkAttendanceActivity.lon = lon
+                                    locationEnable = 1
+                                } else {
+                                    locationEnable = -1
+                                }
+                            }
 
-                }
-                baiduLocationUtil.setBaiduLocationCallBack(callback)
-                baiduLocationUtil.startLocation()
-                if (locationEnable == 1) {
-                    val param = HashMap<String, Any>()
-                    val jsonobject = JSONObject()
-                    jsonobject["loginName"] = loginName
-                    jsonobject["signTime"] = clockTime
-                    jsonobject["longitude"] = lon.toString()
-                    jsonobject["latitude"] = lat.toString()
-                    jsonobject["signState"] = signState
-                    param["attr"] = jsonobject
-                    mViewModel.clockInOut(param)
+                        }
+                        baiduLocationUtil.setBaiduLocationCallBack(callback)
+                        baiduLocationUtil.startLocation()
+                    } else {
+                        ToastUtil.showMiddleToast("请打开位置信息")
+                    }
                 }
             }
         }
