@@ -132,11 +132,16 @@ class ParkingManagementActivity : VbBaseActivity<ParkingManagementViewModel, Act
             }
 
             R.id.rll_parking -> {
-                val parkingManagementBean = v.tag as ParkingManagementBean
-                startArouter(ARouterMap.PARKING_LOT, data = Bundle().apply {
-                    putString(ARouterMap.PARKING_LOT_STREET_NAME, parkingManagementBean.streetName)
-                    putString(ARouterMap.PARKING_LOT_STREET_NO, parkingManagementBean.streetNo)
-                })
+                val today = TimeUtils.millis2String(System.currentTimeMillis(), "yyyy-MM-dd")
+                if (selectTime.isEmpty() || selectTime == today) {
+                    val parkingManagementBean = v.tag as ParkingManagementBean
+                    startArouter(ARouterMap.PARKING_LOT, data = Bundle().apply {
+                        putString(ARouterMap.PARKING_LOT_STREET_NAME, parkingManagementBean.streetName)
+                        putString(ARouterMap.PARKING_LOT_STREET_NO, parkingManagementBean.streetNo)
+                    })
+                } else {
+                    ToastUtil.showMiddleToast("历史数据无法查看泊位列表信息")
+                }
             }
         }
     }

@@ -2,6 +2,7 @@ package com.rt.inspector.ui.activity
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.View
 import android.view.View.OnClickListener
 import androidx.viewbinding.ViewBinding
@@ -67,26 +68,26 @@ class MainActivity : VbBaseActivity<MainViewModel, ActivityMainBinding>(), OnCli
                         }
                         baiduLocationUtil.setBaiduLocationCallBack(callback)
                         baiduLocationUtil.startLocation()
-                        if (locationEnable != -1) {
+                        if (locationEnable == 1) {
                             runBlocking {
                                 loginName = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.phone)
                                 if (loginName.isNotEmpty()) {
                                     val param = HashMap<String, Any>()
                                     val jsonobject = JSONObject()
                                     jsonobject["loginName"] = loginName
-                                    jsonobject["longitude"] = lon
-                                    jsonobject["latitude"] = lat
+                                    jsonobject["longitude"] = lon.toString()
+                                    jsonobject["latitude"] = lat.toString()
                                     param["attr"] = jsonobject
                                     mViewModel.locationUpload(param)
                                 }
                             }
                         } else {
-                            ToastUtil.showMiddleToast("Provider Disabled")
+                            ToastUtil.showMiddleToast("未获取到位置信息")
                         }
                     }
 
                     override fun onDenied(deniedForever: MutableList<String>, denied: MutableList<String>) {
-
+                        ToastUtil.showMiddleToast("请打开位置信息")
                     }
 
                 }).request()

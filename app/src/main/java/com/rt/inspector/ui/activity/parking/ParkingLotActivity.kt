@@ -89,6 +89,7 @@ class ParkingLotActivity : VbBaseActivity<ParkingLotViewModel, ActivityParkingLo
             R.id.rfl_parking -> {
                 val parkingLotBean = v.tag as ParkingLotBean
                 if (parkingLotBean.state == "01") {
+                    ToastUtil.showMiddleToast("当前泊位是空闲状态")
                 } else {
                     startArouter(ARouterMap.PARKING_ORDER_DETAIL, data = Bundle().apply {
                         putString(ARouterMap.PARKING_ORDER_NO, parkingLotBean.orderNo)

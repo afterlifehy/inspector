@@ -40,8 +40,8 @@ import kotlinx.coroutines.withContext
 class WorkAttendanceActivity : VbBaseActivity<WorkAttendanceViewModel, ActivityWorkAttendanceBinding>(), OnClickListener {
     var rxPermissions = RxPermissions(this@WorkAttendanceActivity)
     lateinit var baiduLocationUtil: BaiduLocationUtil
-    var lat = 121.445345
-    var lon = 31.238665
+    var lat = 31.238665
+    var lon = 121.445345
     var locationEnable = 0
     private var job: Job? = null
     var signState = "01" //01未签到 02未签退 03已签退
@@ -131,8 +131,8 @@ class WorkAttendanceActivity : VbBaseActivity<WorkAttendanceViewModel, ActivityW
                         address: String?
                     ) {
                         if (isSuccess) {
-                            this@WorkAttendanceActivity.lat = lat
                             this@WorkAttendanceActivity.lon = lon
+                            this@WorkAttendanceActivity.lat = lat
                             locationEnable = 1
                         } else {
                             locationEnable = -1
@@ -142,13 +142,13 @@ class WorkAttendanceActivity : VbBaseActivity<WorkAttendanceViewModel, ActivityW
                 }
                 baiduLocationUtil.setBaiduLocationCallBack(callback)
                 baiduLocationUtil.startLocation()
-                if (locationEnable != -1) {
+                if (locationEnable == 1) {
                     val param = HashMap<String, Any>()
                     val jsonobject = JSONObject()
                     jsonobject["loginName"] = loginName
                     jsonobject["signTime"] = clockTime
-                    jsonobject["longitude"] = lon
-                    jsonobject["latitude"] = lat
+                    jsonobject["longitude"] = lon.toString()
+                    jsonobject["latitude"] = lat.toString()
                     jsonobject["signState"] = signState
                     param["attr"] = jsonobject
                     mViewModel.clockInOut(param)

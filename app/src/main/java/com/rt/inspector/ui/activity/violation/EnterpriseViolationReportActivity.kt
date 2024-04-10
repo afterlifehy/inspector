@@ -95,6 +95,7 @@ class EnterpriseViolationReportActivity : VbBaseActivity<EnterpriseViolationRepo
         showProgressDialog(5000)
         val param = HashMap<String, Any>()
         val jsonobject = JSONObject()
+        jsonobject["loginName"] = loginName
         param["attr"] = jsonobject
         mViewModel.queryEnterpriseList(param)
 
