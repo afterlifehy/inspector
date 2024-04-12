@@ -48,6 +48,7 @@ class WorkAttendanceActivity : VbBaseActivity<WorkAttendanceViewModel, ActivityW
     var loginName = ""
     var clockTime = ""
 
+    @SuppressLint("CheckResult")
     override fun initView() {
         binding.layoutToolbar.tvTitle.text = i18n(com.rt.base.R.string.考勤)
         job = GlobalScope.launch(Dispatchers.IO) {
@@ -64,29 +65,33 @@ class WorkAttendanceActivity : VbBaseActivity<WorkAttendanceViewModel, ActivityW
                 delay(1000)
             }
         }
-        if (rxPermissions.isGranted(Manifest.permission.ACCESS_FINE_LOCATION)) {
-            baiduLocationUtil = BaiduLocationUtil()
-            baiduLocationUtil.initBaiduLocation()
-            val callback = object : BaiduLocationUtil.BaiduLocationCallBack {
-                override fun locationChange(
-                    lon: Double,
-                    lat: Double,
-                    location: LocationClientOption?,
-                    isSuccess: Boolean,
-                    address: String?
-                ) {
-                    if (isSuccess) {
-                        this@WorkAttendanceActivity.lat = lat
-                        this@WorkAttendanceActivity.lon = lon
-                        locationEnable = 1
-                    } else {
-                        locationEnable = -1
+        rxPermissions.request(Manifest.permission.ACCESS_FINE_LOCATION).subscribe {
+            if (it) {
+                baiduLocationUtil = BaiduLocationUtil()
+                baiduLocationUtil.initBaiduLocation()
+                val callback = object : BaiduLocationUtil.BaiduLocationCallBack {
+                    override fun locationChange(
+                        lon: Double,
+                        lat: Double,
+                        location: LocationClientOption?,
+                        isSuccess: Boolean,
+                        address: String?
+                    ) {
+                        if (isSuccess) {
+                            this@WorkAttendanceActivity.lat = lat
+                            this@WorkAttendanceActivity.lon = lon
+                            locationEnable = 1
+                        } else {
+                            locationEnable = -1
+                        }
                     }
-                }
 
+                }
+                baiduLocationUtil.setBaiduLocationCallBack(callback)
+                baiduLocationUtil.startLocation()
+            } else {
+                ToastUtil.showMiddleToast("请打开位置信息")
             }
-            baiduLocationUtil.setBaiduLocationCallBack(callback)
-            baiduLocationUtil.startLocation()
         }
     }
 
