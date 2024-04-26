@@ -122,13 +122,11 @@ class MineActivity : VbBaseActivity<MineViewModel, ActivityMineBinding>(), OnCli
                 updateBean = it
                 if (updateBean?.state == "0") {
                     UpdateUtil.instance?.checkNewVersion(updateBean!!, object : UpdateUtil.UpdateInterface {
-                        @RequiresApi(Build.VERSION_CODES.O)
                         override fun requestionPermission() {
                             requestPermissions()
                         }
 
                         override fun install(path: String) {
-
                         }
                     })
                 } else {
@@ -145,40 +143,21 @@ class MineActivity : VbBaseActivity<MineViewModel, ActivityMineBinding>(), OnCli
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("CheckResult")
     fun requestPermissions() {
         var rxPermissions = RxPermissions(this@MineActivity)
         rxPermissions.request(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE).subscribe {
             if (it) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    if (packageManager.canRequestPackageInstalls()) {
-                        UpdateUtil.instance?.downloadFileAndInstall(object :UpdateUtil.UpdateInterface {
-                            override fun requestionPermission() {
+                UpdateUtil.instance?.downloadFileAndInstall(object : UpdateUtil.UpdateInterface {
+                    override fun requestionPermission() {
 
-                            }
-
-                            override fun install(path: String) {
-                            }
-
-                        })
-                    } else {
-                        val uri = Uri.parse("package:${AppUtils.getAppPackageName()}")
-                        val intent =
-                            Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, uri)
-                        requestInstallPackageLauncher.launch(intent)
                     }
-                } else {
-                    UpdateUtil.instance?.downloadFileAndInstall(object :UpdateUtil.UpdateInterface {
-                        override fun requestionPermission() {
 
-                        }
+                    override fun install(path: String) {
+                        AppUtils.installApp(path)
+                    }
 
-                        override fun install(path: String) {
-                        }
-
-                    })
-                }
+                })
             } else {
 
             }

@@ -2,19 +2,14 @@ package com.rt.inspector.ui.activity.login
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Intent
-import android.net.Uri
 import android.os.Build
-import android.provider.Settings
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.View.OnClickListener
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
-import androidx.core.content.FileProvider
 import androidx.viewbinding.ViewBinding
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
@@ -27,7 +22,6 @@ import com.rt.base.arouter.ARouterMap
 import com.rt.base.bean.UpdateBean
 import com.rt.base.ds.PreferencesDataStore
 import com.rt.base.ds.PreferencesKeys
-import com.rt.base.ext.i18N
 import com.rt.base.util.ToastUtil
 import com.rt.base.viewbase.VbBaseActivity
 import com.rt.common.realm.RealmUtil
@@ -38,7 +32,6 @@ import com.rt.inspector.databinding.ActivityLoginBinding
 import com.rt.inspector.mvvm.viewmodel.LoginViewModel
 import com.rt.inspector.util.UpdateUtil
 import kotlinx.coroutines.runBlocking
-import java.io.File
 
 @Route(path = ARouterMap.LOGIN)
 class LoginActivity : VbBaseActivity<LoginViewModel, ActivityLoginBinding>(), OnClickListener {
@@ -190,7 +183,6 @@ class LoginActivity : VbBaseActivity<LoginViewModel, ActivityLoginBinding>(), On
         }
     }
 
-    @SuppressLint("NewApi")
     override fun startObserve() {
         super.startObserve()
         mViewModel.apply {
@@ -198,7 +190,6 @@ class LoginActivity : VbBaseActivity<LoginViewModel, ActivityLoginBinding>(), On
                 updateBean = it
                 if (updateBean?.state == "0") {
                     UpdateUtil.instance?.checkNewVersion(updateBean!!, object : UpdateUtil.UpdateInterface {
-                        @RequiresApi(Build.VERSION_CODES.O)
                         override fun requestionPermission() {
                             requestPermissions()
                         }
@@ -207,8 +198,6 @@ class LoginActivity : VbBaseActivity<LoginViewModel, ActivityLoginBinding>(), On
 
                         }
                     })
-                } else {
-                    ToastUtil.showMiddleToast("当前已是最新版本")
                 }
             }
             loginLiveData.observe(this@LoginActivity) {
@@ -222,16 +211,6 @@ class LoginActivity : VbBaseActivity<LoginViewModel, ActivityLoginBinding>(), On
                 RealmUtil.instance?.addRealmAsyncList(it.personInfo.manageStreets)
                 ARouter.getInstance().build(ARouterMap.MAIN).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK).navigation()
             }
-//            checkUpdateLiveDate.observe(this@LoginActivity) {
-//                updateBean = it
-//                if (updateBean?.state == "0") {
-//                    UpdateUtil.instance?.checkNewVersion(updateBean!!, object : UpdateUtil.UpdateInterface {
-//                        override fun requestionPermission() {
-//                            requestPermissions()
-//                        }
-//                    })
-//                }
-//            }
             errMsg.observe(this@LoginActivity) {
                 dismissProgressDialog()
                 ToastUtil.showMiddleToast(it.msg)
@@ -242,7 +221,6 @@ class LoginActivity : VbBaseActivity<LoginViewModel, ActivityLoginBinding>(), On
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("CheckResult")
     fun requestPermissions() {
         var rxPermissions = RxPermissions(this@LoginActivity)
@@ -254,40 +232,12 @@ class LoginActivity : VbBaseActivity<LoginViewModel, ActivityLoginBinding>(), On
                     }
 
                     override fun install(path: String) {
-                        if (packageManager.canRequestPackageInstalls()) {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                                val contentUri =
-                                    FileProvider.getUriForFile(this@LoginActivity, "com.kernal.demo.plateid.fileprovider", File(path))
-                                intent.setDataAndType(contentUri, "application/vnd.android.package-archive")
-                            } else {
-                                intent.setDataAndType(Uri.fromFile(File(path)), "application/vnd.android.package-archive")
-                            }
-                        } else {
-                            AppUtils.installApp(path)
-                        }
+                        AppUtils.installApp(path)
                     }
-
                 })
             } else {
 
             }
-        }
-    }
-
-    val requestInstallPackageLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        if (it.resultCode == Activity.RESULT_OK) {
-            UpdateUtil.instance?.downloadFileAndInstall(object :UpdateUtil.UpdateInterface {
-                override fun requestionPermission() {
-
-                }
-
-                override fun install(path: String) {
-                }
-
-            })
-        } else {
-
         }
     }
 
