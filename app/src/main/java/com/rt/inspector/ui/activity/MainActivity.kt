@@ -2,7 +2,6 @@ package com.rt.inspector.ui.activity
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.View
 import android.view.View.OnClickListener
 import androidx.viewbinding.ViewBinding
