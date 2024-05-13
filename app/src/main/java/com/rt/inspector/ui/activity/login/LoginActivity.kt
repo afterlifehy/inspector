@@ -3,12 +3,10 @@ package com.rt.inspector.ui.activity.login
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.os.Build
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.View.OnClickListener
-import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.viewbinding.ViewBinding
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -22,6 +20,7 @@ import com.rt.base.arouter.ARouterMap
 import com.rt.base.bean.UpdateBean
 import com.rt.base.ds.PreferencesDataStore
 import com.rt.base.ds.PreferencesKeys
+import com.rt.base.ext.i18N
 import com.rt.base.util.ToastUtil
 import com.rt.base.viewbase.VbBaseActivity
 import com.rt.common.realm.RealmUtil
@@ -37,7 +36,7 @@ import kotlinx.coroutines.runBlocking
 class LoginActivity : VbBaseActivity<LoginViewModel, ActivityLoginBinding>(), OnClickListener {
     var rxPermissions = RxPermissions(this@LoginActivity)
     var updateBean: UpdateBean? = null
-    lateinit var baiduLocationUtil: BaiduLocationUtil
+    var baiduLocationUtil: BaiduLocationUtil? = null
     var lat = 121.445345
     var lon = 31.238665
     var locationEnable = 0
@@ -53,28 +52,8 @@ class LoginActivity : VbBaseActivity<LoginViewModel, ActivityLoginBinding>(), On
             Manifest.permission.REQUEST_INSTALL_PACKAGES
         ).subscribe {
             if (rxPermissions.isGranted(Manifest.permission.ACCESS_FINE_LOCATION)) {
-                baiduLocationUtil = BaiduLocationUtil()
-                baiduLocationUtil.initBaiduLocation()
-                val callback = object : BaiduLocationUtil.BaiduLocationCallBack {
-                    override fun locationChange(
-                        lon: Double,
-                        lat: Double,
-                        location: LocationClientOption?,
-                        isSuccess: Boolean,
-                        address: String?
-                    ) {
-                        if (isSuccess) {
-                            this@LoginActivity.lat = lat
-                            this@LoginActivity.lon = lon
-                            locationEnable = 1
-                        } else {
-                            locationEnable = -1
-                        }
-                    }
-
-                }
-                baiduLocationUtil.setBaiduLocationCallBack(callback)
-                baiduLocationUtil.startLocation()
+                startBadiMapLocation()
+                baiduLocationUtil?.startLocation()
             }
         }
 
@@ -156,6 +135,30 @@ class LoginActivity : VbBaseActivity<LoginViewModel, ActivityLoginBinding>(), On
         mViewModel.checkUpdate(param)
     }
 
+    fun startBadiMapLocation() {
+        baiduLocationUtil = BaiduLocationUtil.getInstance(1000)
+        baiduLocationUtil?.initBaiduLocation()
+        val callback = object : BaiduLocationUtil.BaiduLocationCallBack {
+            override fun locationChange(
+                lon: Double,
+                lat: Double,
+                location: LocationClientOption?,
+                isSuccess: Boolean,
+                address: String?
+            ) {
+                if (isSuccess) {
+                    this@LoginActivity.lat = lat
+                    this@LoginActivity.lon = lon
+                    locationEnable = 1
+                } else {
+                    locationEnable = -1
+                }
+            }
+
+        }
+        baiduLocationUtil?.setBaiduLocationCallBack(callback)
+    }
+
     @SuppressLint("CheckResult", "MissingPermission")
     override fun onClick(v: View?) {
         when (v?.id) {
@@ -164,19 +167,36 @@ class LoginActivity : VbBaseActivity<LoginViewModel, ActivityLoginBinding>(), On
             }
 
             R.id.rtv_login -> {
-                if (rxPermissions.isGranted(Manifest.permission.READ_PHONE_STATE)) {
-                    showProgressDialog(20000)
-                    val param = HashMap<String, Any>()
-                    val jsonobject = JSONObject()
-                    jsonobject["loginName"] = binding.etAccount.text.toString()
-                    jsonobject["password"] = binding.etPw.text.toString()
-                    jsonobject["channelId"] = PhoneUtils.getIMEI()
-                    param["attr"] = jsonobject
-                    mViewModel.login(param)
+                var rxPermissions = RxPermissions(this@LoginActivity)
+                if (locationEnable == 1) {
+                    rxPermissions.request(Manifest.permission.READ_PHONE_STATE).subscribe {
+                        if (it) {
+                            showProgressDialog(20000)
+                            val param = HashMap<String, Any>()
+                            val jsonobject = JSONObject()
+                            jsonobject["loginName"] = binding.etAccount.text.toString()
+                            jsonobject["password"] = binding.etPw.text.toString()
+                            jsonobject["channelId"] = PhoneUtils.getIMEI()
+                            param["attr"] = jsonobject
+                            mViewModel.login(param)
+                        } else {
+                            ToastUtil.showMiddleToast(i18N(com.rt.base.R.string.请授权电话权限))
+                        }
+                    }
                 } else {
-                    rxPermissions.request(
-                        Manifest.permission.READ_PHONE_STATE
-                    ).subscribe {
+                    if (rxPermissions.isGranted(Manifest.permission.ACCESS_FINE_LOCATION)) {
+                        ToastUtil.showMiddleToast(i18N(com.rt.base.R.string.未获取到位置信息))
+                    } else {
+                        rxPermissions.request(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.READ_PHONE_STATE).subscribe {
+                            if (it) {
+                                startBadiMapLocation()
+                                baiduLocationUtil?.startLocation()
+                            } else if (!rxPermissions.isGranted(Manifest.permission.ACCESS_FINE_LOCATION)) {
+                                ToastUtil.showMiddleToast(i18N(com.rt.base.R.string.请打开位置信息))
+                            } else if (!rxPermissions.isGranted(Manifest.permission.READ_PHONE_STATE)) {
+                                ToastUtil.showMiddleToast(i18N(com.rt.base.R.string.请授权电话权限))
+                            }
+                        }
                     }
                 }
             }
@@ -186,7 +206,7 @@ class LoginActivity : VbBaseActivity<LoginViewModel, ActivityLoginBinding>(), On
     override fun startObserve() {
         super.startObserve()
         mViewModel.apply {
-            checkUpdateLiveData.observe(this@LoginActivity){
+            checkUpdateLiveData.observe(this@LoginActivity) {
                 updateBean = it
                 if (updateBean?.state == "0") {
                     UpdateUtil.instance?.checkNewVersion(updateBean!!, object : UpdateUtil.UpdateInterface {
@@ -254,5 +274,4 @@ class LoginActivity : VbBaseActivity<LoginViewModel, ActivityLoginBinding>(), On
 
     override val isFullScreen: Boolean
         get() = false
-
 }

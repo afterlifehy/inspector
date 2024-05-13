@@ -15,6 +15,7 @@ import com.rt.base.dialog.DialogHelp
 import com.rt.base.ds.PreferencesDataStore
 import com.rt.base.ds.PreferencesKeys
 import com.rt.base.ext.gone
+import com.rt.base.ext.i18N
 import com.rt.base.ext.i18n
 import com.rt.base.ext.show
 import com.rt.base.ext.startArouter
@@ -65,34 +66,38 @@ class WorkAttendanceActivity : VbBaseActivity<WorkAttendanceViewModel, ActivityW
                 delay(1000)
             }
         }
+        var rxPermissions = RxPermissions(this@WorkAttendanceActivity)
         rxPermissions.request(Manifest.permission.ACCESS_FINE_LOCATION).subscribe {
             if (it) {
-                baiduLocationUtil = BaiduLocationUtil()
-                baiduLocationUtil.initBaiduLocation()
-                val callback = object : BaiduLocationUtil.BaiduLocationCallBack {
-                    override fun locationChange(
-                        lon: Double,
-                        lat: Double,
-                        location: LocationClientOption?,
-                        isSuccess: Boolean,
-                        address: String?
-                    ) {
-                        if (isSuccess) {
-                            this@WorkAttendanceActivity.lat = lat
-                            this@WorkAttendanceActivity.lon = lon
-                            locationEnable = 1
-                        } else {
-                            locationEnable = -1
-                        }
-                    }
-
-                }
-                baiduLocationUtil.setBaiduLocationCallBack(callback)
-                baiduLocationUtil.startLocation()
+                startBadiMapLocation()
             } else {
-                ToastUtil.showMiddleToast("请打开位置信息")
+                ToastUtil.showMiddleToast(i18N(com.rt.base.R.string.请打开位置信息))
             }
         }
+    }
+
+    fun startBadiMapLocation() {
+        baiduLocationUtil = BaiduLocationUtil.getInstance(1000)
+        baiduLocationUtil.initBaiduLocation()
+        val callback = object : BaiduLocationUtil.BaiduLocationCallBack {
+            override fun locationChange(
+                lon: Double,
+                lat: Double,
+                location: LocationClientOption?,
+                isSuccess: Boolean,
+                address: String?
+            ) {
+                if (isSuccess) {
+                    this@WorkAttendanceActivity.lat = lat
+                    this@WorkAttendanceActivity.lon = lon
+                    locationEnable = 1
+                } else {
+                    locationEnable = -1
+                }
+            }
+
+        }
+        baiduLocationUtil.setBaiduLocationCallBack(callback)
     }
 
     override fun initListener() {
@@ -162,28 +167,7 @@ class WorkAttendanceActivity : VbBaseActivity<WorkAttendanceViewModel, ActivityW
             } else {
                 rxPermissions.request(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.READ_PHONE_STATE).subscribe {
                     if (it) {
-                        baiduLocationUtil = BaiduLocationUtil()
-                        baiduLocationUtil.initBaiduLocation()
-                        val callback = object : BaiduLocationUtil.BaiduLocationCallBack {
-                            override fun locationChange(
-                                lon: Double,
-                                lat: Double,
-                                location: LocationClientOption?,
-                                isSuccess: Boolean,
-                                address: String?
-                            ) {
-                                if (isSuccess) {
-                                    this@WorkAttendanceActivity.lat = lat
-                                    this@WorkAttendanceActivity.lon = lon
-                                    locationEnable = 1
-                                } else {
-                                    locationEnable = -1
-                                }
-                            }
-
-                        }
-                        baiduLocationUtil.setBaiduLocationCallBack(callback)
-                        baiduLocationUtil.startLocation()
+                        startBadiMapLocation()
                     } else {
                         ToastUtil.showMiddleToast("请打开位置信息")
                     }
@@ -309,13 +293,6 @@ class WorkAttendanceActivity : VbBaseActivity<WorkAttendanceViewModel, ActivityW
         }
     }
 
-    override fun onStop() {
-        super.onStop()
-        GlobalScope.launch(Dispatchers.IO) {
-            job?.cancelAndJoin()
-        }
-    }
-
     override fun getVbBindingView(): ViewBinding {
         return ActivityWorkAttendanceBinding.inflate(layoutInflater)
     }
@@ -332,5 +309,16 @@ class WorkAttendanceActivity : VbBaseActivity<WorkAttendanceViewModel, ActivityW
 
     override fun providerVMClass(): Class<WorkAttendanceViewModel> {
         return WorkAttendanceViewModel::class.java
+    }
+
+    override fun onStop() {
+        super.onStop()
+        GlobalScope.launch(Dispatchers.IO) {
+            job?.cancelAndJoin()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 }

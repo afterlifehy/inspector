@@ -41,55 +41,57 @@ class MainActivity : VbBaseActivity<MainViewModel, ActivityMainBinding>(), OnCli
 
     @SuppressLint("CheckResult", "MissingPermission")
     override fun initView() {
+        runBlocking {
+            loginName = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.phone)
+        }
+        if (PermissionUtils.isGranted(Manifest.permission.ACCESS_FINE_LOCATION)) {
+            startBadiMapLocation()
+        }
         repeatCheckLocation {
             runOnUiThread {
-                PermissionUtils.permission(Manifest.permission.ACCESS_FINE_LOCATION).callback(object : FullCallback {
-                    override fun onGranted(granted: MutableList<String>) {
-                        baiduLocationUtil = BaiduLocationUtil()
-                        baiduLocationUtil.initBaiduLocation()
-                        val callback = object : BaiduLocationUtil.BaiduLocationCallBack {
-                            override fun locationChange(
-                                lon: Double,
-                                lat: Double,
-                                location: LocationClientOption?,
-                                isSuccess: Boolean,
-                                address: String?
-                            ) {
-                                if (isSuccess) {
-                                    this@MainActivity.lat = lat
-                                    this@MainActivity.lon = lon
-                                    locationEnable = 1
-                                } else {
-                                    locationEnable = -1
-                                }
-                            }
-
-                        }
-                        baiduLocationUtil.setBaiduLocationCallBack(callback)
-                        baiduLocationUtil.startLocation()
-                        if (locationEnable == 1) {
-                            runBlocking {
-                                loginName = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.phone)
-                                if (loginName.isNotEmpty()) {
-                                    val param = HashMap<String, Any>()
-                                    val jsonobject = JSONObject()
-                                    jsonobject["loginName"] = loginName
-                                    jsonobject["longitude"] = lon.toString()
-                                    jsonobject["latitude"] = lat.toString()
-                                    param["attr"] = jsonobject
-                                    mViewModel.locationUpload(param)
-                                }
-                            }
-                        } else {
-                            ToastUtil.showMiddleToast("未获取到位置信息")
-                        }
+                if (locationEnable == 1) {
+                    if (loginName.isNotEmpty()) {
+                        val param = HashMap<String, Any>()
+                        val jsonobject = JSONObject()
+                        jsonobject["loginName"] = loginName
+                        jsonobject["longitude"] = lon.toString()
+                        jsonobject["latitude"] = lat.toString()
+                        param["attr"] = jsonobject
+                        mViewModel.locationUpload(param)
                     }
+                } else {
+                    if (PermissionUtils.isGranted(Manifest.permission.ACCESS_FINE_LOCATION)) {
+                        ToastUtil.showMiddleToast(i18N(com.rt.base.R.string.未获取到位置信息))
+                        if (baiduLocationUtil == null) {
+                            startBadiMapLocation()
+                        }
+                    } else {
+                        PermissionUtils.permission(Manifest.permission.ACCESS_FINE_LOCATION)
+                            .callback(object : PermissionUtils.FullCallback {
+                                override fun onGranted(granted: MutableList<String>) {
+                                    startBadiMapLocation()
+                                    if (locationEnable == 1) {
+                                        if (loginName.isNotEmpty()) {
+                                            val param = HashMap<String, Any>()
+                                            val jsonobject = JSONObject()
+                                            jsonobject["loginName"] = loginName
+                                            jsonobject["longitude"] = lon.toString()
+                                            jsonobject["latitude"] = lat.toString()
+                                            param["attr"] = jsonobject
+                                            mViewModel.locationUpload(param)
+                                        }
+                                    } else {
+                                        ToastUtil.showMiddleToast(i18N(com.rt.base.R.string.未获取到位置信息))
+                                    }
+                                }
 
-                    override fun onDenied(deniedForever: MutableList<String>, denied: MutableList<String>) {
-                        ToastUtil.showMiddleToast("请打开位置信息")
+                                override fun onDenied(deniedForever: MutableList<String>, denied: MutableList<String>) {
+                                    ToastUtil.showMiddleToast(i18N(com.rt.base.R.string.请打开位置信息))
+                                }
+
+                            }).request()
                     }
-
-                }).request()
+                }
             }
         }
     }
@@ -99,11 +101,35 @@ class MainActivity : VbBaseActivity<MainViewModel, ActivityMainBinding>(), OnCli
             PreferencesDataStore(BaseApplication.instance()).putBoolean(PreferencesKeys.isUpdateLocation, true)
             GlobalScope.launch {
                 while (PreferencesDataStore(BaseApplication.instance()).getBoolean(PreferencesKeys.isUpdateLocation)) {
-                    delay(1000 * 20)
+                    delay(1000 * 60 * 5)
                     action.invoke()
                 }
             }
         }
+    }
+
+    fun startBadiMapLocation() {
+        baiduLocationUtil = BaiduLocationUtil.getInstance(1000 * 60)
+        baiduLocationUtil.initBaiduLocation()
+        val callback = object : BaiduLocationUtil.BaiduLocationCallBack {
+            override fun locationChange(
+                lon: Double,
+                lat: Double,
+                location: LocationClientOption?,
+                isSuccess: Boolean,
+                address: String?
+            ) {
+                if (isSuccess) {
+                    this@MainActivity.lat = lat
+                    this@MainActivity.lon = lon
+                    locationEnable = 1
+                } else {
+                    locationEnable = -1
+                }
+            }
+
+        }
+        baiduLocationUtil.setBaiduLocationCallBack(callback)
     }
 
     override fun initListener() {
@@ -177,4 +203,7 @@ class MainActivity : VbBaseActivity<MainViewModel, ActivityMainBinding>(), OnCli
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+    }
 }
