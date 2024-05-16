@@ -112,20 +112,19 @@
                     android:textColor="@color/color_ff666666"
                     android:textSize="@dimen/sp_17" />
 
-                <EditText
-                    android:id="@+id/et_streetNo"
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_parkingLot"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/dp_10"
-                    android:background="@null"
-                    android:cursorVisible="true"
-                    android:gravity="end|center_vertical"
+                    android:layout_gravity="center_vertical"
+                    android:drawableEnd="@mipmap/ic_violation_arrow_down"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:hint="@string/请选择"
                     android:maxLines="1"
                     android:textColor="@color/color_ff1a1a1a"
-                    android:textCursorDrawable="@drawable/shape_cursor"
-                    android:textSize="@dimen/sp_19"
-                    android:textStyle="bold"
-                    tools:text="jaz028" />
+                    android:textColorHint="@color/color_ff999999"
+                    android:textSize="@dimen/sp_17" />
             </com.aries.ui.view.radius.RadiusLinearLayout>
         </LinearLayout>
 
