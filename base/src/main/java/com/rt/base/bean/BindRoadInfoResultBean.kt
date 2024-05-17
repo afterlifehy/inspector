@@ -5,6 +5,7 @@ data class BindRoadInfoResultBean(
 )
 
 data class Road(
-    val streetName: String,
-    val streetNo: String
+    val streetName: String = "",
+    val streetNo: String = "",
+    var ischeck: Boolean = false
 )

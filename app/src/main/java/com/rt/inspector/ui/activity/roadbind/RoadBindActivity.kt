@@ -18,6 +18,7 @@ import com.rt.inspector.R
 import com.rt.inspector.adapter.RoadBindAdapter
 import com.rt.inspector.databinding.ActivityRoadBindBinding
 import com.rt.inspector.mvvm.viewmodel.RoadBindViewModel
+import com.rt.inspector.pop.RoadSelectDialog
 import kotlinx.coroutines.runBlocking
 
 @Route(path = ARouterMap.ROAD_BIND)
@@ -25,6 +26,9 @@ class RoadBindActivity : VbBaseActivity<RoadBindViewModel, ActivityRoadBindBindi
     var roadBindAdapter: RoadBindAdapter? = null
     var roadBindList: MutableList<Road> = ArrayList()
     var loginName = ""
+    var roadSelectDialog: RoadSelectDialog? = null
+    var roadUnbindList: MutableList<Road> = ArrayList()
+    var chooseList: MutableList<Road> = ArrayList()
 
     override fun initView() {
         binding.layoutToolbar.tvTitle.text = i18n(com.rt.base.R.string.路段绑定)
@@ -37,6 +41,7 @@ class RoadBindActivity : VbBaseActivity<RoadBindViewModel, ActivityRoadBindBindi
 
     override fun initListener() {
         binding.layoutToolbar.flBack.setOnClickListener(this)
+        binding.tvRoad.setOnClickListener(this)
         binding.rtvSearch.setOnClickListener(this)
         binding.rtvBind.setOnClickListener(this)
         binding.rtvUnbind.setOnClickListener(this)
@@ -46,6 +51,19 @@ class RoadBindActivity : VbBaseActivity<RoadBindViewModel, ActivityRoadBindBindi
         runBlocking {
             loginName = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.phone)
         }
+        roadUnbindList.add(Road("1","1"))
+        roadUnbindList.add(Road("2","2"))
+        roadUnbindList.add(Road("3","3"))
+        roadUnbindList.add(Road("4","4"))
+        roadUnbindList.add(Road("5","5"))
+        roadUnbindList.add(Road("6","6"))
+        roadUnbindList.add(Road("7","7"))
+        roadUnbindList.add(Road("8","8"))
+        roadUnbindList.add(Road("9","9"))
+        roadUnbindList.add(Road("10","10"))
+        roadUnbindList.add(Road("11","11"))
+        roadUnbindList.add(Road())
+        roadUnbindList.add(Road())
     }
 
     fun getBindRoadInfo() {
@@ -60,6 +78,15 @@ class RoadBindActivity : VbBaseActivity<RoadBindViewModel, ActivityRoadBindBindi
         when (v?.id) {
             R.id.fl_back -> {
                 onBackPressedSupport()
+            }
+
+            R.id.tv_road -> {
+                roadSelectDialog = RoadSelectDialog(roadUnbindList, chooseList, object : RoadSelectDialog.RoadChooseCallBack {
+                    override fun chooseRoad() {
+                        binding.tvRoad.text = chooseList.map { it.streetName }.joinToString(",")
+                    }
+                })
+                roadSelectDialog?.show()
             }
 
             R.id.rtv_search -> {

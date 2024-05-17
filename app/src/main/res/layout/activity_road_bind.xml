@@ -108,7 +108,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="@string/路段编号"
+                    android:text="@string/路段名称"
                     android:textColor="@color/color_ff666666"
                     android:textSize="@dimen/sp_17" />
 
@@ -125,21 +125,24 @@
                     android:textCursorDrawable="@drawable/shape_cursor"
                     android:textSize="@dimen/sp_19"
                     android:textStyle="bold"
+                    android:visibility="gone"
                     tools:text="jaz028" />
 
-<!--                <androidx.appcompat.widget.AppCompatTextView-->
-<!--                    android:id="@+id/tv_parkingLot"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_gravity="center_vertical"-->
-<!--                    android:drawableEnd="@mipmap/ic_violation_arrow_down"-->
-<!--                    android:ellipsize="end"-->
-<!--                    android:gravity="center_vertical"-->
-<!--                    android:hint="@string/请选择"-->
-<!--                    android:maxLines="1"-->
-<!--                    android:textColor="@color/color_ff1a1a1a"-->
-<!--                    android:textColorHint="@color/color_ff999999"-->
-<!--                    android:textSize="@dimen/sp_17" />-->
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_road"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:drawableEnd="@mipmap/ic_violation_arrow_down"
+                    android:drawablePadding="@dimen/dp_5"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical|end"
+                    android:hint="@string/请选择"
+                    android:maxLines="1"
+                    android:textColor="@color/color_ff1a1a1a"
+                    android:textColorHint="@color/color_ff999999"
+                    android:textSize="@dimen/sp_17" />
             </com.aries.ui.view.radius.RadiusLinearLayout>
         </LinearLayout>
 

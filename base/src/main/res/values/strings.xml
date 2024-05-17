@@ -151,4 +151,5 @@
     <string name="请授权电话权限">请授权电话权限</string>
     <string name="未获取到位置信息">未获取到位置信息</string>
     <string name="请打开位置信息">请打开位置信息</string>
+    <string name="路段名称">路段名称</string>
 </resources>

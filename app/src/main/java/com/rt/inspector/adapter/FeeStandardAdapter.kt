@@ -38,7 +38,6 @@ class FeeStandardAdapter(data: MutableList<FeeStandardBean>? = null) : BaseBindi
         if (item.isExpand && item.feeStandardNotHighBean != null) {
             holder.vb.rllNonHigh.show()
             holder.vb.rllHigh.gone()
-            Log.v("1234", "11   " + street.streetName + item.isExpand.toString())
             val feeStandardNotHighBean = item.feeStandardNotHighBean!!
             val strings = arrayOf(i18n(com.rt.base.R.string.工作日) + "\n", feeStandardNotHighBean.timing.duration[0])
             holder.vb.tvWorkDay.text = AppUtil.getSpan(strings, sizes, colors)
@@ -68,7 +67,6 @@ class FeeStandardAdapter(data: MutableList<FeeStandardBean>? = null) : BaseBindi
         } else if (item.isExpand && item.feeStandardHighResultBean != null) {
             holder.vb.rllHigh.show()
             holder.vb.rllNonHigh.gone()
-            Log.v("1234", "22   " + street.streetName + item.isExpand.toString())
             val feeStandardHighResultBean = item.feeStandardHighResultBean!!
             holder.vb.tvWorkDayTime.text =
                 feeStandardHighResultBean.result[0].whiteStart + "-" + feeStandardHighResultBean.result[0].whiteEnd
@@ -109,7 +107,6 @@ class FeeStandardAdapter(data: MutableList<FeeStandardBean>? = null) : BaseBindi
                     item.isExpand = false
                     holder.vb.rllNonHigh.gone()
                     holder.vb.rllHigh.gone()
-                    Log.v("1234", "3   " + item.street!!.streetName + item.isExpand.toString())
                 } else {
                     holder.vb.cbFeeStandard.isChecked = true
                     item.isExpand = true
@@ -122,7 +119,6 @@ class FeeStandardAdapter(data: MutableList<FeeStandardBean>? = null) : BaseBindi
                     }
                     if (!item.isExpand) {
                         callback?.expand(item)
-                        Log.v("1234", "4   " + item.street!!.streetName + item.isExpand.toString())
                     }
                 }
             }
@@ -138,13 +134,11 @@ class FeeStandardAdapter(data: MutableList<FeeStandardBean>? = null) : BaseBindi
                         holder.vb.rllHigh.gone()
                     }
                     item.isExpand = true
-                    Log.v("1234", "1   " + item.street!!.streetName + item.isExpand.toString())
                     callback?.expand(item)
                 } else {
                     holder.vb.rllHigh.gone()
                     holder.vb.rllNonHigh.gone()
                     item.isExpand = false
-                    Log.v("1234", "2   " + item.street!!.streetName + item.isExpand.toString())
                 }
             }
         })
