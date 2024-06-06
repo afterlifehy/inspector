@@ -51,7 +51,7 @@ class RoadBindActivity : VbBaseActivity<RoadBindViewModel, ActivityRoadBindBindi
         runBlocking {
             loginName = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.phone)
         }
-        getUnBindRoadList()
+//        getUnBindRoadList()
     }
 
     fun getUnBindRoadList(): List<Road> {
@@ -146,6 +146,7 @@ class RoadBindActivity : VbBaseActivity<RoadBindViewModel, ActivityRoadBindBindi
                     roadBindList = it.result as MutableList<Road>
                     roadBindAdapter?.setList(roadBindList)
                 } else {
+                    ToastUtil.showMiddleToast("无绑定路段")
                     roadBindList.clear()
                     roadBindAdapter?.setList(roadBindList)
                 }
@@ -154,7 +155,7 @@ class RoadBindActivity : VbBaseActivity<RoadBindViewModel, ActivityRoadBindBindi
                 dismissProgressDialog()
                 ToastUtil.showMiddleToast("绑定成功")
                 getBindRoadInfo()
-                getUnBindRoadList()
+//                getUnBindRoadList()
             }
             unbindRoadLiveData.observe(this@RoadBindActivity) {
                 dismissProgressDialog()

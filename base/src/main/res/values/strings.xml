@@ -61,9 +61,8 @@
     <string name="请选择场库">请选择场库</string>
     <string name="请选择姓名">请选择姓名</string>
     <string name="请选择类型">请选择类型</string>
-    <string name="工作范围">工作范围</string>
-    <string name="超时未报">超时未报</string>
-    <string name="连续违规">连续违规</string>
+    <string name="超出工作范围">超出工作范围</string>
+    <string name="异常超时未报">异常超时未报</string>
     <string name="协管员违规历史">协管员违规历史</string>
     <string name="原因">原因：</string>
     <string name="时间">时间：</string>
@@ -152,4 +151,5 @@
     <string name="未获取到位置信息">未获取到位置信息</string>
     <string name="请打开位置信息">请打开位置信息</string>
     <string name="路段名称">路段名称</string>
+    <string name="普通用户">普通用户</string>
 </resources>

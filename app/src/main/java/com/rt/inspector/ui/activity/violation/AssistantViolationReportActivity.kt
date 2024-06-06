@@ -96,9 +96,9 @@ class AssistantViolationReportActivity : VbBaseActivity<AssistantViolationReport
         runBlocking {
             loginName = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.phone)
         }
-        typeList.add(i18n(com.rt.base.R.string.工作范围))
-        typeList.add(i18n(com.rt.base.R.string.超时未报))
-        typeList.add(i18n(com.rt.base.R.string.连续违规))
+        typeList.add(i18n(com.rt.base.R.string.超出工作范围))
+        typeList.add(i18n(com.rt.base.R.string.异常超时未报))
+        typeList.add(i18n(com.rt.base.R.string.使用私人二维码收费))
     }
 
     override fun onClick(v: View?) {

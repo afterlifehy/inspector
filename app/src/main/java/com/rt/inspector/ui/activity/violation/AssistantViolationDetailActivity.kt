@@ -58,9 +58,9 @@ class AssistantViolationDetailActivity : VbBaseActivity<AssistantViolationDetail
     }
 
     override fun initData() {
-        reasonMap["01"] = i18n(com.rt.base.R.string.工作范围)
-        reasonMap["02"] = i18n(com.rt.base.R.string.超时未报)
-        reasonMap["03"] = i18n(com.rt.base.R.string.连续违规)
+        reasonMap["01"] = i18n(com.rt.base.R.string.超出工作范围)
+        reasonMap["02"] = i18n(com.rt.base.R.string.异常超时未报)
+        reasonMap["03"] = i18n(com.rt.base.R.string.使用私人二维码收费)
 
         stateMap["01"] = i18n(com.rt.base.R.string.未处理)
         stateMap["02"] = i18n(com.rt.base.R.string.已解决)

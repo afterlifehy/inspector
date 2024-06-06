@@ -8,6 +8,7 @@ import com.blankj.utilcode.util.SizeUtils
 import com.rt.base.adapter.BaseBindingAdapter
 import com.rt.base.adapter.VBViewHolder
 import com.rt.base.bean.QueryParkingInfoBean
+import com.rt.base.ext.i18n
 import com.rt.common.util.AppUtil
 import com.rt.inspector.databinding.ItemParkingInfoBinding
 
@@ -28,7 +29,7 @@ class ParkingInfoAdapter(data: MutableList<QueryParkingInfoBean>? = null, val on
         holder.vb.tvNum.text = AppUtil.fillZero((data.indexOf(item) + 1).toString())
         holder.vb.tvName.text = item.driverName + "-" + item.phone
         holder.vb.tvPlateId.text = item.carLicense
-        holder.vb.tvUser.text = isUserMap[item.isUser]
+        holder.vb.tvUser.text = i18n(com.rt.base.R.string.普通用户)
         if (item.startTime.isNotEmpty()) {
             holder.vb.tvTime.text = item.startTime + "~" + item.endTime
         } else {

@@ -114,25 +114,21 @@
                     tools:text="上海市闸北停车管理有限公司上海市闸北停车管理有限公司" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_16"
-                android:orientation="horizontal">
+                android:text="@string/负责路段"
+                android:textColor="@color/color_ff666666"
+                android:textSize="@dimen/sp_19" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/负责路段"
-                    android:textColor="@color/color_ff666666"
-                    android:textSize="@dimen/sp_19" />
-
-                <LinearLayout
-                    android:id="@+id/ll_road"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" />
-            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_road"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_38"
+                android:layout_marginTop="@dimen/dp_16"
+                android:orientation="vertical" />
         </com.aries.ui.view.radius.RadiusLinearLayout>
     </androidx.core.widget.NestedScrollView>
 </RelativeLayout>

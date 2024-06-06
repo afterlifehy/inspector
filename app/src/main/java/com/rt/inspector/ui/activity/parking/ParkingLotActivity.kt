@@ -37,7 +37,8 @@ class ParkingLotActivity : VbBaseActivity<ParkingLotViewModel, ActivityParkingLo
 
         streetName = intent.getStringExtra(ARouterMap.PARKING_LOT_STREET_NAME).toString()
         streetNo = intent.getStringExtra(ARouterMap.PARKING_LOT_STREET_NO).toString()
-        binding.layoutToolbar.tvTitle.text = streetName
+        binding.layoutToolbar.tvTitle.text = streetNo + streetName
+        binding.layoutToolbar.tvTitle.textSize = 20f
 
         binding.rvParkingLot.setHasFixedSize(true)
         binding.rvParkingLot.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)

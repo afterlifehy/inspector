@@ -108,7 +108,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="@string/路段名称"
+                    android:text="@string/路段编号"
                     android:textColor="@color/color_ff666666"
                     android:textSize="@dimen/sp_17" />
 
@@ -125,7 +125,6 @@
                     android:textCursorDrawable="@drawable/shape_cursor"
                     android:textSize="@dimen/sp_19"
                     android:textStyle="bold"
-                    android:visibility="gone"
                     tools:text="jaz028" />
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -137,6 +136,7 @@
                     android:drawableEnd="@mipmap/ic_violation_arrow_down"
                     android:drawablePadding="@dimen/dp_5"
                     android:ellipsize="end"
+                    android:visibility="gone"
                     android:gravity="center_vertical|end"
                     android:hint="@string/请选择"
                     android:maxLines="1"
