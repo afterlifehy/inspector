@@ -651,6 +651,7 @@
         </com.aries.ui.view.radius.RadiusLinearLayout>
 
         <TextView
+            android:id="@+id/tv_night"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_20"
@@ -659,6 +660,7 @@
             android:textSize="@dimen/sp_19" />
 
         <com.aries.ui.view.radius.RadiusLinearLayout
+            android:id="@+id/rll_night"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_18"

@@ -54,16 +54,24 @@ class FeeStandardAdapter(data: MutableList<FeeStandardBean>? = null) : BaseBindi
             holder.vb.tvWeekendFee2.text = feeStandardNotHighBean.timing.halfMoney[1] + "元"
             holder.vb.tvHolidayFee2.text = feeStandardNotHighBean.timing.halfMoney[2] + "元"
 
-            val strings4 = arrayOf(i18n(com.rt.base.R.string.工作日) + "\n", feeStandardNotHighBean.count.duration[0])
-            holder.vb.tvWorkDayNight.text = AppUtil.getSpan(strings4, sizes, colors)
-            val strings5 = arrayOf(i18n(com.rt.base.R.string.周末) + "\n", feeStandardNotHighBean.count.duration[1])
-            holder.vb.tvWeekendNight.text = AppUtil.getSpan(strings5, sizes, colors)
-            val strings6 = arrayOf(i18n(com.rt.base.R.string.节假日) + "\n", feeStandardNotHighBean.count.duration[2])
-            holder.vb.tvHolidayNight.text = AppUtil.getSpan(strings6, sizes, colors)
+            if (feeStandardNotHighBean.count.duration != null && feeStandardNotHighBean.count.duration.size > 0){
+                holder.vb.tvNight.show()
+                holder.vb.rllNight.show()
+                val strings4 = arrayOf(i18n(com.rt.base.R.string.工作日) + "\n", feeStandardNotHighBean.count.duration[0])
+                holder.vb.tvWorkDayNight.text = AppUtil.getSpan(strings4, sizes, colors)
 
-            holder.vb.tvWorkDayFee3.text = feeStandardNotHighBean.count.money[0] + "元"
-            holder.vb.tvWeekendFee3.text = feeStandardNotHighBean.count.money[1] + "元"
-            holder.vb.tvHolidayFee3.text = feeStandardNotHighBean.count.money[2] + "元"
+                val strings5 = arrayOf(i18n(com.rt.base.R.string.周末) + "\n", feeStandardNotHighBean.count.duration[1])
+                holder.vb.tvWeekendNight.text = AppUtil.getSpan(strings5, sizes, colors)
+                val strings6 = arrayOf(i18n(com.rt.base.R.string.节假日) + "\n", feeStandardNotHighBean.count.duration[2])
+                holder.vb.tvHolidayNight.text = AppUtil.getSpan(strings6, sizes, colors)
+
+                holder.vb.tvWorkDayFee3.text = feeStandardNotHighBean.count.money[0] + "元"
+                holder.vb.tvWeekendFee3.text = feeStandardNotHighBean.count.money[1] + "元"
+                holder.vb.tvHolidayFee3.text = feeStandardNotHighBean.count.money[2] + "元"
+            }else{
+                holder.vb.tvNight.gone()
+                holder.vb.rllNight.gone()
+            }
         } else if (item.isExpand && item.feeStandardHighResultBean != null) {
             holder.vb.rllHigh.show()
             holder.vb.rllNonHigh.gone()

@@ -75,6 +75,7 @@ class RoadBindActivity : VbBaseActivity<RoadBindViewModel, ActivityRoadBindBindi
         val param = HashMap<String, Any>()
         val jsonobject = JSONObject()
         jsonobject["managerAccount"] = binding.etAccount.text.toString()
+        jsonobject["loginName"] = loginName
         param["attr"] = jsonobject
         mViewModel.getBindRoadInfo(param)
     }
