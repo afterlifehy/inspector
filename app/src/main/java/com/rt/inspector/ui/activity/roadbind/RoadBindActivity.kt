@@ -51,24 +51,6 @@ class RoadBindActivity : VbBaseActivity<RoadBindViewModel, ActivityRoadBindBindi
         runBlocking {
             loginName = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.phone)
         }
-//        getUnBindRoadList()
-    }
-
-    fun getUnBindRoadList(): List<Road> {
-        roadUnbindList.add(Road("1", "1"))
-        roadUnbindList.add(Road("2", "2"))
-        roadUnbindList.add(Road("3", "3"))
-        roadUnbindList.add(Road("4", "4"))
-        roadUnbindList.add(Road("5", "5"))
-        roadUnbindList.add(Road("6", "6"))
-        roadUnbindList.add(Road("7", "7"))
-        roadUnbindList.add(Road("8", "8"))
-        roadUnbindList.add(Road("9", "9"))
-        roadUnbindList.add(Road("10", "10"))
-        roadUnbindList.add(Road("11", "11"))
-        roadUnbindList.add(Road())
-        roadUnbindList.add(Road())
-        return roadUnbindList
     }
 
     fun getBindRoadInfo() {
@@ -159,13 +141,17 @@ class RoadBindActivity : VbBaseActivity<RoadBindViewModel, ActivityRoadBindBindi
 //                getUnBindRoadList()
             }
             unbindRoadLiveData.observe(this@RoadBindActivity) {
+                ToastUtil.showMiddleToast("解绑成功")
                 dismissProgressDialog()
+                roadBindList.clear()
+                roadBindAdapter?.setList(roadBindList)
             }
             errMsg.observe(this@RoadBindActivity) {
                 dismissProgressDialog()
                 ToastUtil.showMiddleToast(it.msg)
             }
             mException.observe(this@RoadBindActivity) {
+                ToastUtil.showMiddleToast(it.message)
                 dismissProgressDialog()
             }
         }
