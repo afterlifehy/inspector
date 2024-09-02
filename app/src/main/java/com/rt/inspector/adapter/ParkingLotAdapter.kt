@@ -40,6 +40,7 @@ class ParkingLotAdapter(data: MutableList<ParkingLotBean>? = null, val onClickLi
         plateBgMap[Constant.PINK] = com.rt.common.R.mipmap.ic_plate_bg_white
         plateBgMap[Constant.TRANSPARENT] = com.rt.common.R.mipmap.ic_plate_bg_white
         plateBgMap[Constant.OTHERS] = com.rt.common.R.mipmap.ic_plate_bg_white
+        plateBgMap[Constant.OLD_OTHERS] = com.rt.common.R.mipmap.ic_plate_bg_white
 
         plateTxtColorMap[Constant.BLACK] = com.rt.base.R.color.white
         plateTxtColorMap[Constant.WHITE] = com.rt.base.R.color.black
@@ -56,6 +57,7 @@ class ParkingLotAdapter(data: MutableList<ParkingLotBean>? = null, val onClickLi
         plateTxtColorMap[Constant.TRANSPARENT] = com.rt.base.R.color.black
         plateTxtColorMap[Constant.YELLOW_GREEN] = com.rt.base.R.color.black
         plateTxtColorMap[Constant.OTHERS] = com.rt.base.R.color.black
+        plateTxtColorMap[Constant.OLD_OTHERS] = com.rt.base.R.color.black
     }
 
     override fun convert(holder: VBViewHolder<ItemParkingLotBinding>, item: ParkingLotBean) {
