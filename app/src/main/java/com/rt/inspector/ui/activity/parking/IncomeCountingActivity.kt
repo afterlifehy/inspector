@@ -46,7 +46,7 @@ class IncomeCountingActivity : VbBaseActivity<IncomeCountingViewModel, ActivityI
 
     override fun initData() {
         runBlocking {
-            loginName = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.phone)
+            loginName = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.loginName)
             val param = HashMap<String, Any>()
             val jsonobject = JSONObject()
             jsonobject["loginName"] = loginName

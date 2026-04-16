@@ -42,7 +42,7 @@ class MainActivity : VbBaseActivity<MainViewModel, ActivityMainBinding>(), OnCli
     @SuppressLint("CheckResult", "MissingPermission")
     override fun initView() {
         runBlocking {
-            loginName = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.phone)
+            loginName = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.loginName)
         }
         if (PermissionUtils.isGranted(Manifest.permission.ACCESS_FINE_LOCATION)) {
             startBadiMapLocation()

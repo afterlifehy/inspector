@@ -89,7 +89,7 @@ class EnterpriseViolationReportActivity : VbBaseActivity<EnterpriseViolationRepo
 
     override fun initData() {
         runBlocking {
-            loginName = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.phone)
+            loginName = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.loginName)
         }
 
         showProgressDialog(5000)

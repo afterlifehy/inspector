@@ -47,7 +47,7 @@ class TaskReceptionActivity : VbBaseActivity<TaskReceptionViewModel, ActivityTas
     override fun initData() {
         showProgressDialog(5000)
         runBlocking {
-            loginName = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.phone)
+            loginName = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.loginName)
             val param = HashMap<String, Any>()
             val jsonobject = JSONObject()
             jsonobject["loginName"] = loginName

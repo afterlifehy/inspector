@@ -36,7 +36,7 @@ class PersonalInfoActivity : VbBaseActivity<PersonalInfoViewModel, ActivityPerso
 
     override fun initData() {
         runBlocking {
-            binding.tvAccount.text = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.phone)
+            binding.tvAccount.text = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.loginName)
             binding.tvName.text = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.name)
             binding.tvCompany.text = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.department)
         }

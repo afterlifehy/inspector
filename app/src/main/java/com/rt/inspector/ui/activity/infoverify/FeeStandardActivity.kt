@@ -82,7 +82,7 @@ class FeeStandardActivity : VbBaseActivity<FeeStandardViewModel, ActivityFeeStan
 
     fun feeStandardNotHigh(streetNo: String) {
         runBlocking {
-            val loginName = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.phone)
+            val loginName = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.loginName)
             val param = HashMap<String, Any>()
             val jsonobject = JSONObject()
             jsonobject["streetNo"] = streetNo

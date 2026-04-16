@@ -108,7 +108,7 @@ class WorkAttendanceActivity : VbBaseActivity<WorkAttendanceViewModel, ActivityW
     override fun initData() {
         showProgressDialog(5000)
         runBlocking {
-            loginName = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.phone)
+            loginName = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.loginName)
             workAttendanceRecord()
         }
     }
@@ -201,6 +201,7 @@ class WorkAttendanceActivity : VbBaseActivity<WorkAttendanceViewModel, ActivityW
                                         PreferencesDataStore(BaseApplication.instance()).putString(PreferencesKeys.name, "")
                                         PreferencesDataStore(BaseApplication.instance()).putString(PreferencesKeys.department, "")
                                         PreferencesDataStore(BaseApplication.instance()).putString(PreferencesKeys.phone, "")
+                                        PreferencesDataStore(BaseApplication.instance()).putString(PreferencesKeys.loginName, "")
                                     }
                                     startArouter(ARouterMap.LOGIN)
                                     for (i in ActivityCacheManager.instance().getAllActivity()) {

@@ -94,7 +94,7 @@ class AssistantViolationReportActivity : VbBaseActivity<AssistantViolationReport
     override fun initData() {
         parkingLotList = RealmUtil.instance?.findStreetList() as MutableList<Street>
         runBlocking {
-            loginName = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.phone)
+            loginName = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.loginName)
         }
         typeList.add(i18n(com.rt.base.R.string.超出工作范围))
         typeList.add(i18n(com.rt.base.R.string.异常超时未报))

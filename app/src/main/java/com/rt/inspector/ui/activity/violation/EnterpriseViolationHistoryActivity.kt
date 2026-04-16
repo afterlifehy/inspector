@@ -46,7 +46,7 @@ class EnterpriseViolationHistoryActivity : VbBaseActivity<EnterpriseViolationHis
 
     override fun initData() {
         runBlocking {
-            loginName = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.phone)
+            loginName = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.loginName)
             showProgressDialog(5000)
             val param = HashMap<String, Any>()
             val jsonobject = JSONObject()

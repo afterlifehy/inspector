@@ -101,6 +101,8 @@ object PreferencesKeys {
     //    val WALLET_SIGN = booleanPreferencesKey("wallet_sign")
     val simId by stringPreferencesKey()
 
+    val loginName by stringPreferencesKey()
+
     val phone by stringPreferencesKey()
 
     val name by stringPreferencesKey()

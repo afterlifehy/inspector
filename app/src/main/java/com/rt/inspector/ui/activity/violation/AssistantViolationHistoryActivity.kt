@@ -58,7 +58,7 @@ class AssistantViolationHistoryActivity : VbBaseActivity<AssistantViolationHisto
 
     override fun initData() {
         runBlocking {
-            loginName = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.phone)
+            loginName = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.loginName)
             queryAssistantViolationHistory("")
         }
     }

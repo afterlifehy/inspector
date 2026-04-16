@@ -105,7 +105,7 @@ class ParkingManagementActivity : VbBaseActivity<ParkingManagementViewModel, Act
             val param = HashMap<String, Any>()
             val jsonobject = JSONObject()
             jsonobject["queryDate"] = selectTime
-            jsonobject["loginName"] = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.phone)
+            jsonobject["loginName"] = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.loginName)
             jsonobject["page"] = pageIndex
             jsonobject["pageSize"] = pageSize
             param["attr"] = jsonobject

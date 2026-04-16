@@ -47,7 +47,7 @@ class BusinessLicenseActivity : VbBaseActivity<BusinessLicenseViewModel, Activit
 
     override fun initData() {
         runBlocking {
-            val loginName = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.phone)
+            val loginName = PreferencesDataStore(BaseApplication.instance()).getString(PreferencesKeys.loginName)
             val param = HashMap<String, Any>()
             val jsonobject = JSONObject()
             jsonobject["loginName"] = loginName

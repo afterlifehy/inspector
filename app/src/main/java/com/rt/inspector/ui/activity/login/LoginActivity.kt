@@ -226,6 +226,7 @@ class LoginActivity : VbBaseActivity<LoginViewModel, ActivityLoginBinding>(), On
                     PreferencesDataStore(BaseApplication.instance()).putString(PreferencesKeys.name, it.personInfo.name)
                     PreferencesDataStore(BaseApplication.instance()).putString(PreferencesKeys.department, it.personInfo.department)
                     PreferencesDataStore(BaseApplication.instance()).putString(PreferencesKeys.phone, it.personInfo.phone)
+                    PreferencesDataStore(BaseApplication.instance()).putString(PreferencesKeys.loginName, binding.etPw.text.toString())
                 }
                 RealmUtil.instance?.deleteAllStreet()
                 RealmUtil.instance?.addRealmAsyncList(it.personInfo.manageStreets)
